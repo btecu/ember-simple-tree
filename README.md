@@ -34,6 +34,21 @@ Returns: `node`
 Fired when a node is selected.
 
 
+### Available options
+
+#### checkable
+
+Default: `false`
+
+Accepts: `boolea`
+
+```handlebars
+{{x-tree model=tree checkable=true}}
+```
+
+Displays a checkbox for each node.
+Use in conjunction with `isChecked`.
+
 
 ### Model structure
 The component uses recursion to display the tree.
