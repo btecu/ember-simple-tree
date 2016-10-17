@@ -1,0 +1,35 @@
+.tree-branch {
+  margin: 0;
+  padding: 0;
+}
+
+.tree-node .tree-branch {
+  padding-left: 1.25em;
+}
+
+.tree-node {
+  line-height: 1.5em;
+  list-style: none;
+}
+
+.tree-node span {
+  cursor: pointer;
+}
+
+.tree-node .toggle-icon {
+  color: #a5d4fd;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 10px;
+  margin-right: 0;
+  width: 1.25em;
+}
+
+.tree-node .toggle-icon:hover {
+  opacity: 0.8;
+}
+
+.tree-node .tree-highlight {
+  background-color: #f2f9fc;
+  color: #333;
+}
