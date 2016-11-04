@@ -1,6 +1,6 @@
 {
   "name": "ember-simple-tree",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple tree component",
   "directories": {
     "doc": "doc",
