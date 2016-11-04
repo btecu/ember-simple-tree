@@ -1,7 +1,8 @@
 {{#if model.checkable}}
-  {{x-check value=model.id checked=model.isChecked action=(action 'toggleCheck')}}
+  <input type="checkbox" checked={{model.isChecked}}
+    onclick={{action 'toggleCheck' bubbles=false}}>
 {{/if}}
-<span class="toggle-icon" {{action 'toggleExpand'}}>
+<span class="toggle-icon" {{action 'toggleExpand' bubbles=false}}>
   {{#if model.children.length}}
     {{#if model.isExpanded}}
       &#x25BC;
@@ -12,6 +13,5 @@
     &nbsp;&nbsp;
   {{/if}}
 </span>
-<span {{action select model}}>
-  {{model.name}}
-</span>
+
+{{model.name}}

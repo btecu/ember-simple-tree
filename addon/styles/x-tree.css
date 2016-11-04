@@ -12,10 +12,6 @@
   list-style: none;
 }
 
-.tree-node span {
-  cursor: pointer;
-}
-
 .tree-node .toggle-icon {
   color: #a5d4fd;
   cursor: pointer;
@@ -32,4 +28,5 @@
 .tree-node .tree-highlight {
   background-color: #f2f9fc;
   color: #333;
+  cursor: pointer;
 }

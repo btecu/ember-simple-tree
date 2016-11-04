@@ -9,6 +9,10 @@ export default Component.extend({
   layout,
   classNameBindings: ['model.isSelected:tree-highlight'],
 
+  click() {
+    this.attrs.select(this.get('model'));
+  },
+
   mouseEnter(event) {
     let { hover } = this.attrs;
     if (hover) {
