@@ -40,7 +40,7 @@ Fired when a node is selected.
 
 Default: `false`
 
-Accepts: `boolea`
+Accepts: `boolean`
 
 ```handlebars
 {{x-tree model=tree checkable=true}}
