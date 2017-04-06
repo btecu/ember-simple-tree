@@ -1,5 +1,9 @@
 {{#each model as |child|}}
   {{#if child.isVisible}}
-    {{x-tree-children model=child select=select hover=hover}}
+    {{#if hasBlock}}
+      {{yield child}}
+    {{else}}
+      {{x-tree-children model=child select=select hover=hover}}
+    {{/if}}
   {{/if}}
 {{/each}}
