@@ -3,7 +3,7 @@
     {{#if hasBlock}}
       {{yield child}}
     {{else}}
-      {{x-tree-children model=child select=select hover=hover}}
+      {{x-tree-children model=child select=select hover=hover chosenId=chosenId}}
     {{/if}}
   {{/if}}
 {{/each}}

@@ -1,5 +1,5 @@
-{{x-tree-node model=model select=select hover=hover}}
+{{x-tree-node model=model select=select hover=hover chosenId=chosenId}}
 
 {{#if model.isExpanded}}
-  {{x-tree model=model.children select=select hover=hover}}
+  {{x-tree model=model.children select=select hover=hover chosenId=chosenId}}
 {{/if}}
