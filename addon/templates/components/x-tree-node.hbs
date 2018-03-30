@@ -17,5 +17,8 @@
     {{/if}}
   </span>
 
-  {{model.name}}
+  {{#if model.treeIconClass}}
+    <i class="{{model.treeIconClass}}">&zwnj;</i>
+  {{/if}}
+  <span>{{model.name}}</span>
 {{/if}}
