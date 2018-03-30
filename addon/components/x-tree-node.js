@@ -10,7 +10,7 @@ export default Component.extend({
   },
 
   mouseEnter() {
-    let { hover } = this.attrs;
+    let hover = this.get('hover');
     if (hover) {
       hover(this.get('model'));
     }
