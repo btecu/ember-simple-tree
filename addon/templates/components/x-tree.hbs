@@ -1,9 +1,19 @@
-{{#each model as |child|}}
-  {{#if child.isVisible}}
-    {{#if hasBlock}}
-      {{yield child}}
-    {{else}}
-      {{x-tree-children model=child select=select hover=hover chosenId=chosenId}}
-    {{/if}}
-  {{/if}}
-{{/each}}
+{{#if hasBlock}}
+  {{#x-tree-branch
+    model=model
+    select=select
+    hover=hover
+    hoverOut=hoverOut
+    checkable=checkable
+    chosenId=chosenId}}
+    {{yield}}
+  {{/x-tree-branch}}
+{{else}}
+  {{x-tree-branch
+    model=model
+    select=select
+    hover=hover
+    hoverOut=hoverOut
+    checkable=checkable
+    chosenId=chosenId}}
+{{/if}}

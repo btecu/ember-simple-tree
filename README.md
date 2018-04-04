@@ -24,8 +24,21 @@ Basic example:
 
 Returns: `node`
 
-Fired when a node is hovered.
+Fired when a mouse enters the node.
 
+```handlebars
+{{x-tree model=tree hover=(action hover)}}
+```
+
+#### hoverOut
+
+Returns: `node`
+
+Fired when a mouse leaves the node.
+
+```handlebars
+{{x-tree model=tree hoverOut=(action hoverOut)}}
+```
 
 #### select
 
@@ -47,7 +60,35 @@ Accepts: `boolean`
 ```
 
 Displays a checkbox for each node.
-Use in conjunction with `isChecked`.
+Use in conjunction with `model.isChecked`.
+
+#### chosenId
+
+Default: `undefined`
+
+Accepts: `id`
+
+```handlebars
+{{x-tree model=tree chosenId=someId}}
+```
+
+Applies 'chosen' styling (`font-weight: bold;`) to the specified node.
+A tree will also auto-expand to a the chosen node if a valid `chosenId` is provided.
+`chosenId` should relate to a node's `model.id`.
+
+#### expandDepth
+
+Default: `0`
+
+Accepts: `number`
+
+```handlebars
+{{x-tree model=tree expandDepth=-1}}
+```
+
+Expands the tree to a given depth.  
+`0` will not expand the tree at all, a negative number will fully expand a tree, a positive number will expand a tree to the given depth.
+
 
 ### Blocks
 
@@ -105,7 +146,7 @@ The model requires specific properties to properly function:
  - `isVisible` - `boolean` used to display or hide a node
 
 ```js
-{
+[{
   id: 0,
   name: 'Root',
   isExpanded: true,
@@ -138,5 +179,7 @@ The model requires specific properties to properly function:
       ]
     }
   ]
-}
+}]
 ```
+
+A utility class is provided to convert a flat structure into a tree structure and vice-versa.

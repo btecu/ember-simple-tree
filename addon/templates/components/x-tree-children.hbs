@@ -1,5 +1,17 @@
-{{x-tree-node model=model select=select hover=hover chosenId=chosenId}}
+{{x-tree-node
+  model=model
+  select=select
+  hover=hover
+  hoverOut=hoverOut
+  checkable=checkable
+  chosenId=chosenId}}
 
 {{#if model.isExpanded}}
-  {{x-tree model=model.children select=select hover=hover chosenId=chosenId}}
+  {{x-tree-branch
+    model=model.children
+    select=select
+    hover=hover
+    hoverOut=hoverOut
+    checkable=checkable
+    chosenId=chosenId}}
 {{/if}}

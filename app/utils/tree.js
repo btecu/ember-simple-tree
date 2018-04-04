@@ -1,1 +1,1 @@
-export { buildTree, buildFlatList, getDescendents } from 'x-tree/utils/tree';
+export { buildTree, buildFlatList, getDescendents, getAncestors, getParent } from 'x-tree/utils/tree';
