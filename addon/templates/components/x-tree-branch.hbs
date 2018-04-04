@@ -1,0 +1,15 @@
+{{#each model as |child|}}
+  {{#if child.isVisible}}
+    {{#if hasBlock}}
+      {{yield child}}
+    {{else}}
+      {{x-tree-children
+        model=child
+        select=select
+        hover=hover
+        hoverOut=hoverOut
+        checkable=checkable
+        chosenId=chosenId}}
+    {{/if}}
+  {{/if}}
+{{/each}}

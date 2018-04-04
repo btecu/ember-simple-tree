@@ -1,7 +1,7 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
-  {{#if model.checkable}}
+  {{#if checkable}}
     <input type="checkbox" checked={{model.isChecked}}
       onclick={{action 'toggleCheck' bubbles=false}}>
   {{/if}}
@@ -17,5 +17,8 @@
     {{/if}}
   </span>
 
-  {{model.name}}
+  {{#if model.treeIconClass}}
+    <i class="{{model.treeIconClass}}">&zwnj;</i>
+  {{/if}}
+  <span>{{model.name}}</span>
 {{/if}}
