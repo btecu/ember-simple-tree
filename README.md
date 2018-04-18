@@ -92,45 +92,20 @@ Expands the tree to a given depth.
 
 ### Blocks
 
-You may optionally pass a block to both the `x-tree` and `x-tree-node`
-components to render nodes with custom HTML.
+You may optionally pass a block to the `x-tree` component to render each node area with custom HTML.
+The node area is the area directly to the right of each arrow (and possibly checkbox) in the tree.
+The Node yields back the model for each area so that you can use attributes dynamically.
 
 ```handlebars
-{{#x-tree model=branches as |nodes|}}
-  {{menu-children class='tree-node' model=nodes select=(action 'select') someProperty=7}}
+{{#x-tree
+  select=(action 'selectNode')
+  chosenId=selectedNode
+  checkable=isCheckable
+  expandDepth=2
+  model=model as |node|}}
+    <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
+    {{node.name}}
 {{/x-tree}}
-
-{{!-- menu-children.hbs --}}
-
-{{menu-node model=model select=select hover=hover someProperty=7}}
-
-{{#if model.isExpanded}}
-  {{#x-tree model=model.children select=select hover=hover as |nodes|}}
-    {{menu-children model=nodes select=select hover=hover someProperty=7}}
-  {{/x-tree}}
-{{/if}}
-
-{{!-- menu-node.hbs --}}
-
-{{#x-tree-node model=model select=select}}
-  <span class="toggle-icon" {{action 'toggleExpand' bubbles=false}}>
-    {{#if model.children.length}}
-      {{#if model.isExpanded}}
-        &#x25BC;
-      {{else}}
-        &#x25B6;
-      {{/if}}
-    {{else}}
-      &nbsp;&nbsp;
-    {{/if}}
-  </span>
-
-  {{#if someProperty}}
-    <div>{{model.name}} has {{someProperty}}</div>
-  {{else}}
-    <div>{{model.name}}</div>
-  {{/if}}
-{{/x-tree-node}}
 ```
 
 
