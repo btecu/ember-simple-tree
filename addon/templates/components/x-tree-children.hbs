@@ -1,17 +1,41 @@
-{{x-tree-node
-  model=model
-  select=select
-  hover=hover
-  hoverOut=hoverOut
-  checkable=checkable
-  chosenId=chosenId}}
+{{#if hasBlock}}
+  {{#x-tree-node
+    select=select
+    hover=hover
+    hoverOut=hoverOut
+    checkable=checkable
+    chosenId=chosenId
+    model=model as |node|}}
+    {{yield node}}
+  {{/x-tree-node}}
 
-{{#if model.isExpanded}}
-  {{x-tree-branch
-    model=model.children
+  {{#if model.isExpanded}}
+    {{#x-tree-branch
+      select=select
+      hover=hover
+      hoverOut=hoverOut
+      checkable=checkable
+      chosenId=chosenId
+      model=model.children as |node|}}
+      {{yield node}}
+    {{/x-tree-branch}}
+  {{/if}}
+{{else}}
+  {{x-tree-node
+    model=model
     select=select
     hover=hover
     hoverOut=hoverOut
     checkable=checkable
     chosenId=chosenId}}
+
+  {{#if model.isExpanded}}
+    {{x-tree-branch
+      model=model.children
+      select=select
+      hover=hover
+      hoverOut=hoverOut
+      checkable=checkable
+      chosenId=chosenId}}
+  {{/if}}
 {{/if}}

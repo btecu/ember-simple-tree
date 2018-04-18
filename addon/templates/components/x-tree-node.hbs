@@ -1,24 +1,25 @@
-{{#if hasBlock}}
-  {{yield}}
-{{else}}
-  {{#if checkable}}
-    <input type="checkbox" checked={{model.isChecked}}
-      onclick={{action 'toggleCheck' bubbles=false}}>
-  {{/if}}
-  <span class="toggle-icon" {{action 'toggleExpand' bubbles=false}}>
-    {{#if model.children.length}}
-      {{#if model.isExpanded}}
-        &#x25BC;
-      {{else}}
-        &#x25B6;
-      {{/if}}
+<span class="toggle-icon" {{action 'toggleExpand' bubbles=false}}>
+  {{#if model.children.length}}
+    {{#if model.isExpanded}}
+      &#x25BC;
     {{else}}
-      &nbsp;&nbsp;
+      &#x25B6;
     {{/if}}
-  </span>
-
-  {{#if model.treeIconClass}}
-    <i class="{{model.treeIconClass}}">&zwnj;</i>
+  {{else}}
+    &nbsp;&nbsp;
   {{/if}}
-  <span>{{model.name}}</span>
+</span>
+{{#if checkable}}
+  <input type="checkbox" checked={{model.isChecked}}
+    onclick={{action 'toggleCheck' bubbles=false}}>
+{{/if}}
+
+{{#if hasBlock}}
+  <span onclick={{action 'select'}}>
+    {{yield model}}
+  </span>
+{{else}}
+  <span onclick={{action 'select'}}>
+    {{model.name}}
+  </span>
 {{/if}}

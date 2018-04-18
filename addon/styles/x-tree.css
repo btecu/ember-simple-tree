@@ -34,3 +34,7 @@
 .tree-node .tree-chosen {
   font-weight: bold;
 }
+
+.tree-node input[type="checkbox"] {
+  vertical-align: text-bottom;
+}

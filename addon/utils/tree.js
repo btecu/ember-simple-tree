@@ -9,7 +9,7 @@ import { isEmpty } from '@ember/utils';
  * passed for `id` and `labelKey` for `name`.
  * If the model is flat, it will return a list.
  */
-export function buildTree(model, options) {
+export function buildTree(model, options = {}) {
   let tree = {};
   let roots = A();
 
