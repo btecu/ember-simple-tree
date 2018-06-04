@@ -15,11 +15,7 @@
 {{/if}}
 
 {{#if hasBlock}}
-  <span onclick={{action 'select'}}>
-    {{yield model}}
-  </span>
+  {{yield model}}
 {{else}}
-  <span onclick={{action 'select'}}>
-    {{model.name}}
-  </span>
+  {{model.name}}
 {{/if}}
