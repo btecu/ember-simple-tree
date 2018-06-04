@@ -10,6 +10,13 @@ export default Component.extend({
     return this.get('model.id') === this.get('chosenId');
   }),
 
+  click() {
+    let select = this.get('select');
+    if (select) {
+      select(this.get('model'));
+    }
+  },
+
   mouseEnter() {
     this.set('model.isSelected', true);
     let hover = this.get('hover');
@@ -32,12 +39,6 @@ export default Component.extend({
 
     toggleExpand() {
       this.toggleProperty('model.isExpanded');
-    },
-    select() {
-      let select = this.get('select');
-      if (select) {
-        select(this.get('model'));
-      }
     }
   }
 });
