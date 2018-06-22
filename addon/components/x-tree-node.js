@@ -33,10 +33,10 @@ export default Component.extend({
   },
 
   actions: {
-    toggleCheck() {
+    toggleCheck(event) {
+      event.stopPropagation();
       this.toggleProperty('model.isChecked');
     },
-
     toggleExpand() {
       this.toggleProperty('model.isExpanded');
     }
