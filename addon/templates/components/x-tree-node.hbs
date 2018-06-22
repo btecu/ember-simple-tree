@@ -10,8 +10,7 @@
   {{/if}}
 </span>
 {{#if checkable}}
-  <input type="checkbox" checked={{model.isChecked}}
-    onclick={{action 'toggleCheck' bubbles=false}}>
+  <input type="checkbox" checked={{model.isChecked}} onclick={{action 'toggleCheck'}}>
 {{/if}}
 
 {{#if hasBlock}}
