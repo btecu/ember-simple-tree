@@ -20,6 +20,16 @@ Basic example:
 
 ### Available actions
 
+#### check
+
+Returns: `node`
+
+Fired when a checkbox state changes.
+
+```handlebars
+{{x-tree model=tree check=(action check)}}
+```
+
 #### hover
 
 Returns: `node`
@@ -86,7 +96,7 @@ Accepts: `number`
 {{x-tree model=tree expandDepth=-1}}
 ```
 
-Expands the tree to a given depth.  
+Expands the tree to a given depth.
 `0` will not expand the tree at all, a negative number will fully expand a tree, a positive number will expand a tree to the given depth.
 
 

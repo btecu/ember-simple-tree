@@ -1,5 +1,6 @@
 {{#if hasBlock}}
   {{#x-tree-node
+    check=check
     select=select
     hover=hover
     hoverOut=hoverOut
@@ -11,6 +12,7 @@
 
   {{#if model.isExpanded}}
     {{#x-tree-branch
+      check=check
       select=select
       hover=hover
       hoverOut=hoverOut
@@ -23,6 +25,7 @@
 {{else}}
   {{x-tree-node
     model=model
+    check=check
     select=select
     hover=hover
     hoverOut=hoverOut
@@ -32,6 +35,7 @@
   {{#if model.isExpanded}}
     {{x-tree-branch
       model=model.children
+      check=check
       select=select
       hover=hover
       hoverOut=hoverOut

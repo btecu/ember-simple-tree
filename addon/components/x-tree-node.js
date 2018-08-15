@@ -24,6 +24,7 @@ export default Component.extend({
       hover(this.get('model'));
     }
   },
+
   mouseLeave() {
     this.set('model.isSelected', false);
     let hoverOut = this.get('hoverOut');
@@ -36,7 +37,13 @@ export default Component.extend({
     toggleCheck(event) {
       event.stopPropagation();
       this.toggleProperty('model.isChecked');
+
+      let check = this.get('check');
+      if (check) {
+        check(this.get('model'));
+      }
     },
+
     toggleExpand() {
       this.toggleProperty('model.isExpanded');
     }

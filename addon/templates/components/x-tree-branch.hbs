@@ -2,6 +2,7 @@
   {{#if child.isVisible}}
     {{#if hasBlock}}
       {{#x-tree-children
+        check=check
         select=select
         hover=hover
         hoverOut=hoverOut
@@ -13,6 +14,7 @@
     {{else}}
       {{x-tree-children
         model=child
+        check=check
         select=select
         hover=hover
         hoverOut=hoverOut
