@@ -11,7 +11,7 @@ export default Component.extend({
   }),
 
   click() {
-    let select = this.get('select');
+    let select = this.get('onSelect');
     if (select) {
       select(this.get('model'));
     }
@@ -19,7 +19,7 @@ export default Component.extend({
 
   mouseEnter() {
     this.set('model.isSelected', true);
-    let hover = this.get('hover');
+    let hover = this.get('onHover');
     if (hover) {
       hover(this.get('model'));
     }
@@ -27,7 +27,7 @@ export default Component.extend({
 
   mouseLeave() {
     this.set('model.isSelected', false);
-    let hoverOut = this.get('hoverOut');
+    let hoverOut = this.get('onHoverOut');
     if (hoverOut) {
       hoverOut(this.get('model'));
     }
@@ -38,7 +38,7 @@ export default Component.extend({
       event.stopPropagation();
       this.toggleProperty('model.isChecked');
 
-      let check = this.get('check');
+      let check = this.get('onCheck');
       if (check) {
         check(this.get('model'));
       }

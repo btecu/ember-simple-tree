@@ -20,42 +20,45 @@ Basic example:
 
 ### Available actions
 
-#### check
+#### onCheck
 
 Returns: `node`
 
 Fired when a checkbox state changes.
 
 ```handlebars
-{{x-tree model=tree check=(action check)}}
+{{x-tree model=tree onCheck=(action 'onCheck')}}
 ```
 
-#### hover
+#### onHover
 
 Returns: `node`
 
 Fired when a mouse enters the node.
 
 ```handlebars
-{{x-tree model=tree hover=(action hover)}}
+{{x-tree model=tree onHover=(action 'onHover')}}
 ```
 
-#### hoverOut
+#### onHoverOut
 
 Returns: `node`
 
 Fired when a mouse leaves the node.
 
 ```handlebars
-{{x-tree model=tree hoverOut=(action hoverOut)}}
+{{x-tree model=tree onHoverOut=(action 'onHoverOut')}}
 ```
 
-#### select
+#### onSelect
 
 Returns: `node`
 
 Fired when a node is selected.
 
+```handlebars
+{{x-tree model=tree onSelect=(action 'onSelect')}}
+```
 
 ### Available options
 
@@ -108,10 +111,10 @@ The Node yields back the model for each area so that you can use attributes dyna
 
 ```handlebars
 {{#x-tree
-  select=(action 'selectNode')
   chosenId=selectedNode
   checkable=isCheckable
   expandDepth=2
+  onSelect=(action 'selectNode')
   model=model as |node|}}
     <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
     {{node.name}}

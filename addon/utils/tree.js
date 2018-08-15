@@ -52,8 +52,7 @@ export function buildTree(model, options = {}) {
   return roots;
 }
 
-// Gets all descendents of a tree (array)
-// Returns a flat list of all descenents, including the top level of the tree
+// Returns a flat list of all descenents, including the root
 export function getDescendents(tree, depth = -1) {
   let descendents = A();
 
@@ -72,8 +71,7 @@ export function getDescendents(tree, depth = -1) {
   return descendents;
 }
 
-// Gets all ancestors of a childNode given a tree (array)
-// Returns a flat list of ancestors, including the childNode
+// Returns a flat list of ancestors, including the child
 export function getAncestors(tree, childNode) {
   let ancestors = A();
   let childId = childNode.get('id');
@@ -94,8 +92,7 @@ export function getAncestors(tree, childNode) {
   return ancestors;
 }
 
-// Gets the direct parent of a childNode given a flat list
-// Returns single object (parent) or undefined
+// Returns the parent of a child
 export function getParent(list, childNode) {
   return list.find(x => x.children.find(y => y.id === childNode.get('id')));
 }

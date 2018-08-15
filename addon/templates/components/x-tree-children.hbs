@@ -1,23 +1,23 @@
 {{#if hasBlock}}
   {{#x-tree-node
-    check=check
-    select=select
-    hover=hover
-    hoverOut=hoverOut
     checkable=checkable
     chosenId=chosenId
+    onCheck=onCheck
+    onSelect=onSelect
+    onHover=onHover
+    onHoverOut=onHoverOut
     model=model as |node|}}
     {{yield node}}
   {{/x-tree-node}}
 
   {{#if model.isExpanded}}
     {{#x-tree-branch
-      check=check
-      select=select
-      hover=hover
-      hoverOut=hoverOut
       checkable=checkable
       chosenId=chosenId
+      onCheck=onCheck
+      onSelect=onSelect
+      onHover=onHover
+      onHoverOut=onHoverOut
       model=model.children as |node|}}
       {{yield node}}
     {{/x-tree-branch}}
@@ -25,21 +25,21 @@
 {{else}}
   {{x-tree-node
     model=model
-    check=check
-    select=select
-    hover=hover
-    hoverOut=hoverOut
     checkable=checkable
-    chosenId=chosenId}}
+    chosenId=chosenId
+    onCheck=onCheck
+    onSelect=onSelect
+    onHover=onHover
+    onHoverOut=onHoverOut}}
 
   {{#if model.isExpanded}}
     {{x-tree-branch
       model=model.children
-      check=check
-      select=select
-      hover=hover
-      hoverOut=hoverOut
       checkable=checkable
-      chosenId=chosenId}}
+      chosenId=chosenId
+      onCheck=onCheck
+      onSelect=onSelect
+      onHover=onHover
+      onHoverOut=onHoverOut}}
   {{/if}}
 {{/if}}
