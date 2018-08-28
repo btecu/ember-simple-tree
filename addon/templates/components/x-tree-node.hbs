@@ -12,8 +12,8 @@
 {{#if checkable}}
   {{input type="checkbox"
     checked=model.isChecked
-    change=(action 'toggleCheck')
-    indeterminate=model.isIndeterminate}}
+    indeterminate=model.isIndeterminate
+    change=(action 'toggleCheck')}}
 {{/if}}
 
 <span onclick={{action 'toggleCheck'}}>

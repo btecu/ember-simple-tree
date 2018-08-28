@@ -3,7 +3,8 @@
     {{#if hasBlock}}
       {{#x-tree-children
          checkable=checkable
-         syncCheckbox=syncCheckbox
+         recursiveCheck=recursiveCheck
+         updateCheckbox=updateCheckbox
          chosenId=chosenId
          onCheck=onCheck
          onSelect=onSelect
@@ -16,7 +17,8 @@
       {{x-tree-children
         model=child
         checkable=checkable
-        syncCheckbox=syncCheckbox
+        recursiveCheck=recursiveCheck
+        updateCheckbox=updateCheckbox
         chosenId=chosenId
         onCheck=onCheck
         onSelect=onSelect

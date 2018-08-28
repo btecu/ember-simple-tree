@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, observer }  from '@ember/object';
+import { computed }  from '@ember/object';
 import layout from '../templates/components/x-tree-node';
 
 export default Component.extend({
@@ -10,34 +10,18 @@ export default Component.extend({
     return this.get('model.id') === this.get('chosenId');
   }),
 
-  syncCheckbox: false,
-
-  __childrenCheckboxObserver: observer('model.children.@each.isChecked', function() {
-    if (this.get('syncCheckbox')) {
-      const children = this.get('model.children');
-      const allChildrenAreChecked = children.every(this._isChecked);
-      const someChildrenAreChecked = children.some(this._isChecked);
-      if (someChildrenAreChecked && !allChildrenAreChecked) {
-        this.set('model.isChecked', true);
-        this.set('model.isIndeterminate', true);
-      } else if (someChildrenAreChecked) {
-        this.set('model.isChecked', true);
-        this.set('model.isIndeterminate', false);
-      } else {
-        this.set('model.isChecked', false);
-        this.set('model.isIndeterminate', false);
-      }
-    }
-  }),
-
-  _isChecked(node) {
-    return node.isChecked;
-  },
+  recursiveCheck: false,
 
   click() {
     let select = this.get('onSelect');
     if (select) {
+      let wasChecked = this.get('model.isChecked');
       select(this.get('model'));
+      let isChecked = this.get('model.isChecked');
+      if (isChecked !== wasChecked && this.get('recursiveCheck')) {
+        this.setChildCheckboxesRecursively(this.get('model'), isChecked);
+        this.updateCheckbox();
+      }
     }
   },
 
@@ -57,12 +41,15 @@ export default Component.extend({
     }
   },
 
-  setChildCheckboxesRecursively(parentNode, checkValue) {
-    const children = parentNode.children;
+  setChildCheckboxesRecursively(node, isChecked) {
+    let children = node.get('children');
     if (children.length) {
-      children.setEach('isChecked', checkValue);
-      children.forEach((child) => {
-        this.setChildCheckboxesRecursively(child, checkValue);
+      children.forEach(child => {
+        child.setProperties({
+          isChecked,
+          isIndeterminate: false
+        });
+        this.setChildCheckboxesRecursively(child, isChecked);
       });
     }
   },
@@ -71,11 +58,12 @@ export default Component.extend({
     toggleCheck(event) {
       event.stopPropagation();
       this.toggleProperty('model.isChecked');
-
-      if (this.get('syncCheckbox')) {
-        const checkValue = this.get('model.isChecked');
-        this.setChildCheckboxesRecursively(this.get('model'), checkValue);
+      if (this.get('recursiveCheck')) {
+        let isChecked = this.get('model.isChecked');
+        this.setChildCheckboxesRecursively(this.model, isChecked);
+        this.updateCheckbox();
       }
+
       let check = this.get('onCheck');
       if (check) {
         check(this.get('model'));
