@@ -1,18 +1,20 @@
 {{#if hasBlock}}
   {{#x-tree-branch
-    checkable=checkable
-    chosenId=chosenId
-    onCheck=onCheck
-    onSelect=onSelect
-    onHover=onHover
-    onHoverOut=onHoverOut
-    model=model as |node|}}
+     checkable=checkable
+     recursiveCheck=recursiveCheck
+     chosenId=chosenId
+     onCheck=onCheck
+     onSelect=onSelect
+     onHover=onHover
+     onHoverOut=onHoverOut
+     model=model as |node|}}
     {{yield node}}
   {{/x-tree-branch}}
 {{else}}
   {{x-tree-branch
     model=model
     checkable=checkable
+    recursiveCheck=recursiveCheck
     chosenId=chosenId
     onCheck=onCheck
     onSelect=onSelect

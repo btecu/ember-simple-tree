@@ -5,6 +5,8 @@ import { get, set }  from '@ember/object';
 
 export default Component.extend({
   layout,
+  expandDepth: 0,
+  recursiveCheck: false,
 
   init() {
     this._super(...arguments);

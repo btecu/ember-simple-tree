@@ -102,6 +102,18 @@ Accepts: `number`
 Expands the tree to a given depth.
 `0` will not expand the tree at all, a negative number will fully expand a tree, a positive number will expand a tree to the given depth.
 
+#### recursiveCheck
+
+Default: `false`
+
+Accepts: `boolean`
+
+```handlebars
+{{x-tree model=tree checkable=true recursiveCheck=true}}
+```
+
+When enabled, checking a box will also check children's boxes as well. Also enables indeterminate state for checkboxes.
+Has no effect if `checkable` is not enabled.
 
 ### Blocks
 
@@ -128,8 +140,9 @@ The model requires specific properties to properly function:
  - `id` - unique identifier
  - `name` - `string` used to display a node
  - `children` - `array` of other nodes
- - `isChecked` - `boolean` used for a checkbox state
+ - `isChecked` - `boolean` used for checkbox state
  - `isExpanded` - `boolean` used to expand a node (children)
+ - `isIndeterminate` - `boolean` used for checkbox "indeterminate" display
  - `isSelected` - `boolean` optionally used for hover state
  - `isVisible` - `boolean` used to display or hide a node
 

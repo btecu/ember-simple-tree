@@ -1,24 +1,28 @@
 {{#if hasBlock}}
   {{#x-tree-node
-    checkable=checkable
-    chosenId=chosenId
-    onCheck=onCheck
-    onSelect=onSelect
-    onHover=onHover
-    onHoverOut=onHoverOut
-    model=model as |node|}}
+     checkable=checkable
+     recursiveCheck=recursiveCheck
+     updateCheckbox=(action 'updateCheckbox')
+     chosenId=chosenId
+     onCheck=onCheck
+     onSelect=onSelect
+     onHover=onHover
+     onHoverOut=onHoverOut
+     model=model as |node|}}
     {{yield node}}
   {{/x-tree-node}}
 
   {{#if model.isExpanded}}
     {{#x-tree-branch
-      checkable=checkable
-      chosenId=chosenId
-      onCheck=onCheck
-      onSelect=onSelect
-      onHover=onHover
-      onHoverOut=onHoverOut
-      model=model.children as |node|}}
+       checkable=checkable
+       recursiveCheck=recursiveCheck
+       updateCheckbox=(action 'updateCheckbox')
+       chosenId=chosenId
+       onCheck=onCheck
+       onSelect=onSelect
+       onHover=onHover
+       onHoverOut=onHoverOut
+       model=model.children as |node|}}
       {{yield node}}
     {{/x-tree-branch}}
   {{/if}}
@@ -26,6 +30,8 @@
   {{x-tree-node
     model=model
     checkable=checkable
+    recursiveCheck=recursiveCheck
+    updateCheckbox=(action 'updateCheckbox')
     chosenId=chosenId
     onCheck=onCheck
     onSelect=onSelect
@@ -36,6 +42,8 @@
     {{x-tree-branch
       model=model.children
       checkable=checkable
+      recursiveCheck=recursiveCheck
+      updateCheckbox=(action 'updateCheckbox')
       chosenId=chosenId
       onCheck=onCheck
       onSelect=onSelect

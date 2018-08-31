@@ -10,10 +10,18 @@ export default Component.extend({
     return this.get('model.id') === this.get('chosenId');
   }),
 
+  recursiveCheck: false,
+
   click() {
     let select = this.get('onSelect');
     if (select) {
+      let wasChecked = this.get('model.isChecked');
       select(this.get('model'));
+      let isChecked = this.get('model.isChecked');
+      if (isChecked !== wasChecked && this.get('recursiveCheck')) {
+        this.setChildCheckboxesRecursively(this.get('model'), isChecked);
+        this.updateCheckbox();
+      }
     }
   },
 
@@ -33,10 +41,28 @@ export default Component.extend({
     }
   },
 
+  setChildCheckboxesRecursively(node, isChecked) {
+    let children = node.get('children');
+    if (children.length) {
+      children.forEach(child => {
+        child.setProperties({
+          isChecked,
+          isIndeterminate: false
+        });
+        this.setChildCheckboxesRecursively(child, isChecked);
+      });
+    }
+  },
+
   actions: {
     toggleCheck(event) {
       event.stopPropagation();
       this.toggleProperty('model.isChecked');
+      if (this.get('recursiveCheck')) {
+        let isChecked = this.get('model.isChecked');
+        this.setChildCheckboxesRecursively(this.model, isChecked);
+        this.updateCheckbox();
+      }
 
       let check = this.get('onCheck');
       if (check) {

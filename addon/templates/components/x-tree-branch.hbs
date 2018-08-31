@@ -2,19 +2,23 @@
   {{#if child.isVisible}}
     {{#if hasBlock}}
       {{#x-tree-children
-        checkable=checkable
-        chosenId=chosenId
-        onCheck=onCheck
-        onSelect=onSelect
-        onHover=onHover
-        onHoverOut=onHoverOut
-        model=child as |node|}}
+         checkable=checkable
+         recursiveCheck=recursiveCheck
+         updateCheckbox=updateCheckbox
+         chosenId=chosenId
+         onCheck=onCheck
+         onSelect=onSelect
+         onHover=onHover
+         onHoverOut=onHoverOut
+         model=child as |node|}}
         {{yield node}}
       {{/x-tree-children}}
     {{else}}
       {{x-tree-children
         model=child
         checkable=checkable
+        recursiveCheck=recursiveCheck
+        updateCheckbox=updateCheckbox
         chosenId=chosenId
         onCheck=onCheck
         onSelect=onSelect

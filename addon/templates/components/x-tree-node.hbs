@@ -10,11 +10,16 @@
   {{/if}}
 </span>
 {{#if checkable}}
-  <input type="checkbox" checked={{model.isChecked}} onclick={{action 'toggleCheck'}}>
+  {{input type="checkbox"
+    checked=model.isChecked
+    indeterminate=model.isIndeterminate
+    change=(action 'toggleCheck')}}
 {{/if}}
 
-{{#if hasBlock}}
-  {{yield model}}
-{{else}}
-  {{model.name}}
-{{/if}}
+<span onclick={{action 'toggleCheck'}}>
+  {{#if hasBlock}}
+    {{yield model}}
+  {{else}}
+    {{model.name}}
+  {{/if}}
+</span>
