@@ -6,20 +6,23 @@ export default Component.extend({
   layout,
   classNameBindings: ['model.isSelected:tree-highlight', 'isChosen:tree-chosen'],
 
+  recursiveCheck: false,
+
   isChosen: computed('model.id', 'chosenId', function() {
     return this.get('model.id') === this.get('chosenId');
   }),
 
-  recursiveCheck: false,
-
   click() {
     let select = this.get('onSelect');
     if (select) {
-      let wasChecked = this.get('model.isChecked');
-      select(this.get('model'));
-      let isChecked = this.get('model.isChecked');
+      let model = this.get('model');
+      let wasChecked = model.get('isChecked');
+
+      select(model);
+
+      let isChecked = model.get('isChecked');
       if (isChecked !== wasChecked && this.get('recursiveCheck')) {
-        this.setChildCheckboxesRecursively(this.get('model'), isChecked);
+        this.setChildCheckboxesRecursively(model, isChecked);
         this.updateCheckbox();
       }
     }
@@ -27,6 +30,7 @@ export default Component.extend({
 
   mouseEnter() {
     this.set('model.isSelected', true);
+
     let hover = this.get('onHover');
     if (hover) {
       hover(this.get('model'));
@@ -35,6 +39,7 @@ export default Component.extend({
 
   mouseLeave() {
     this.set('model.isSelected', false);
+
     let hoverOut = this.get('onHoverOut');
     if (hoverOut) {
       hoverOut(this.get('model'));
@@ -49,6 +54,7 @@ export default Component.extend({
           isChecked,
           isIndeterminate: false
         });
+
         this.setChildCheckboxesRecursively(child, isChecked);
       });
     }
@@ -57,16 +63,18 @@ export default Component.extend({
   actions: {
     toggleCheck(event) {
       event.stopPropagation();
-      this.toggleProperty('model.isChecked');
+
+      let isChecked = this.toggleProperty('model.isChecked');
+      let model = this.get('model');
+
       if (this.get('recursiveCheck')) {
-        let isChecked = this.get('model.isChecked');
-        this.setChildCheckboxesRecursively(this.model, isChecked);
+        this.setChildCheckboxesRecursively(model, isChecked);
         this.updateCheckbox();
       }
 
       let check = this.get('onCheck');
       if (check) {
-        check(this.get('model'));
+        check(model);
       }
     },
 

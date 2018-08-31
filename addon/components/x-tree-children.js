@@ -13,22 +13,16 @@ export default Component.extend({
         let children = model.get('children');
 
         if (children.length) {
+          let isChecked = false;
+          let isIndeterminate = false;
+
           if (children.every(x => x.isChecked)) {
-            model.setProperties({
-              isChecked: true,
-              isIndeterminate: false
-            });
+            isChecked = true;
           } else if (children.some(x => x.isChecked || x.isIndeterminate)) {
-            model.setProperties({
-              isChecked: false,
-              isIndeterminate: true
-            });
-          } else {
-            model.setProperties({
-              isChecked: false,
-              isIndeterminate: false
-            });
+            isIndeterminate = true;
           }
+
+          model.setProperties({ isChecked, isIndeterminate });
         }
 
         this.sendAction('updateCheckbox');

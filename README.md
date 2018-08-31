@@ -142,7 +142,7 @@ The model requires specific properties to properly function:
  - `children` - `array` of other nodes
  - `isChecked` - `boolean` used for checkbox state
  - `isExpanded` - `boolean` used to expand a node (children)
- - `isIndeterminate` - `boolean` used for checkbox "indeterminate" display
+ - `isIndeterminate` - `boolean` used for checkbox "indeterminate" state
  - `isSelected` - `boolean` optionally used for hover state
  - `isVisible` - `boolean` used to display or hide a node
 
