@@ -25,7 +25,9 @@ export default Component.extend({
           model.setProperties({ isChecked, isIndeterminate });
         }
 
-        this.sendAction('updateCheckbox');
+        if (this.updateCheckbox) {
+          this.updateCheckbox();
+        }
       }
     }
   }
