@@ -1,16 +1,21 @@
 {
-  "name": "ember-simple-tree",
-  "version": "0.5.1",
-  "description": "Simple tree component",
+  "name": "ember-light-tree",
+  "version": "1.0.0",
+  "description": "Lightweight, composable tree component for Ember",
   "keywords": [
     "ember-addon",
     "ember-cli",
     "ember-tree",
     "tree"
   ],
-  "repository": "https://github.com/btecu/ember-simple-tree",
+  "repository": "https://github.com/gaurav0/ember-light-tree",
   "license": "MIT",
-  "author": "Bujorel Tecu",
+  "author": "Gaurav Munjal",
+  "contributors": [
+    "Bujorel Tecu",
+    "Corey Wells",
+    "Teddy Coleman"
+  ],
   "directories": {
     "doc": "doc",
     "test": "tests"

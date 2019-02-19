@@ -1,4 +1,4 @@
-# ember-simple-tree
+# ember-light-tree
 
 Simple tree component for Ember without any dependency.
 
@@ -14,7 +14,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```bash
-ember install ember-simple-tree
+ember install ember-light-tree
 ```
 
 

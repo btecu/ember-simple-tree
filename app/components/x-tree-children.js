@@ -1,1 +1,1 @@
-export { default } from 'ember-simple-tree/components/x-tree-children';
+export { default } from 'ember-light-tree/components/x-tree-children';
