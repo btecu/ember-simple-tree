@@ -1,4 +1,4 @@
-<span class="toggle-icon" {{action 'toggleExpand' bubbles=false}}>
+<span role="button" class="toggle-icon" {{action "toggleExpand" bubbles=false}}>
   {{#if model.children.length}}
     {{#if model.isExpanded}}
       &#x25BC;
@@ -11,10 +11,12 @@
 </span>
 
 {{#if checkable}}
-  <span onclick={{action 'toggleCheck'}}>
-    {{input type="checkbox"
+  <span role="button" onclick={{action "toggleCheck"}}>
+    {{input
+      type="checkbox"
       checked=model.isChecked
-      indeterminate=model.isIndeterminate }}
+      indeterminate=model.isIndeterminate
+    }}
   </span>
 {{/if}}
 

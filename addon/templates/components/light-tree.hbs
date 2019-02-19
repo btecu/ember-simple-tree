@@ -1,13 +1,15 @@
 {{#if hasBlock}}
   {{#light-tree-branch
-     checkable=checkable
-     recursiveCheck=recursiveCheck
-     chosenId=chosenId
-     onCheck=onCheck
-     onSelect=onSelect
-     onHover=onHover
-     onHoverOut=onHoverOut
-     model=model as |node|}}
+    checkable=checkable
+    recursiveCheck=recursiveCheck
+    chosenId=chosenId
+    onCheck=onCheck
+    onSelect=onSelect
+    onHover=onHover
+    onHoverOut=onHoverOut
+    model=model
+    as |node|
+  }}
     {{yield node}}
   {{/light-tree-branch}}
 {{else}}
@@ -19,5 +21,6 @@
     onCheck=onCheck
     onSelect=onSelect
     onHover=onHover
-    onHoverOut=onHoverOut}}
+    onHoverOut=onHoverOut
+  }}
 {{/if}}

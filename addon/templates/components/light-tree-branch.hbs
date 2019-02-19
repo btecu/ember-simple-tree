@@ -2,15 +2,17 @@
   {{#if child.isVisible}}
     {{#if hasBlock}}
       {{#light-tree-children
-         checkable=checkable
-         recursiveCheck=recursiveCheck
-         updateCheckbox=updateCheckbox
-         chosenId=chosenId
-         onCheck=onCheck
-         onSelect=onSelect
-         onHover=onHover
-         onHoverOut=onHoverOut
-         model=child as |node|}}
+        checkable=checkable
+        recursiveCheck=recursiveCheck
+        updateCheckbox=updateCheckbox
+        chosenId=chosenId
+        onCheck=onCheck
+        onSelect=onSelect
+        onHover=onHover
+        onHoverOut=onHoverOut
+        model=child
+        as |node|
+      }}
         {{yield node}}
       {{/light-tree-children}}
     {{else}}
@@ -23,7 +25,8 @@
         onCheck=onCheck
         onSelect=onSelect
         onHover=onHover
-        onHoverOut=onHoverOut}}
+        onHoverOut=onHoverOut
+      }}
     {{/if}}
   {{/if}}
 {{/each}}

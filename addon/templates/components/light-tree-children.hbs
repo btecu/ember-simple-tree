@@ -1,28 +1,32 @@
 {{#if hasBlock}}
   {{#light-tree-node
-     checkable=checkable
-     recursiveCheck=recursiveCheck
-     updateCheckbox=(action 'updateCheckbox')
-     chosenId=chosenId
-     onCheck=onCheck
-     onSelect=onSelect
-     onHover=onHover
-     onHoverOut=onHoverOut
-     model=model as |node|}}
+    checkable=checkable
+    recursiveCheck=recursiveCheck
+    updateCheckbox=(action "updateCheckbox")
+    chosenId=chosenId
+    onCheck=onCheck
+    onSelect=onSelect
+    onHover=onHover
+    onHoverOut=onHoverOut
+    model=model
+    as |node|
+  }}
     {{yield node}}
   {{/light-tree-node}}
 
   {{#if model.isExpanded}}
     {{#light-tree-branch
-       checkable=checkable
-       recursiveCheck=recursiveCheck
-       updateCheckbox=(action 'updateCheckbox')
-       chosenId=chosenId
-       onCheck=onCheck
-       onSelect=onSelect
-       onHover=onHover
-       onHoverOut=onHoverOut
-       model=model.children as |node|}}
+      checkable=checkable
+      recursiveCheck=recursiveCheck
+      updateCheckbox=(action "updateCheckbox")
+      chosenId=chosenId
+      onCheck=onCheck
+      onSelect=onSelect
+      onHover=onHover
+      onHoverOut=onHoverOut
+      model=model.children
+      as |node|
+    }}
       {{yield node}}
     {{/light-tree-branch}}
   {{/if}}
@@ -31,23 +35,24 @@
     model=model
     checkable=checkable
     recursiveCheck=recursiveCheck
-    updateCheckbox=(action 'updateCheckbox')
+    updateCheckbox=(action "updateCheckbox")
     chosenId=chosenId
     onCheck=onCheck
     onSelect=onSelect
     onHover=onHover
-    onHoverOut=onHoverOut}}
-
+    onHoverOut=onHoverOut
+  }}
   {{#if model.isExpanded}}
     {{light-tree-branch
       model=model.children
       checkable=checkable
       recursiveCheck=recursiveCheck
-      updateCheckbox=(action 'updateCheckbox')
+      updateCheckbox=(action "updateCheckbox")
       chosenId=chosenId
       onCheck=onCheck
       onSelect=onSelect
       onHover=onHover
-      onHoverOut=onHoverOut}}
+      onHoverOut=onHoverOut
+    }}
   {{/if}}
 {{/if}}
