@@ -7,6 +7,7 @@ export default Component.extend({
   layout,
   expandDepth: 0,
   recursiveCheck: false,
+  classNames: ['light-tree'],
 
   init() {
     this._super(...arguments);

@@ -4,7 +4,7 @@ import layout from '../templates/components/x-tree-children';
 export default Component.extend({
   layout,
   tagName: 'li',
-  classNames: ['tree-node'],
+  classNames: ['light-tree-node'],
 
   actions: {
     updateCheckbox() {
