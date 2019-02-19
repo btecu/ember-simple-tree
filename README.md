@@ -1,6 +1,10 @@
 # ember-light-tree
 
-Simple tree component for Ember without any dependency.
+Lightweight, composable tree component for Ember without any dependency.
+
+This is based on ember-simple-tree with non-compatible changes to enable
+customizeability and the ability to compose and substitute your own
+components.
 
 
 Compatibility

@@ -1,14 +1,9 @@
-<span role="button" class="toggle-icon" {{action "toggleExpand" bubbles=false}}>
-  {{#if model.children.length}}
-    {{#if model.isExpanded}}
-      {{component expandedIcon}}
-    {{else}}
-      {{component collapsedIcon}}
-    {{/if}}
-  {{else}}
-    &nbsp;&nbsp;
-  {{/if}}
-</span>
+{{light-tree-toggle
+  model=model
+  toggleExpand=(action "toggleExpand")
+  expandedIcon=expandedIcon
+  collapsedIcon=collapsedIcon
+}}
 
 {{#if checkable}}
   <span role="button" onclick={{action "toggleCheck"}}>
