@@ -1,0 +1,14 @@
+<h1> Light Tree Demo </h1>
+
+<blockquote>
+  {{#light-tree
+    model=tree
+    checkable=true
+    expandDepth=-1
+    as |node|
+  }}
+    {{node.toggle}}
+    {{node.checkbox}}
+    {{node.model.name}}
+  {{/light-tree}}
+</blockquote>

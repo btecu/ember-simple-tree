@@ -176,8 +176,6 @@ Component to use for collapsed icon
 ### Blocks
 
 You may optionally pass a block to the `light-tree` component to render each node area with custom HTML.
-The node area is the area directly to the right of each arrow (and possibly checkbox) in the tree.
-The Node yields back the model for each area so that you can use attributes dynamically.
 
 ```handlebars
 {{#light-tree
@@ -185,9 +183,11 @@ The Node yields back the model for each area so that you can use attributes dyna
   checkable=isCheckable
   expandDepth=2
   onSelect=(action 'selectNode')
-  model=model as |node|}}
-    <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
-    {{node.name}}
+  model=model
+  as |node|
+}}
+  <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
+  {{node.model.name}}
 {{/light-tree}}
 ```
 
