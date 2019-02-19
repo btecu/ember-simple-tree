@@ -1,10 +1,14 @@
 import Component from '@ember/component';
-import { computed }  from '@ember/object';
+import { computed, get, setProperties }  from '@ember/object';
 import layout from '../templates/components/light-tree-node';
 
 export default Component.extend({
   layout,
-  classNameBindings: ['model.isSelected:light-tree-highlight', 'isChosen:light-tree-chosen'],
+  classNameBindings: [
+    'model.isSelected:light-tree-highlight',
+    'isChosen:light-tree-chosen',
+    'model.children.length:light-tree-children'
+  ],
 
   recursiveCheck: false,
 
@@ -47,10 +51,10 @@ export default Component.extend({
   },
 
   setChildCheckboxesRecursively(node, isChecked) {
-    let children = node.get('children');
+    let children = get(node, 'children');
     if (children.length) {
       children.forEach(child => {
-        child.setProperties({
+        setProperties(child, {
           isChecked,
           isIndeterminate: false
         });

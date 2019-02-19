@@ -20,8 +20,10 @@
   </span>
 {{/if}}
 
-{{#if hasBlock}}
-  {{yield model}}
-{{else}}
-  {{model.name}}
-{{/if}}
+<span class="light-tree-label">
+  {{#if hasBlock}}
+    {{yield model}}
+  {{else}}
+    {{model.name}}
+  {{/if}}
+</span>
