@@ -2,7 +2,16 @@
 
 Simple tree component for Ember without any dependency.
 
-## Installation
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v2.16 or above
+* Ember CLI v2.13 or above
+
+
+Installation
+------------------------------------------------------------------------------
 
 ```bash
 ember install ember-simple-tree
