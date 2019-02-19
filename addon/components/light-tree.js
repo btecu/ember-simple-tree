@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import layout from '../templates/components/x-tree';
+import layout from '../templates/components/light-tree';
 import { getDescendents, getAncestors } from '../utils/tree';
 import { get, set }  from '@ember/object';
 

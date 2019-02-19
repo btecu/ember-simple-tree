@@ -1,7 +1,7 @@
 {{#each model as |child|}}
   {{#if child.isVisible}}
     {{#if hasBlock}}
-      {{#x-tree-children
+      {{#light-tree-children
          checkable=checkable
          recursiveCheck=recursiveCheck
          updateCheckbox=updateCheckbox
@@ -12,9 +12,9 @@
          onHoverOut=onHoverOut
          model=child as |node|}}
         {{yield node}}
-      {{/x-tree-children}}
+      {{/light-tree-children}}
     {{else}}
-      {{x-tree-children
+      {{light-tree-children
         model=child
         checkable=checkable
         recursiveCheck=recursiveCheck

@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed }  from '@ember/object';
-import layout from '../templates/components/x-tree-node';
+import layout from '../templates/components/light-tree-node';
 
 export default Component.extend({
   layout,
