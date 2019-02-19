@@ -23,7 +23,7 @@ ember install ember-light-tree
 Basic example:
 
 ```handlebars
-{{x-tree model=tree}}
+{{light-tree model=tree}}
 ```
 
 
@@ -36,7 +36,7 @@ Returns: `node`
 Fired when a checkbox state changes.
 
 ```handlebars
-{{x-tree model=tree onCheck=(action 'onCheck')}}
+{{light-tree model=tree onCheck=(action 'onCheck')}}
 ```
 
 #### onHover
@@ -46,7 +46,7 @@ Returns: `node`
 Fired when a mouse enters the node.
 
 ```handlebars
-{{x-tree model=tree onHover=(action 'onHover')}}
+{{light-tree model=tree onHover=(action 'onHover')}}
 ```
 
 #### onHoverOut
@@ -56,7 +56,7 @@ Returns: `node`
 Fired when a mouse leaves the node.
 
 ```handlebars
-{{x-tree model=tree onHoverOut=(action 'onHoverOut')}}
+{{light-tree model=tree onHoverOut=(action 'onHoverOut')}}
 ```
 
 #### onSelect
@@ -66,7 +66,7 @@ Returns: `node`
 Fired when a node is selected.
 
 ```handlebars
-{{x-tree model=tree onSelect=(action 'onSelect')}}
+{{light-tree model=tree onSelect=(action 'onSelect')}}
 ```
 
 ### Available options
@@ -78,7 +78,7 @@ Default: `false`
 Accepts: `boolean`
 
 ```handlebars
-{{x-tree model=tree checkable=true}}
+{{light-tree model=tree checkable=true}}
 ```
 
 Displays a checkbox for each node.
@@ -91,7 +91,7 @@ Default: `undefined`
 Accepts: `id`
 
 ```handlebars
-{{x-tree model=tree chosenId=someId}}
+{{light-tree model=tree chosenId=someId}}
 ```
 
 Applies 'chosen' styling (`font-weight: bold;`) to the specified node.
@@ -105,7 +105,7 @@ Default: `0`
 Accepts: `number`
 
 ```handlebars
-{{x-tree model=tree expandDepth=-1}}
+{{light-tree model=tree expandDepth=-1}}
 ```
 
 Expands the tree to a given depth.
@@ -118,20 +118,52 @@ Default: `false`
 Accepts: `boolean`
 
 ```handlebars
-{{x-tree model=tree checkable=true recursiveCheck=true}}
+{{light-tree model=tree checkable=true recursiveCheck=true}}
 ```
 
 When enabled, checking a box will also check children's boxes as well. Also enables indeterminate state for checkboxes.
 Has no effect if `checkable` is not enabled.
 
+#### expandedIcon
+
+Default: `light-tree-expanded-icon`,
+
+Accepts: `string` or `Component`
+
+```handlebars
+{{light-tree model=tree expandedIcon=(component "my-expanded-icon-component")}}
+```
+or
+```handlebars
+{{light-tree model=tree expandedIcon="my-expanded-icon-component"}}
+```
+
+Component to use for expanded icon
+
+#### collapsedIcon
+
+Default: `light-tree-collapsed-icon`,
+
+Accepts: `string`
+
+```handlebars
+{{light-tree model=tree collapsedIcon=(component "my-collapsed-icon-component")}}
+```
+or
+```handlebars
+{{light-tree model=tree collapsedIcon="my-collapsed-icon-component"}}
+```
+
+Component to use for collapsed icon
+
 ### Blocks
 
-You may optionally pass a block to the `x-tree` component to render each node area with custom HTML.
+You may optionally pass a block to the `light-tree` component to render each node area with custom HTML.
 The node area is the area directly to the right of each arrow (and possibly checkbox) in the tree.
 The Node yields back the model for each area so that you can use attributes dynamically.
 
 ```handlebars
-{{#x-tree
+{{#light-tree
   chosenId=selectedNode
   checkable=isCheckable
   expandDepth=2
@@ -139,7 +171,7 @@ The Node yields back the model for each area so that you can use attributes dyna
   model=model as |node|}}
     <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
     {{node.name}}
-{{/x-tree}}
+{{/light-tree}}
 ```
 
 

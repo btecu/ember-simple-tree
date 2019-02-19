@@ -9,6 +9,9 @@ export default Component.extend({
   recursiveCheck: false,
   classNames: ['light-tree'],
 
+  expandedIcon: 'light-tree-expanded-icon',
+  collapsedIcon: 'light-tree-collapsed-icon',
+
   init() {
     this._super(...arguments);
     let tree = this.get('model');

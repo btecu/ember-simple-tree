@@ -1,7 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll, click } from '@ember/test-helpers';
+import { render, find, findAll, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import Component from '@ember/component';
 
 const standardTree = [{
   id: 0,
@@ -156,5 +157,35 @@ module('Integration | Component | light-tree', function(hooks) {
     await click('input[type=checkbox]');
 
     assert.equal(findAll('input[type=checkbox]:checked').length, 4, 'all checkboxes checked');
+  });
+
+  test('can use alternate icon components via name', async function(assert) {
+    this.set('tree', standardTree);
+
+    this.owner.register('component:e-a', Component.extend({
+      layout: hbs`e`
+    }));
+    this.owner.register('component:c-a', Component.extend({
+      layout: hbs`c`
+    }));
+
+    await render(hbs`{{light-tree model=tree expandedIcon="e-a" collapsedIcon="c-a"}}`);
+
+    assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
+  });
+
+  test('can use alternate icon components passed in', async function(assert) {
+    this.set('tree', standardTree);
+
+    this.owner.register('component:e-a', Component.extend({
+      layout: hbs`e`
+    }));
+    this.owner.register('component:c-a', Component.extend({
+      layout: hbs`c`
+    }));
+
+    await render(hbs`{{light-tree model=tree expandedIcon=(component "e-a") collapsedIcon=(component "c-a")}}`);
+
+    assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
   });
 });
