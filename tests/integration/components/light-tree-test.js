@@ -188,4 +188,32 @@ module('Integration | Component | light-tree', function(hooks) {
 
     assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
   });
+
+  test('can use standard block form', async function(assert) {
+    this.set('tree', standardTree);
+
+    await render(hbs`
+      {{#light-tree
+        model=tree
+        checkable=true
+        as |node|
+      }}
+        {{node.toggle}}
+        {{node.checkbox}}
+        <span class="light-tree-label">{{node.model.name}}</span>
+      {{/light-tree}}
+    `);
+
+    assert.equal(findAll('.light-tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.light-tree-branch').length, 5, '5 branches rendered');
+
+    assert.equal(findAll('.light-tree-node')[0].querySelector('.light-tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.light-tree-node')[1].querySelector('.light-tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.light-tree-node')[2].querySelector('.light-tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.light-tree-node')[3].querySelector('.light-tree-label').textContent.trim(), 'First Grand Child');
+
+    assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
+
+    await this.pauseTest();
+  });
 });

@@ -1,21 +1,34 @@
-{{light-tree-toggle
-  model=model
-  toggleExpand=(action "toggleExpand")
-  expandedIcon=expandedIcon
-  collapsedIcon=collapsedIcon
-}}
-
-{{#if checkable}}
-  {{light-tree-checkbox
-    model=model
-    toggleCheck=(action "toggleCheck")
+{{#if hasBlock}}
+  {{yield
+    (hash
+      model=model
+      toggle=(component "light-tree-toggle"
+        model=model
+        toggleExpand=(action "toggleExpand")
+        expandedIcon=expandedIcon
+        collapsedIcon=collapsedIcon
+      )
+      checkbox=(component "light-tree-checkbox"
+        model=model
+        toggleCheck=(action "toggleCheck")
+      )
+    )
   }}
-{{/if}}
+{{else}}
+  {{light-tree-toggle
+    model=model
+    toggleExpand=(action "toggleExpand")
+    expandedIcon=expandedIcon
+    collapsedIcon=collapsedIcon
+  }}
 
-<span class="light-tree-label">
-  {{#if hasBlock}}
-    {{yield model}}
-  {{else}}
-    {{model.name}}
+  {{#if checkable}}
+    {{light-tree-checkbox
+      model=model
+      toggleCheck=(action "toggleCheck")
+    }}
   {{/if}}
-</span>
+  <span class="light-tree-label">
+    {{model.name}}
+  </span>
+{{/if}}

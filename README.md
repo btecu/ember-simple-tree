@@ -30,6 +30,18 @@ Basic example:
 {{light-tree model=tree}}
 ```
 
+Standard example:
+
+```handlebars
+{{#light-tree
+  model=tree
+  checkable=true
+  as |node|
+}}
+  {{node.toggle}}
+  {{node.checkbox}}
+  {{node.model.name}}
+{{/light-tree}}
 
 ### Available actions
 
