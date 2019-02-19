@@ -42,6 +42,7 @@ Standard example:
   {{node.checkbox}}
   {{node.model.name}}
 {{/light-tree}}
+```
 
 ### Available actions
 
