@@ -6,13 +6,10 @@
 }}
 
 {{#if checkable}}
-  <span role="button" onclick={{action "toggleCheck"}}>
-    {{input
-      type="checkbox"
-      checked=model.isChecked
-      indeterminate=model.isIndeterminate
-    }}
-  </span>
+  {{light-tree-checkbox
+    model=model
+    toggleCheck=(action "toggleCheck")
+  }}
 {{/if}}
 
 <span class="light-tree-label">
