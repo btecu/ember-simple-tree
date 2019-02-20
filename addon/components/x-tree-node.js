@@ -7,7 +7,7 @@ export default Component.extend({
   classNameBindings: [
     'model.isSelected:x-tree-highlight',
     'isChosen:x-tree-chosen',
-    'model.children.length:x-tree-children'
+    'model.children.length:tree-children'
   ],
 
   recursiveCheck: false,

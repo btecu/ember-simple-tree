@@ -5,7 +5,7 @@ import { get, setProperties } from '@ember/object';
 export default Component.extend({
   layout,
   tagName: 'li',
-  classNames: ['x-tree-node'],
+  classNames: ['tree-node'],
 
   actions: {
     updateCheckbox() {

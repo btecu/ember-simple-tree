@@ -7,7 +7,7 @@ export default Component.extend({
   layout,
   expandDepth: 0,
   recursiveCheck: false,
-  classNames: ['x-tree'],
+  classNames: ['tree'],
 
   expandedIcon: 'x-tree-expanded-icon',
   collapsedIcon: 'x-tree-collapsed-icon',

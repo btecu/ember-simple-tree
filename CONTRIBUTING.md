@@ -2,7 +2,7 @@
 
 ## Installation
 
-* `git clone <repository-url>`
+* `git clone https://github.com/btecu/ember-simple-tree`
 * `cd my-addon`
 * `npm install`
 

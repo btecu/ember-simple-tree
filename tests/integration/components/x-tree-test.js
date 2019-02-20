@@ -105,13 +105,13 @@ module('Integration | Component | x-tree', function(hooks) {
 
     await render(hbs`{{x-tree model=tree}}`);
 
-    assert.equal(findAll('.x-tree-node').length, 4, '4 nodes rendered');
-    assert.equal(findAll('.x-tree-branch').length, 5, '5 branches rendered');
+    assert.equal(findAll('.tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.tree-branch').length, 5, '5 branches rendered');
 
-    assert.equal(findAll('.x-tree-node')[0].querySelector('.x-tree-label').textContent.trim(), 'Root');
-    assert.equal(findAll('.x-tree-node')[1].querySelector('.x-tree-label').textContent.trim(), 'First Child');
-    assert.equal(findAll('.x-tree-node')[2].querySelector('.x-tree-label').textContent.trim(), 'Second Child');
-    assert.equal(findAll('.x-tree-node')[3].querySelector('.x-tree-label').textContent.trim(), 'First Grand Child');
+    assert.equal(findAll('.tree-node')[0].querySelector('.tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.tree-node')[1].querySelector('.tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.tree-node')[2].querySelector('.tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.tree-node')[3].querySelector('.tree-label').textContent.trim(), 'First Grand Child');
   });
 
   test('checkable', async function(assert) {
@@ -128,15 +128,15 @@ module('Integration | Component | x-tree', function(hooks) {
 
     await render(hbs`{{x-tree model=tree}}`);
 
-    assert.equal(findAll('.x-tree-node').length, 1, '1 nodes rendered');
+    assert.equal(findAll('.tree-node').length, 1, '1 nodes rendered');
 
     await click('.toggle-icon');
 
-    assert.equal(findAll('.x-tree-node').length, 3, '3 nodes rendered');
+    assert.equal(findAll('.tree-node').length, 3, '3 nodes rendered');
 
     await click('.toggle-icon');
 
-    assert.equal(findAll('.x-tree-node').length, 1, '1 nodes rendered');
+    assert.equal(findAll('.tree-node').length, 1, '1 nodes rendered');
   });
 
   test('expand all', async function(assert) {
@@ -144,7 +144,7 @@ module('Integration | Component | x-tree', function(hooks) {
 
     await render(hbs`{{x-tree model=tree expandDepth=-1}}`);
 
-    assert.equal(findAll('.x-tree-node').length, 4, 'all nodes rendered');
+    assert.equal(findAll('.tree-node').length, 4, 'all nodes rendered');
   });
 
   test('recursive check', async function(assert) {
@@ -200,17 +200,17 @@ module('Integration | Component | x-tree', function(hooks) {
       }}
         {{node.toggle}}
         {{node.checkbox}}
-        <span class="x-tree-label">{{node.model.name}}</span>
+        <span class="tree-label">{{node.model.name}}</span>
       {{/x-tree}}
     `);
 
-    assert.equal(findAll('.x-tree-node').length, 4, '4 nodes rendered');
-    assert.equal(findAll('.x-tree-branch').length, 5, '5 branches rendered');
+    assert.equal(findAll('.tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.tree-branch').length, 5, '5 branches rendered');
 
-    assert.equal(findAll('.x-tree-node')[0].querySelector('.x-tree-label').textContent.trim(), 'Root');
-    assert.equal(findAll('.x-tree-node')[1].querySelector('.x-tree-label').textContent.trim(), 'First Child');
-    assert.equal(findAll('.x-tree-node')[2].querySelector('.x-tree-label').textContent.trim(), 'Second Child');
-    assert.equal(findAll('.x-tree-node')[3].querySelector('.x-tree-label').textContent.trim(), 'First Grand Child');
+    assert.equal(findAll('.tree-node')[0].querySelector('.tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.tree-node')[1].querySelector('.tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.tree-node')[2].querySelector('.tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.tree-node')[3].querySelector('.tree-label').textContent.trim(), 'First Grand Child');
 
     assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
   });
