@@ -1,18 +1,18 @@
-.light-tree-branch {
+.x-tree-branch {
   margin: 0;
   padding: 0;
 }
 
-.light-tree-node .light-tree-branch {
+.x-tree-node .x-tree-branch {
   padding-left: 1.25em;
 }
 
-.light-tree-node {
+.x-tree-node {
   line-height: 1.5em;
   list-style: none;
 }
 
-.light-tree-node .toggle-icon {
+.x-tree-node .toggle-icon {
   color: #a5d4fd;
   cursor: pointer;
   display: inline-block;
@@ -21,20 +21,20 @@
   width: 1.25em;
 }
 
-.light-tree-node .toggle-icon:hover {
+.x-tree-node .toggle-icon:hover {
   opacity: 0.8;
 }
 
-.light-tree-node .light-tree-highlight {
+.x-tree-node .x-tree-highlight {
   background-color: #f2f9fc;
   color: #333;
   cursor: pointer;
 }
 
-.light-tree-node .light-tree-chosen {
+.x-tree-node .x-tree-chosen {
   font-weight: bold;
 }
 
-.light-tree-node input[type="checkbox"] {
+.x-tree-node input[type="checkbox"] {
   vertical-align: text-bottom;
 }

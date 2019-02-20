@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | light-tree-toggle', function(hooks) {
+module('Integration | Component | x-tree-toggle', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it expands and collapses', async function(assert) {
@@ -13,10 +13,10 @@ module('Integration | Component | light-tree-toggle', function(hooks) {
     });
 
     await render(hbs`
-      {{light-tree-toggle
+      {{x-tree-toggle
         toggleExpand=(action toggleExpand)
-        expandedIcon="light-table-expanded-icon"
-        collapsedIcon="light-table-collapsed-icon"
+        expandedIcon="x-tree-expanded-icon"
+        collapsedIcon="x-tree-collapsed-icon"
       }}`);
 
     assert.equal(this.element.textContent.trim(), '');

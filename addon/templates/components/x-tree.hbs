@@ -1,5 +1,5 @@
 {{#if hasBlock}}
-  {{#light-tree-branch
+  {{#x-tree-branch
     checkable=checkable
     recursiveCheck=recursiveCheck
     chosenId=chosenId
@@ -13,9 +13,9 @@
     as |node|
   }}
     {{yield node}}
-  {{/light-tree-branch}}
+  {{/x-tree-branch}}
 {{else}}
-  {{light-tree-branch
+  {{x-tree-branch
     model=model
     checkable=checkable
     recursiveCheck=recursiveCheck

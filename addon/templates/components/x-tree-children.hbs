@@ -1,5 +1,5 @@
 {{#if hasBlock}}
-  {{#light-tree-node
+  {{#x-tree-node
     checkable=checkable
     recursiveCheck=recursiveCheck
     updateCheckbox=(action "updateCheckbox")
@@ -14,10 +14,10 @@
     as |node|
   }}
     {{yield node}}
-  {{/light-tree-node}}
+  {{/x-tree-node}}
 
   {{#if model.isExpanded}}
-    {{#light-tree-branch
+    {{#x-tree-branch
       checkable=checkable
       recursiveCheck=recursiveCheck
       updateCheckbox=(action "updateCheckbox")
@@ -32,10 +32,10 @@
       as |node|
     }}
       {{yield node}}
-    {{/light-tree-branch}}
+    {{/x-tree-branch}}
   {{/if}}
 {{else}}
-  {{light-tree-node
+  {{x-tree-node
     model=model
     checkable=checkable
     recursiveCheck=recursiveCheck
@@ -49,7 +49,7 @@
     collapsedIcon=collapsedIcon
   }}
   {{#if model.isExpanded}}
-    {{light-tree-branch
+    {{x-tree-branch
       model=model.children
       checkable=checkable
       recursiveCheck=recursiveCheck

@@ -74,14 +74,14 @@ const collapsedTree = [{
   ]
 }];
 
-module('Integration | Component | light-tree', function(hooks) {
+module('Integration | Component | x-tree', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{light-tree}}`);
+    await render(hbs`{{x-tree}}`);
 
     assert.equal(this.element.textContent.trim(), '');
 
@@ -92,9 +92,9 @@ module('Integration | Component | light-tree', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#light-tree model=tree}}
+      {{#x-tree model=tree}}
         template block text
-      {{/light-tree}}
+      {{/x-tree}}
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
@@ -103,21 +103,21 @@ module('Integration | Component | light-tree', function(hooks) {
   test('it renders a standard tree', async function(assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`{{light-tree model=tree}}`);
+    await render(hbs`{{x-tree model=tree}}`);
 
-    assert.equal(findAll('.light-tree-node').length, 4, '4 nodes rendered');
-    assert.equal(findAll('.light-tree-branch').length, 5, '5 branches rendered');
+    assert.equal(findAll('.x-tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.x-tree-branch').length, 5, '5 branches rendered');
 
-    assert.equal(findAll('.light-tree-node')[0].querySelector('.light-tree-label').textContent.trim(), 'Root');
-    assert.equal(findAll('.light-tree-node')[1].querySelector('.light-tree-label').textContent.trim(), 'First Child');
-    assert.equal(findAll('.light-tree-node')[2].querySelector('.light-tree-label').textContent.trim(), 'Second Child');
-    assert.equal(findAll('.light-tree-node')[3].querySelector('.light-tree-label').textContent.trim(), 'First Grand Child');
+    assert.equal(findAll('.x-tree-node')[0].querySelector('.x-tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.x-tree-node')[1].querySelector('.x-tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.x-tree-node')[2].querySelector('.x-tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.x-tree-node')[3].querySelector('.x-tree-label').textContent.trim(), 'First Grand Child');
   });
 
   test('checkable', async function(assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`{{light-tree model=tree checkable=true}}`);
+    await render(hbs`{{x-tree model=tree checkable=true}}`);
 
     assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
     assert.equal(findAll('input[type=checkbox]:checked').length, 0, 'no checkboxes checked');
@@ -126,31 +126,31 @@ module('Integration | Component | light-tree', function(hooks) {
   test('expands and collapses', async function(assert) {
     this.set('tree', collapsedTree);
 
-    await render(hbs`{{light-tree model=tree}}`);
+    await render(hbs`{{x-tree model=tree}}`);
 
-    assert.equal(findAll('.light-tree-node').length, 1, '1 nodes rendered');
-
-    await click('.toggle-icon');
-
-    assert.equal(findAll('.light-tree-node').length, 3, '3 nodes rendered');
+    assert.equal(findAll('.x-tree-node').length, 1, '1 nodes rendered');
 
     await click('.toggle-icon');
 
-    assert.equal(findAll('.light-tree-node').length, 1, '1 nodes rendered');
+    assert.equal(findAll('.x-tree-node').length, 3, '3 nodes rendered');
+
+    await click('.toggle-icon');
+
+    assert.equal(findAll('.x-tree-node').length, 1, '1 nodes rendered');
   });
 
   test('expand all', async function(assert) {
     this.set('tree', collapsedTree);
 
-    await render(hbs`{{light-tree model=tree expandDepth=-1}}`);
+    await render(hbs`{{x-tree model=tree expandDepth=-1}}`);
 
-    assert.equal(findAll('.light-tree-node').length, 4, 'all nodes rendered');
+    assert.equal(findAll('.x-tree-node').length, 4, 'all nodes rendered');
   });
 
   test('recursive check', async function(assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`{{light-tree model=tree checkable=true recursiveCheck=true}}`);
+    await render(hbs`{{x-tree model=tree checkable=true recursiveCheck=true}}`);
 
     assert.equal(findAll('input[type=checkbox]:checked').length, 0, 'no checkboxes checked');
 
@@ -169,7 +169,7 @@ module('Integration | Component | light-tree', function(hooks) {
       layout: hbs`c`
     }));
 
-    await render(hbs`{{light-tree model=tree expandedIcon="e-a" collapsedIcon="c-a"}}`);
+    await render(hbs`{{x-tree model=tree expandedIcon="e-a" collapsedIcon="c-a"}}`);
 
     assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
   });
@@ -184,7 +184,7 @@ module('Integration | Component | light-tree', function(hooks) {
       layout: hbs`c`
     }));
 
-    await render(hbs`{{light-tree model=tree expandedIcon=(component "e-a") collapsedIcon=(component "c-a")}}`);
+    await render(hbs`{{x-tree model=tree expandedIcon=(component "e-a") collapsedIcon=(component "c-a")}}`);
 
     assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
   });
@@ -193,27 +193,25 @@ module('Integration | Component | light-tree', function(hooks) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      {{#light-tree
+      {{#x-tree
         model=tree
         checkable=true
         as |node|
       }}
         {{node.toggle}}
         {{node.checkbox}}
-        <span class="light-tree-label">{{node.model.name}}</span>
-      {{/light-tree}}
+        <span class="x-tree-label">{{node.model.name}}</span>
+      {{/x-tree}}
     `);
 
-    assert.equal(findAll('.light-tree-node').length, 4, '4 nodes rendered');
-    assert.equal(findAll('.light-tree-branch').length, 5, '5 branches rendered');
+    assert.equal(findAll('.x-tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.x-tree-branch').length, 5, '5 branches rendered');
 
-    assert.equal(findAll('.light-tree-node')[0].querySelector('.light-tree-label').textContent.trim(), 'Root');
-    assert.equal(findAll('.light-tree-node')[1].querySelector('.light-tree-label').textContent.trim(), 'First Child');
-    assert.equal(findAll('.light-tree-node')[2].querySelector('.light-tree-label').textContent.trim(), 'Second Child');
-    assert.equal(findAll('.light-tree-node')[3].querySelector('.light-tree-label').textContent.trim(), 'First Grand Child');
+    assert.equal(findAll('.x-tree-node')[0].querySelector('.x-tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.x-tree-node')[1].querySelector('.x-tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.x-tree-node')[2].querySelector('.x-tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.x-tree-node')[3].querySelector('.x-tree-label').textContent.trim(), 'First Grand Child');
 
     assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
-
-    await this.pauseTest();
   });
 });

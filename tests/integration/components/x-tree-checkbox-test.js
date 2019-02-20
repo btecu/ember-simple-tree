@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | light-tree-checkbox', function(hooks) {
+module('Integration | Component | x-tree-checkbox', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it calls action when checked and unchecked', async function(assert) {
@@ -13,7 +13,7 @@ module('Integration | Component | light-tree-checkbox', function(hooks) {
     });
     this.set('model', {});
 
-    await render(hbs`{{light-tree-checkbox model=model toggleCheck=(action toggleCheck)}}`);
+    await render(hbs`{{x-tree-checkbox model=model toggleCheck=(action toggleCheck)}}`);
 
     assert.equal(this.checked, false);
     

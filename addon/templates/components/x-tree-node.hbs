@@ -2,20 +2,20 @@
   {{yield
     (hash
       model=model
-      toggle=(component "light-tree-toggle"
+      toggle=(component "x-tree-toggle"
         model=model
         toggleExpand=(action "toggleExpand")
         expandedIcon=expandedIcon
         collapsedIcon=collapsedIcon
       )
-      checkbox=(component "light-tree-checkbox"
+      checkbox=(component "x-tree-checkbox"
         model=model
         toggleCheck=(action "toggleCheck")
       )
     )
   }}
 {{else}}
-  {{light-tree-toggle
+  {{x-tree-toggle
     model=model
     toggleExpand=(action "toggleExpand")
     expandedIcon=expandedIcon
@@ -23,12 +23,12 @@
   }}
 
   {{#if checkable}}
-    {{light-tree-checkbox
+    {{x-tree-checkbox
       model=model
       toggleCheck=(action "toggleCheck")
     }}
   {{/if}}
-  <span class="light-tree-label">
+  <span class="x-tree-label">
     {{model.name}}
   </span>
 {{/if}}

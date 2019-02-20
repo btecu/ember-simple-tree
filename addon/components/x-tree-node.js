@@ -1,13 +1,13 @@
 import Component from '@ember/component';
 import { computed, get, setProperties }  from '@ember/object';
-import layout from '../templates/components/light-tree-node';
+import layout from '../templates/components/x-tree-node';
 
 export default Component.extend({
   layout,
   classNameBindings: [
-    'model.isSelected:light-tree-highlight',
-    'isChosen:light-tree-chosen',
-    'model.children.length:light-tree-children'
+    'model.isSelected:x-tree-highlight',
+    'isChosen:x-tree-chosen',
+    'model.children.length:x-tree-children'
   ],
 
   recursiveCheck: false,

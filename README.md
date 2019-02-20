@@ -1,4 +1,4 @@
-# ember-light-tree
+# ember-simple-tree
 
 Lightweight, composable tree component for Ember without any dependency.
 
@@ -18,7 +18,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```bash
-ember install ember-light-tree
+ember install ember-simple-tree
 ```
 
 
@@ -27,13 +27,13 @@ ember install ember-light-tree
 Basic example:
 
 ```handlebars
-{{light-tree model=tree}}
+{{x-tree model=tree}}
 ```
 
 Standard example:
 
 ```handlebars
-{{#light-tree
+{{#x-tree
   model=tree
   checkable=true
   as |node|
@@ -41,7 +41,7 @@ Standard example:
   {{node.toggle}}
   {{node.checkbox}}
   {{node.model.name}}
-{{/light-tree}}
+{{/x-tree}}
 ```
 
 ### Available actions
@@ -53,7 +53,7 @@ Returns: `node`
 Fired when a checkbox state changes.
 
 ```handlebars
-{{light-tree model=tree onCheck=(action 'onCheck')}}
+{{x-tree model=tree onCheck=(action 'onCheck')}}
 ```
 
 #### onHover
@@ -63,7 +63,7 @@ Returns: `node`
 Fired when a mouse enters the node.
 
 ```handlebars
-{{light-tree model=tree onHover=(action 'onHover')}}
+{{x-tree model=tree onHover=(action 'onHover')}}
 ```
 
 #### onHoverOut
@@ -73,7 +73,7 @@ Returns: `node`
 Fired when a mouse leaves the node.
 
 ```handlebars
-{{light-tree model=tree onHoverOut=(action 'onHoverOut')}}
+{{x-tree model=tree onHoverOut=(action 'onHoverOut')}}
 ```
 
 #### onSelect
@@ -83,7 +83,7 @@ Returns: `node`
 Fired when a node is selected.
 
 ```handlebars
-{{light-tree model=tree onSelect=(action 'onSelect')}}
+{{x-tree model=tree onSelect=(action 'onSelect')}}
 ```
 
 ### Available options
@@ -95,7 +95,7 @@ Default: `false`
 Accepts: `boolean`
 
 ```handlebars
-{{light-tree model=tree checkable=true}}
+{{x-tree model=tree checkable=true}}
 ```
 
 Displays a checkbox for each node.
@@ -108,7 +108,7 @@ Default: `undefined`
 Accepts: `id`
 
 ```handlebars
-{{light-tree model=tree chosenId=someId}}
+{{x-tree model=tree chosenId=someId}}
 ```
 
 Applies 'chosen' styling (`font-weight: bold;`) to the specified node.
@@ -122,7 +122,7 @@ Default: `0`
 Accepts: `number`
 
 ```handlebars
-{{light-tree model=tree expandDepth=-1}}
+{{x-tree model=tree expandDepth=-1}}
 ```
 
 Expands the tree to a given depth.
@@ -135,7 +135,7 @@ Default: `false`
 Accepts: `boolean`
 
 ```handlebars
-{{light-tree model=tree checkable=true recursiveCheck=true}}
+{{x-tree model=tree checkable=true recursiveCheck=true}}
 ```
 
 When enabled, checking a box will also check children's boxes as well. Also enables indeterminate state for checkboxes.
@@ -143,42 +143,42 @@ Has no effect if `checkable` is not enabled.
 
 #### expandedIcon
 
-Default: `light-tree-expanded-icon`,
+Default: `x-tree-expanded-icon`,
 
 Accepts: `string` or `Component`
 
 ```handlebars
-{{light-tree model=tree expandedIcon=(component "my-expanded-icon-component")}}
+{{x-tree model=tree expandedIcon=(component "my-expanded-icon-component")}}
 ```
 or
 ```handlebars
-{{light-tree model=tree expandedIcon="my-expanded-icon-component"}}
+{{x-tree model=tree expandedIcon="my-expanded-icon-component"}}
 ```
 
 Component to use for expanded icon
 
 #### collapsedIcon
 
-Default: `light-tree-collapsed-icon`,
+Default: `x-tree-collapsed-icon`,
 
 Accepts: `string`
 
 ```handlebars
-{{light-tree model=tree collapsedIcon=(component "my-collapsed-icon-component")}}
+{{x-tree model=tree collapsedIcon=(component "my-collapsed-icon-component")}}
 ```
 or
 ```handlebars
-{{light-tree model=tree collapsedIcon="my-collapsed-icon-component"}}
+{{x-tree model=tree collapsedIcon="my-collapsed-icon-component"}}
 ```
 
 Component to use for collapsed icon
 
 ### Blocks
 
-You may optionally pass a block to the `light-tree` component to render each node area with custom HTML.
+You may optionally pass a block to the `x-tree` component to render each node area with custom HTML.
 
 ```handlebars
-{{#light-tree
+{{#x-tree
   chosenId=selectedNode
   checkable=isCheckable
   expandDepth=2
@@ -188,7 +188,7 @@ You may optionally pass a block to the `light-tree` component to render each nod
 }}
   <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
   {{node.model.name}}
-{{/light-tree}}
+{{/x-tree}}
 ```
 
 

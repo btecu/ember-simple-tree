@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import layout from '../templates/components/light-tree';
+import layout from '../templates/components/x-tree';
 import { getDescendents, getAncestors } from '../utils/tree';
 import { get, set }  from '@ember/object';
 
@@ -7,10 +7,10 @@ export default Component.extend({
   layout,
   expandDepth: 0,
   recursiveCheck: false,
-  classNames: ['light-tree'],
+  classNames: ['x-tree'],
 
-  expandedIcon: 'light-tree-expanded-icon',
-  collapsedIcon: 'light-tree-collapsed-icon',
+  expandedIcon: 'x-tree-expanded-icon',
+  collapsedIcon: 'x-tree-collapsed-icon',
 
   init() {
     this._super(...arguments);

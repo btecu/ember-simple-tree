@@ -1,11 +1,11 @@
 import Component from '@ember/component';
-import layout from '../templates/components/light-tree-children';
+import layout from '../templates/components/x-tree-children';
 import { get, setProperties } from '@ember/object';
 
 export default Component.extend({
   layout,
   tagName: 'li',
-  classNames: ['light-tree-node'],
+  classNames: ['x-tree-node'],
 
   actions: {
     updateCheckbox() {
