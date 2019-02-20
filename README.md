@@ -2,13 +2,7 @@
 
 Lightweight, composable tree component for Ember without any dependency.
 
-This is based on ember-simple-tree with non-compatible changes to enable
-customizeability and the ability to compose and substitute your own
-components.
-
-
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
 * Ember.js v2.16 or above
 * Ember CLI v2.13 or above
@@ -17,8 +11,7 @@ If you are using 0.5.x and would like to upgrade to 0.6.0, please note there
 are BREAKING CHANGES. For details, see (Upgrading)[UPGRADING.md].
 
 
-Installation
-------------------------------------------------------------------------------
+## Installation
 
 ```bash
 ember install ember-simple-tree
