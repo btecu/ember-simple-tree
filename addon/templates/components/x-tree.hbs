@@ -1,13 +1,17 @@
 {{#if hasBlock}}
   {{#x-tree-branch
-     checkable=checkable
-     recursiveCheck=recursiveCheck
-     chosenId=chosenId
-     onCheck=onCheck
-     onSelect=onSelect
-     onHover=onHover
-     onHoverOut=onHoverOut
-     model=model as |node|}}
+    checkable=checkable
+    recursiveCheck=recursiveCheck
+    chosenId=chosenId
+    onCheck=onCheck
+    onSelect=onSelect
+    onHover=onHover
+    onHoverOut=onHoverOut
+    model=model
+    expandedIcon=expandedIcon
+    collapsedIcon=collapsedIcon
+    as |node|
+  }}
     {{yield node}}
   {{/x-tree-branch}}
 {{else}}
@@ -19,5 +23,8 @@
     onCheck=onCheck
     onSelect=onSelect
     onHover=onHover
-    onHoverOut=onHoverOut}}
+    onHoverOut=onHoverOut
+    expandedIcon=expandedIcon
+    collapsedIcon=collapsedIcon
+  }}
 {{/if}}

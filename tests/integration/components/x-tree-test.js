@@ -1,24 +1,217 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find, findAll, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import Component from '@ember/component';
 
-moduleForComponent('x-tree', 'Integration | Component | x tree', {
-  integration: true
-});
+const standardTree = [{
+  id: 0,
+  name: 'Root',
+  isExpanded: true,
+  isSelected: false,
+  isVisible: true,
+  children: [
+    {
+      id: 1,
+      name: 'First Child',
+      isExpanded: true,
+      isSelected: false,
+      isVisible: true,
+      children: []
+    },
+    {
+      id: 2,
+      name: 'Second Child',
+      isExpanded: true,
+      isSelected: false,
+      isVisible: true,
+      children: [
+        {
+          id: 3,
+          name: 'First Grand Child',
+          isExpanded: true,
+          isSelected: false,
+          isVisible: true,
+          children: []
+        }
+      ]
+    }
+  ]
+}];
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+const collapsedTree = [{
+  id: 0,
+  name: 'Root',
+  isExpanded: false,
+  isSelected: false,
+  isVisible: true,
+  children: [
+    {
+      id: 1,
+      name: 'First Child',
+      isExpanded: false,
+      isSelected: false,
+      isVisible: true,
+      children: []
+    },
+    {
+      id: 2,
+      name: 'Second Child',
+      isExpanded: false,
+      isSelected: false,
+      isVisible: true,
+      children: [
+        {
+          id: 3,
+          name: 'First Grand Child',
+          isExpanded: false,
+          isSelected: true,
+          isVisible: true,
+          children: []
+        }
+      ]
+    }
+  ]
+}];
 
-  this.render(hbs`{{x-tree}}`);
+module('Integration | Component | x-tree', function(hooks) {
+  setupRenderingTest(hooks);
 
-  assert.equal(this.$().text().trim(), '');
+  test('it renders', async function(assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-  // Template block usage:
-  this.render(hbs`
-    {{#x-tree}}
-      template block text
-    {{/x-tree}}
-  `);
+    await render(hbs`{{x-tree}}`);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), '');
+
+    this.set('tree', [{
+      id: 1,
+      isVisible: true
+    }]);
+
+    // Template block usage:
+    await render(hbs`
+      {{#x-tree model=tree}}
+        template block text
+      {{/x-tree}}
+    `);
+
+    assert.equal(this.element.textContent.trim(), 'template block text');
+  });
+
+  test('it renders a standard tree', async function(assert) {
+    this.set('tree', standardTree);
+
+    await render(hbs`{{x-tree model=tree}}`);
+
+    assert.equal(findAll('.tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.tree-branch').length, 5, '5 branches rendered');
+
+    assert.equal(findAll('.tree-node')[0].querySelector('.tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.tree-node')[1].querySelector('.tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.tree-node')[2].querySelector('.tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.tree-node')[3].querySelector('.tree-label').textContent.trim(), 'First Grand Child');
+  });
+
+  test('checkable', async function(assert) {
+    this.set('tree', standardTree);
+
+    await render(hbs`{{x-tree model=tree checkable=true}}`);
+
+    assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
+    assert.equal(findAll('input[type=checkbox]:checked').length, 0, 'no checkboxes checked');
+  });
+
+  test('expands and collapses', async function(assert) {
+    this.set('tree', collapsedTree);
+
+    await render(hbs`{{x-tree model=tree}}`);
+
+    assert.equal(findAll('.tree-node').length, 1, '1 nodes rendered');
+
+    await click('.toggle-icon');
+
+    assert.equal(findAll('.tree-node').length, 3, '3 nodes rendered');
+
+    await click('.toggle-icon');
+
+    assert.equal(findAll('.tree-node').length, 1, '1 nodes rendered');
+  });
+
+  test('expand all', async function(assert) {
+    this.set('tree', collapsedTree);
+
+    await render(hbs`{{x-tree model=tree expandDepth=-1}}`);
+
+    assert.equal(findAll('.tree-node').length, 4, 'all nodes rendered');
+  });
+
+  test('recursive check', async function(assert) {
+    this.set('tree', standardTree);
+
+    await render(hbs`{{x-tree model=tree checkable=true recursiveCheck=true}}`);
+
+    assert.equal(findAll('input[type=checkbox]:checked').length, 0, 'no checkboxes checked');
+
+    await click('input[type=checkbox]');
+
+    assert.equal(findAll('input[type=checkbox]:checked').length, 4, 'all checkboxes checked');
+  });
+
+  test('can use alternate icon components via name', async function(assert) {
+    this.set('tree', standardTree);
+
+    this.owner.register('component:e-a', Component.extend({
+      layout: hbs`e`
+    }));
+    this.owner.register('component:c-a', Component.extend({
+      layout: hbs`c`
+    }));
+
+    await render(hbs`{{x-tree model=tree expandedIcon="e-a" collapsedIcon="c-a"}}`);
+
+    assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
+  });
+
+  test('can use alternate icon components passed in', async function(assert) {
+    this.set('tree', standardTree);
+
+    this.owner.register('component:e-a', Component.extend({
+      layout: hbs`e`
+    }));
+    this.owner.register('component:c-a', Component.extend({
+      layout: hbs`c`
+    }));
+
+    await render(hbs`{{x-tree model=tree expandedIcon=(component "e-a") collapsedIcon=(component "c-a")}}`);
+
+    assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
+  });
+
+  test('can use standard block form', async function(assert) {
+    this.set('tree', standardTree);
+
+    await render(hbs`
+      {{#x-tree
+        model=tree
+        checkable=true
+        as |node|
+      }}
+        {{node.toggle}}
+        {{node.checkbox}}
+        <span class="tree-label">{{node.model.name}}</span>
+      {{/x-tree}}
+    `);
+
+    assert.equal(findAll('.tree-node').length, 4, '4 nodes rendered');
+    assert.equal(findAll('.tree-branch').length, 5, '5 branches rendered');
+
+    assert.equal(findAll('.tree-node')[0].querySelector('.tree-label').textContent.trim(), 'Root');
+    assert.equal(findAll('.tree-node')[1].querySelector('.tree-label').textContent.trim(), 'First Child');
+    assert.equal(findAll('.tree-node')[2].querySelector('.tree-label').textContent.trim(), 'Second Child');
+    assert.equal(findAll('.tree-node')[3].querySelector('.tree-label').textContent.trim(), 'First Grand Child');
+
+    assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
+  });
 });

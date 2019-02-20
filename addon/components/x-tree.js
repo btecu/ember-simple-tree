@@ -7,6 +7,10 @@ export default Component.extend({
   layout,
   expandDepth: 0,
   recursiveCheck: false,
+  classNames: ['tree'],
+
+  expandedIcon: 'x-tree-expanded-icon',
+  collapsedIcon: 'x-tree-collapsed-icon',
 
   init() {
     this._super(...arguments);

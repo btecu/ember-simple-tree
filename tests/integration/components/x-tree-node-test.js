@@ -1,24 +1,26 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('x-tree-node', 'Integration | Component | x tree node', {
-  integration: true
-});
+module('Integration | Component | x-tree-node', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  test('it renders', async function(assert) {
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.set('myAction', function(val) { ... });
 
-  this.render(hbs`{{x-tree-node}}`);
+    await render(hbs`{{x-tree-node}}`);
 
-  assert.equal(this.$().text().trim(), '');
+    assert.equal(this.element.textContent.trim(), '');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#x-tree-node}}
-      template block text
-    {{/x-tree-node}}
-  `);
+    // Template block usage:
+    await render(hbs`
+      {{#x-tree-node}}
+        template block text
+      {{/x-tree-node}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.element.textContent.trim(), 'template block text');
+  });
 });

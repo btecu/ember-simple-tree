@@ -1,0 +1,11 @@
+<span role="button" class="toggle-icon" {{action toggleExpand bubbles=false}}>
+  {{#if model.children.length}}
+    {{#if model.isExpanded}}
+      {{component expandedIcon}}
+    {{else}}
+      {{component collapsedIcon}}
+    {{/if}}
+  {{else}}
+    &nbsp;&nbsp;
+  {{/if}}
+</span>

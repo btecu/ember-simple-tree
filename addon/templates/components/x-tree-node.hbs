@@ -1,25 +1,34 @@
-<span class="toggle-icon" {{action 'toggleExpand' bubbles=false}}>
-  {{#if model.children.length}}
-    {{#if model.isExpanded}}
-      &#x25BC;
-    {{else}}
-      &#x25B6;
-    {{/if}}
-  {{else}}
-    &nbsp;&nbsp;
-  {{/if}}
-</span>
-
-{{#if checkable}}
-  <span onclick={{action 'toggleCheck'}}>
-    {{input type="checkbox"
-      checked=model.isChecked
-      indeterminate=model.isIndeterminate }}
-  </span>
-{{/if}}
-
 {{#if hasBlock}}
-  {{yield model}}
+  {{yield
+    (hash
+      model=model
+      toggle=(component "x-tree-toggle"
+        model=model
+        toggleExpand=(action "toggleExpand")
+        expandedIcon=expandedIcon
+        collapsedIcon=collapsedIcon
+      )
+      checkbox=(component "x-tree-checkbox"
+        model=model
+        toggleCheck=(action "toggleCheck")
+      )
+    )
+  }}
 {{else}}
-  {{model.name}}
+  {{x-tree-toggle
+    model=model
+    toggleExpand=(action "toggleExpand")
+    expandedIcon=expandedIcon
+    collapsedIcon=collapsedIcon
+  }}
+
+  {{#if checkable}}
+    {{x-tree-checkbox
+      model=model
+      toggleCheck=(action "toggleCheck")
+    }}
+  {{/if}}
+  <span class="tree-label">
+    {{model.name}}
+  </span>
 {{/if}}

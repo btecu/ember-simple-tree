@@ -1,6 +1,15 @@
 # ember-simple-tree
 
-Simple tree component for Ember without any dependency.
+Lightweight, composable tree component for Ember without any dependency.
+
+## Compatibility
+
+* Ember.js v2.16 or above
+* Ember CLI v2.13 or above
+
+If you are using 0.5.x and would like to upgrade to 0.6.0, please note there
+are BREAKING CHANGES. For details, see (Upgrading)[UPGRADING.md].
+
 
 ## Installation
 
@@ -17,6 +26,19 @@ Basic example:
 {{x-tree model=tree}}
 ```
 
+Standard example:
+
+```handlebars
+{{#x-tree
+  model=tree
+  checkable=true
+  as |node|
+}}
+  {{node.toggle}}
+  {{node.checkbox}}
+  {{node.model.name}}
+{{/x-tree}}
+```
 
 ### Available actions
 
@@ -115,11 +137,41 @@ Accepts: `boolean`
 When enabled, checking a box will also check children's boxes as well. Also enables indeterminate state for checkboxes.
 Has no effect if `checkable` is not enabled.
 
+#### expandedIcon
+
+Default: `x-tree-expanded-icon`,
+
+Accepts: `string` or `Component`
+
+```handlebars
+{{x-tree model=tree expandedIcon=(component "my-expanded-icon-component")}}
+```
+or
+```handlebars
+{{x-tree model=tree expandedIcon="my-expanded-icon-component"}}
+```
+
+Component to use for expanded icon
+
+#### collapsedIcon
+
+Default: `x-tree-collapsed-icon`,
+
+Accepts: `string`
+
+```handlebars
+{{x-tree model=tree collapsedIcon=(component "my-collapsed-icon-component")}}
+```
+or
+```handlebars
+{{x-tree model=tree collapsedIcon="my-collapsed-icon-component"}}
+```
+
+Component to use for collapsed icon
+
 ### Blocks
 
 You may optionally pass a block to the `x-tree` component to render each node area with custom HTML.
-The node area is the area directly to the right of each arrow (and possibly checkbox) in the tree.
-The Node yields back the model for each area so that you can use attributes dynamically.
 
 ```handlebars
 {{#x-tree
@@ -127,9 +179,11 @@ The Node yields back the model for each area so that you can use attributes dyna
   checkable=isCheckable
   expandDepth=2
   onSelect=(action 'selectNode')
-  model=model as |node|}}
-    <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
-    {{node.name}}
+  model=model
+  as |node|
+}}
+  <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
+  {{node.model.name}}
 {{/x-tree}}
 ```
 

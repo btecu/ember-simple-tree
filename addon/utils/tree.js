@@ -74,7 +74,7 @@ export function getDescendents(tree, depth = -1) {
 // Returns a flat list of ancestors, including the child
 export function getAncestors(tree, childNode) {
   let ancestors = A();
-  let childId = childNode.get('id');
+  let childId = get(childNode, 'id');
 
   tree.forEach(node => {
     if (!ancestors.isAny('id', childId)) {
