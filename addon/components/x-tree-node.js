@@ -5,8 +5,8 @@ import layout from '../templates/components/x-tree-node';
 export default Component.extend({
   layout,
   classNameBindings: [
-    'model.isSelected:x-tree-highlight',
-    'isChosen:x-tree-chosen',
+    'model.isSelected:tree-highlight',
+    'isChosen:tree-chosen',
     'model.children.length:tree-children'
   ],
 
