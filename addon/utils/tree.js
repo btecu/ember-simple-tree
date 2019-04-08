@@ -33,6 +33,7 @@ export function buildTree(model, options = {}) {
     set(node, 'children', A());
     set(node, 'isVisible', get(node, 'isVisible') || true);
     set(node, 'isExpanded', get(node, 'isExpanded') || false);
+    set(node, 'isChecked', get(node, 'isChecked') || false);
 
     tree[get(node, 'id')] = node;
   });

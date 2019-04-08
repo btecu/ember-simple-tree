@@ -20,11 +20,11 @@ export default Component.extend({
     let select = this.get('onSelect');
     if (select) {
       let model = this.get('model');
-      let wasChecked = model.get('isChecked');
+      let wasChecked = model.isChecked;
 
       select(model);
 
-      let isChecked = model.get('isChecked');
+      let isChecked = model.isChecked;
       if (isChecked !== wasChecked && this.get('recursiveCheck')) {
         this.setChildCheckboxesRecursively(model, isChecked);
         this.updateCheckbox();
