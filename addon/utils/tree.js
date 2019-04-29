@@ -31,16 +31,16 @@ export function buildTree(model, options = {}) {
 
     // Defaults
     set(node, 'children', A());
-    set(node, 'isVisible', get(node, 'isVisible') || true);
-    set(node, 'isExpanded', get(node, 'isExpanded') || false);
+    set(node, 'isVisible', node.isVisible || true);
+    set(node, 'isExpanded', node.isExpanded || false);
 
-    tree[get(node, 'id')] = node;
+    tree[node.id] = node;
   });
 
   // Connect all children to their parent
   model.forEach(node => {
     let child = tree[get(node, options.valueKey || 'id')];
-    let parent = get(node, 'parentId');
+    let parent = node.parentId;
 
     if (isEmpty(parent)) {
       roots.pushObject(child);
@@ -74,7 +74,7 @@ export function getDescendents(tree, depth = -1) {
 // Returns a flat list of ancestors, including the child
 export function getAncestors(tree, childNode) {
   let ancestors = A();
-  let childId = get(childNode, 'id');
+  let childId = childNode.id;
 
   tree.forEach(node => {
     if (!ancestors.isAny('id', childId)) {
@@ -94,5 +94,5 @@ export function getAncestors(tree, childNode) {
 
 // Returns the parent of a child
 export function getParent(list, childNode) {
-  return list.find(x => x.children.find(y => y.id === childNode.get('id')));
+  return list.find(x => x.children.find(y => y.id === childNode.id));
 }

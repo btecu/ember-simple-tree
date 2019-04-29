@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../templates/components/x-tree-children';
-import { get, setProperties } from '@ember/object';
+import { setProperties } from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -9,9 +9,9 @@ export default Component.extend({
 
   actions: {
     updateCheckbox() {
-      if (this.get('recursiveCheck')) {
-        let model = this.get('model');
-        let children = get(model, 'children');
+      if (this.recursiveCheck) {
+        let model = this.model;
+        let children = model.children;
 
         if (children.length) {
           let isChecked = false;

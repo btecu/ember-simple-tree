@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, get, setProperties }  from '@ember/object';
+import { computed, set, setProperties }  from '@ember/object';
 import layout from '../templates/components/x-tree-node';
 
 export default Component.extend({
@@ -13,19 +13,19 @@ export default Component.extend({
   recursiveCheck: false,
 
   isChosen: computed('model.id', 'chosenId', function() {
-    return this.get('model.id') === this.get('chosenId');
+    return this.model.id === this.chosenId;
   }),
 
   click() {
-    let select = this.get('onSelect');
+    let select = this.onSelect;
     if (select) {
-      let model = this.get('model');
-      let wasChecked = model.get('isChecked');
+      let model = this.model;
+      let wasChecked = model.isChecked;
 
       select(model);
 
-      let isChecked = model.get('isChecked');
-      if (isChecked !== wasChecked && this.get('recursiveCheck')) {
+      let isChecked = model.isChecked;
+      if (isChecked !== wasChecked && this.recursiveCheck) {
         this.setChildCheckboxesRecursively(model, isChecked);
         this.updateCheckbox();
       }
@@ -33,25 +33,25 @@ export default Component.extend({
   },
 
   mouseEnter() {
-    this.set('model.isSelected', true);
+    set(this, 'model.isSelected', true);
 
-    let hover = this.get('onHover');
+    let hover = this.onHover;
     if (hover) {
-      hover(this.get('model'));
+      hover(this.model);
     }
   },
 
   mouseLeave() {
-    this.set('model.isSelected', false);
+    set(this, 'model.isSelected', false);
 
-    let hoverOut = this.get('onHoverOut');
+    let hoverOut = this.onHoverOut;
     if (hoverOut) {
-      hoverOut(this.get('model'));
+      hoverOut(this.model);
     }
   },
 
   setChildCheckboxesRecursively(node, isChecked) {
-    let children = get(node, 'children');
+    let children = node.children;
     if (children.length) {
       children.forEach(child => {
         setProperties(child, {
@@ -69,14 +69,14 @@ export default Component.extend({
       event.stopPropagation();
 
       let isChecked = this.toggleProperty('model.isChecked');
-      let model = this.get('model');
+      let model = this.model;
 
-      if (this.get('recursiveCheck')) {
+      if (this.recursiveCheck) {
         this.setChildCheckboxesRecursively(model, isChecked);
         this.updateCheckbox();
       }
 
-      let check = this.get('onCheck');
+      let check = this.onCheck;
       if (check) {
         check(model);
       }
