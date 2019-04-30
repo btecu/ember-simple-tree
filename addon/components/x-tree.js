@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from '../templates/components/x-tree';
 import { getDescendents, getAncestors } from '../utils/tree';
-import { set }  from '@ember/object';
+import { get, set }  from '@ember/object';
 
 export default Component.extend({
   layout,
@@ -14,15 +14,13 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    let tree = this.model;
 
     // Make sure chosen item is highlighted and expanded-to in the tree
-    let chosenId = this.chosenId;
-    if (chosenId) {
-      let chosen = getDescendents(tree).findBy('id', chosenId);
+    if (this.chosenId) {
+      let chosen = getDescendents(this.model).findBy('id', this.chosenId);
       if (chosen) {
-        getAncestors(tree, chosen).forEach(x => {
-          if (x.id !== chosenId) {
+        getAncestors(this.model, chosen).forEach(x => {
+          if (get(x, 'id') !== this.chosenId) {
             set(x, 'isExpanded', true);
           }
         });
@@ -30,9 +28,8 @@ export default Component.extend({
     }
 
     // Expand to given depth
-    let expandDepth = this.expandDepth;
-    if (expandDepth) {
-      getDescendents(tree, expandDepth).setEach('isExpanded', true);
+    if (this.expandDepth) {
+      getDescendents(this.model, this.expandDepth).setEach('isExpanded', true);
     }
   }
 });

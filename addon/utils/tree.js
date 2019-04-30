@@ -31,16 +31,16 @@ export function buildTree(model, options = {}) {
 
     // Defaults
     set(node, 'children', A());
-    set(node, 'isVisible', node.isVisible || true);
-    set(node, 'isExpanded', node.isExpanded || false);
+    set(node, 'isVisible', get(node, 'isVisible') || true);
+    set(node, 'isExpanded', get(node, 'isExpanded') || false);
 
-    tree[node.id] = node;
+    tree[get(node, 'id')] = node;
   });
 
   // Connect all children to their parent
   model.forEach(node => {
     let child = tree[get(node, options.valueKey || 'id')];
-    let parent = node.parentId;
+    let parent = get(node, 'parentId');
 
     if (isEmpty(parent)) {
       roots.pushObject(child);
@@ -59,12 +59,12 @@ export function getDescendents(tree, depth = -1) {
   if (depth < 0) { // Unlimited depth
     tree.forEach(node => {
       descendents.pushObject(node);
-      descendents.pushObjects(getDescendents(node.children));
+      descendents.pushObjects(getDescendents(get(node, 'children')));
     });
   } else if (depth > 0) {
     tree.forEach(node => {
       descendents.pushObject(node);
-      descendents.pushObjects(getDescendents(node.children, depth - 1));
+      descendents.pushObjects(getDescendents(get(node, 'children'), depth - 1));
     });
   }
 
@@ -74,14 +74,14 @@ export function getDescendents(tree, depth = -1) {
 // Returns a flat list of ancestors, including the child
 export function getAncestors(tree, childNode) {
   let ancestors = A();
-  let childId = childNode.id;
+  let childId = get(childNode, 'id');
 
   tree.forEach(node => {
     if (!ancestors.isAny('id', childId)) {
-      if (node.id === childId) {
+      if (get(node, 'id') === childId) {
         ancestors.pushObject(node);
-      } else if (node.children.length > 0) {
-        ancestors.pushObjects(getAncestors(node.children, childNode));
+      } else if (get(node, 'children.length') > 0) {
+        ancestors.pushObjects(getAncestors(get(node, 'children'), childNode));
         if (ancestors.length > 0) {
           ancestors.pushObject(node);
         }
@@ -94,5 +94,5 @@ export function getAncestors(tree, childNode) {
 
 // Returns the parent of a child
 export function getParent(list, childNode) {
-  return list.find(x => x.children.find(y => y.id === childNode.id));
+  return list.find(x => x.children.find(y => y.id === get(childNode, 'id')));
 }
