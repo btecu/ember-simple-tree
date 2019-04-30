@@ -14,15 +14,13 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    let tree = this.get('model');
 
     // Make sure chosen item is highlighted and expanded-to in the tree
-    let chosenId = this.get('chosenId');
-    if (chosenId) {
-      let chosen = getDescendents(tree).findBy('id', chosenId);
+    if (this.chosenId) {
+      let chosen = getDescendents(this.model).findBy('id', this.chosenId);
       if (chosen) {
-        getAncestors(tree, chosen).forEach(x => {
-          if (get(x, 'id') !== chosenId) {
+        getAncestors(this.model, chosen).forEach(x => {
+          if (get(x, 'id') !== this.chosenId) {
             set(x, 'isExpanded', true);
           }
         });
@@ -30,9 +28,8 @@ export default Component.extend({
     }
 
     // Expand to given depth
-    let expandDepth = this.get('expandDepth');
-    if (expandDepth) {
-      getDescendents(tree, expandDepth).setEach('isExpanded', true);
+    if (this.expandDepth) {
+      getDescendents(this.model, this.expandDepth).setEach('isExpanded', true);
     }
   }
 });

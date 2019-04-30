@@ -9,9 +9,8 @@ export default Component.extend({
 
   actions: {
     updateCheckbox() {
-      if (this.get('recursiveCheck')) {
-        let model = this.get('model');
-        let children = get(model, 'children');
+      if (this.recursiveCheck) {
+        let children = get(this, 'model.children');
 
         if (children.length) {
           let isChecked = false;
@@ -23,7 +22,7 @@ export default Component.extend({
             isIndeterminate = true;
           }
 
-          setProperties(model, { isChecked, isIndeterminate });
+          setProperties(this.model, { isChecked, isIndeterminate });
         }
 
         if (this.updateCheckbox) {
