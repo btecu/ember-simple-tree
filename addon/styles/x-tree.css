@@ -25,6 +25,11 @@
   opacity: 0.8;
 }
 
+.tree-node .tree-disabled {
+  color: #777;
+  cursor: not-allowed;
+}
+
 .tree-node .tree-highlight {
   background-color: #f2f9fc;
   color: #333;
