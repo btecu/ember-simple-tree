@@ -195,6 +195,7 @@ The model requires specific properties to properly function:
  - `name` - `string` used to display a node
  - `children` - `array` of other nodes
  - `isChecked` - `boolean` used for checkbox state
+ - `isDisabled` - `boolean` used to disable actions on a node (onSelect/onCheck)
  - `isExpanded` - `boolean` used to expand a node (children)
  - `isIndeterminate` - `boolean` used for checkbox "indeterminate" state
  - `isSelected` - `boolean` optionally used for hover state
