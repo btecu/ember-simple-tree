@@ -1,4 +1,5 @@
 import { module, test } from 'qunit';
+import { set }  from '@ember/object';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, findAll, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -7,6 +8,7 @@ import Component from '@ember/component';
 const standardTree = [{
   id: 0,
   name: 'Root',
+  isDisabled: false,
   isExpanded: true,
   isSelected: false,
   isVisible: true,
@@ -14,6 +16,7 @@ const standardTree = [{
     {
       id: 1,
       name: 'First Child',
+      isDisabled: false,
       isExpanded: true,
       isSelected: false,
       isVisible: true,
@@ -22,6 +25,7 @@ const standardTree = [{
     {
       id: 2,
       name: 'Second Child',
+      isDisabled: false,
       isExpanded: true,
       isSelected: false,
       isVisible: true,
@@ -29,6 +33,7 @@ const standardTree = [{
         {
           id: 3,
           name: 'First Grand Child',
+          isDisabled: false,
           isExpanded: true,
           isSelected: false,
           isVisible: true,
@@ -213,5 +218,27 @@ module('Integration | Component | x-tree', function(hooks) {
     assert.equal(findAll('.tree-node')[3].querySelector('.tree-label').textContent.trim(), 'First Grand Child');
 
     assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
+  });
+
+  test('can disable nodes', async function(assert) {
+    this.selected = false;
+    this.set('onSelect', () => {
+      this.selected = !this.selected;
+    });
+    this.set('tree', standardTree);
+
+    await render(hbs`{{x-tree model=tree onSelect=(action onSelect)}}`);
+    
+    await click('.tree-node span');
+
+    assert.equal(this.selected, true, 'tree nodes can be selected');
+    set(standardTree[0], 'isDisabled', true);
+
+    await click('.tree-node span');
+    assert.equal(this.selected, true, 'disabled tree nodes cannot be selected');
+    set(standardTree[0], 'isDisabled', false);
+
+    await click('.tree-node span');
+    assert.equal(this.selected, false, 're-enabled tree nodes can be selected again');
   });
 });

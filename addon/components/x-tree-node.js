@@ -5,6 +5,7 @@ import layout from '../templates/components/x-tree-node';
 export default Component.extend({
   layout,
   classNameBindings: [
+    'model.isDisabled:tree-disabled',
     'model.isSelected:tree-highlight',
     'isChosen:tree-chosen',
     'model.children.length:tree-children'
@@ -17,7 +18,7 @@ export default Component.extend({
   }),
 
   click() {
-    if (this.onSelect) {
+    if (this.onSelect && !get(this, 'model.isDisabled')) {
       let wasChecked = get(this, 'model.isChecked');
 
       this.onSelect(this.model);
@@ -31,7 +32,10 @@ export default Component.extend({
   },
 
   mouseEnter() {
-    set(this, 'model.isSelected', true);
+    if (!get(this, 'model.isDisabled')) {
+      set(this, 'model.isSelected', true);
+    }
+    
 
     if (this.onHover) {
       this.onHover(this.model);
@@ -63,16 +67,17 @@ export default Component.extend({
   actions: {
     toggleCheck(event) {
       event.stopPropagation();
-
-      let isChecked = this.toggleProperty('model.isChecked');
-
-      if (this.recursiveCheck) {
-        this.setChildCheckboxesRecursively(this.model, isChecked);
-        this.updateCheckbox();
-      }
-
-      if (this.onCheck) {
-        this.onCheck(this.model);
+      if (!get(this, 'model.isDisabled')) {
+        let isChecked = this.toggleProperty('model.isChecked');
+  
+        if (this.recursiveCheck) {
+          this.setChildCheckboxesRecursively(this.model, isChecked);
+          this.updateCheckbox();
+        }
+  
+        if (this.onCheck) {
+          this.onCheck(this.model);
+        }
       }
     },
 
