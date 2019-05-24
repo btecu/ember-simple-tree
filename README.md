@@ -6,6 +6,7 @@ Lightweight, composable tree component for Ember without any dependency.
 
 * Ember.js v2.16 or above
 * Ember CLI v2.13 or above
+* Node.js v8 or above
 
 If you are using 0.5.x and would like to upgrade to 0.6.0, please note there
 are BREAKING CHANGES. For details, see [Upgrading](UPGRADING.md).
