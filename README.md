@@ -83,6 +83,16 @@ Fired when a node is selected.
 {{x-tree model=tree onSelect=(action 'onSelect')}}
 ```
 
+#### onContextMenu
+
+Returns: `node`
+
+Fired on contextMenu event.
+
+```handlebars
+{{x-tree model=tree onContextMenu=(action 'onContextMenu')}}
+```
+
 ### Available options
 
 #### checkable

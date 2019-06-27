@@ -17,6 +17,13 @@ export default Component.extend({
     return get(this, 'model.id') === this.chosenId;
   }),
 
+  contextMenu(e) {
+    if (this.onContextMenu) {
+      e.preventDefault();
+      this.onContextMenu(this.model)
+    }
+  },
+
   click() {
     if (this.onSelect && !get(this, 'model.isDisabled')) {
       let wasChecked = get(this, 'model.isChecked');
