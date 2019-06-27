@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { set }  from '@ember/object';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll, click } from '@ember/test-helpers';
+import { render, find, findAll, click, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import Component from '@ember/component';
 
@@ -241,4 +241,18 @@ module('Integration | Component | x-tree', function(hooks) {
     await click('.tree-node span');
     assert.equal(this.selected, false, 're-enabled tree nodes can be selected again');
   });
+
+  test('contextmenu event', async function(assert) {
+    this.set('onContextMenu', (item) => {
+      this.name = item.name;
+    });
+    this.set('tree', standardTree);
+
+    await render(hbs`{{x-tree model=tree onContextMenu=onContextMenu}}`);
+    await triggerEvent('.tree-node span', 'contextmenu')
+
+    assert.equal(this.name, 'Root', 'item from contextmenu event is not returned as expected');
+
+  });
+
 });
