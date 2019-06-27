@@ -17,13 +17,6 @@ export default Component.extend({
     return get(this, 'model.id') === this.chosenId;
   }),
 
-  contextMenu(e) {
-    if (this.onContextMenu) {
-      e.preventDefault();
-      this.onContextMenu(this.model)
-    }
-  },
-
   click() {
     if (this.onSelect && !get(this, 'model.isDisabled')) {
       let wasChecked = get(this, 'model.isChecked');
@@ -38,11 +31,19 @@ export default Component.extend({
     }
   },
 
+
+  contextMenu(event) {
+    if (this.onContextMenu) {
+      event.preventDefault();
+      this.onContextMenu(this.model);
+    }
+  },
+
   mouseEnter() {
     if (!get(this, 'model.isDisabled')) {
       set(this, 'model.isSelected', true);
     }
-    
+
 
     if (this.onHover) {
       this.onHover(this.model);
@@ -76,12 +77,12 @@ export default Component.extend({
       event.stopPropagation();
       if (!get(this, 'model.isDisabled')) {
         let isChecked = this.toggleProperty('model.isChecked');
-  
+
         if (this.recursiveCheck) {
           this.setChildCheckboxesRecursively(this.model, isChecked);
           this.updateCheckbox();
         }
-  
+
         if (this.onCheck) {
           this.onCheck(this.model);
         }

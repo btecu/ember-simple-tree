@@ -53,6 +53,16 @@ Fired when a checkbox state changes.
 {{x-tree model=tree onCheck=(action 'onCheck')}}
 ```
 
+#### onContextMenu
+
+Returns: `node`
+
+Fired on contextMenu event.
+
+```handlebars
+{{x-tree model=tree onContextMenu=(action 'onContextMenu')}}
+```
+
 #### onHover
 
 Returns: `node`
@@ -81,16 +91,6 @@ Fired when a node is selected.
 
 ```handlebars
 {{x-tree model=tree onSelect=(action 'onSelect')}}
-```
-
-#### onContextMenu
-
-Returns: `node`
-
-Fired on contextMenu event.
-
-```handlebars
-{{x-tree model=tree onContextMenu=(action 'onContextMenu')}}
 ```
 
 ### Available options

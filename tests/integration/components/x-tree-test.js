@@ -228,7 +228,7 @@ module('Integration | Component | x-tree', function(hooks) {
     this.set('tree', standardTree);
 
     await render(hbs`{{x-tree model=tree onSelect=(action onSelect)}}`);
-    
+
     await click('.tree-node span');
 
     assert.equal(this.selected, true, 'tree nodes can be selected');
@@ -242,17 +242,13 @@ module('Integration | Component | x-tree', function(hooks) {
     assert.equal(this.selected, false, 're-enabled tree nodes can be selected again');
   });
 
-  test('contextmenu event', async function(assert) {
-    this.set('onContextMenu', (item) => {
-      this.name = item.name;
-    });
+  test('contextMenu event', async function(assert) {
+    this.set('onContextMenu', x => this.name = x.name);
     this.set('tree', standardTree);
 
     await render(hbs`{{x-tree model=tree onContextMenu=onContextMenu}}`);
     await triggerEvent('.tree-node span', 'contextmenu')
 
-    assert.equal(this.name, 'Root', 'item from contextmenu event is returned as expected');
-
+    assert.equal(this.name, 'Root', 'item from contextMenu event is returned as expected');
   });
-
 });
