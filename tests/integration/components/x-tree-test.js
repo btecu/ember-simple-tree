@@ -251,7 +251,7 @@ module('Integration | Component | x-tree', function(hooks) {
     await render(hbs`{{x-tree model=tree onContextMenu=onContextMenu}}`);
     await triggerEvent('.tree-node span', 'contextmenu')
 
-    assert.equal(this.name, 'Root', 'item from contextmenu event is not returned as expected');
+    assert.equal(this.name, 'Root', 'item from contextmenu event is returned as expected');
 
   });
 
