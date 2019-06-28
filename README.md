@@ -55,7 +55,7 @@ Fired when a checkbox state changes.
 
 #### onContextMenu
 
-Returns: `node`
+Returns: `node`, `event` 
 
 Fired on contextMenu event.
 
