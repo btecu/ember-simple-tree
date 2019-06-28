@@ -35,7 +35,7 @@ export default Component.extend({
   contextMenu(event) {
     if (this.onContextMenu) {
       event.preventDefault();
-      this.onContextMenu(this.model);
+      this.onContextMenu(this, event);
     }
   },
 
