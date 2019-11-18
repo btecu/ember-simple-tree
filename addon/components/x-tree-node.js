@@ -31,7 +31,6 @@ export default Component.extend({
     }
   },
 
-
   contextMenu(event) {
     if (this.onContextMenu) {
       event.preventDefault();
@@ -39,7 +38,21 @@ export default Component.extend({
     }
   },
 
-  mouseEnter() {
+  didInsertElement() {
+    this._super(...arguments);
+    this._handleMouseEnter = this.handleMouseEnter.bind(this);
+    this._handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.element.addEventListener('mouseenter', this._handleMouseEnter);
+    this.element.addEventListener('mouseleave', this._handleMouseLeave);
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.element.removeEventListener('mouseenter', this._handleMouseEnter);
+    this.element.removeEventListener('mouseleave', this._handleMouseLeave);
+  },
+
+  handleMouseEnter() {
     if (!get(this, 'model.isDisabled')) {
       set(this, 'model.isSelected', true);
     }
@@ -50,7 +63,7 @@ export default Component.extend({
     }
   },
 
-  mouseLeave() {
+  handleMouseLeave() {
     set(this, 'model.isSelected', false);
 
     if (this.onHoverOut) {
