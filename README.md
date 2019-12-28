@@ -47,11 +47,10 @@ Standard example:
 Ember Octane example:
 
 ```handlebars
-<XTree @model={{ this.content }} as |node|>
+<XTree @model={{this.content}} as |node|>
   {{node.toggle}}
   {{node.checkbox}}
   {{node.model.name}}
-
 </XTree>
 ```
 
