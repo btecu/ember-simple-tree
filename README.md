@@ -44,6 +44,16 @@ Standard example:
 {{/x-tree}}
 ```
 
+Ember Octane example:
+
+```handlebars
+<XTree @model={{this.content}} as |node|>
+  {{node.toggle}}
+  {{node.checkbox}}
+  {{node.model.name}}
+</XTree>
+```
+
 ### Available actions
 
 #### onCheck
