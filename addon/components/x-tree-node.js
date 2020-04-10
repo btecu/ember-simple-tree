@@ -1,5 +1,6 @@
+/* eslint-disable ember/no-get */
 import Component from '@ember/component';
-import { computed, get, set, setProperties }  from '@ember/object';
+import { computed, get, set, setProperties } from '@ember/object';
 import layout from '../templates/components/x-tree-node';
 
 export default Component.extend({

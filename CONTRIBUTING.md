@@ -3,14 +3,14 @@
 ## Installation
 
 * `git clone https://github.com/btecu/ember-simple-tree`
-* `cd my-addon`
-* `npm install`
+* `cd ember-simple-tree`
+* `yarn install`
 
 ## Linting
 
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+* `yarn lint:hbs`
+* `yarn lint:js`
+* `yarn lint:js --fix`
 
 ## Running tests
 
