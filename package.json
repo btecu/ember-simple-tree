@@ -1,6 +1,6 @@
 {
   "name": "ember-simple-tree",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "Lightweight, composable tree component for Ember",
   "keywords": [
     "ember-addon",
