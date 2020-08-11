@@ -6,6 +6,7 @@ import { get, set }  from '@ember/object';
 export default Component.extend({
   layout,
   expandDepth: 0,
+  lazyRenderChildren: false,
   recursiveCheck: false,
   classNames: ['tree'],
 

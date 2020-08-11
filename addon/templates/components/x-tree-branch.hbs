@@ -3,6 +3,7 @@
     {{#if hasBlock}}
       {{#x-tree-children
         checkable=checkable
+        lazyRenderChildren=lazyRenderChildren
         recursiveCheck=recursiveCheck
         updateCheckbox=updateCheckbox
         chosenId=chosenId
@@ -22,6 +23,7 @@
       {{x-tree-children
         model=child
         checkable=checkable
+        lazyRenderChildren=lazyRenderChildren
         recursiveCheck=recursiveCheck
         updateCheckbox=updateCheckbox
         chosenId=chosenId

@@ -18,23 +18,26 @@
   {{/x-tree-node}}
 
   {{#if model.isExpanded}}
-    {{#x-tree-branch
-      checkable=checkable
-      recursiveCheck=recursiveCheck
-      updateCheckbox=(action "updateCheckbox")
-      chosenId=chosenId
-      onCheck=onCheck
-      onContextMenu=onContextMenu
-      onSelect=onSelect
-      onHover=onHover
-      onHoverOut=onHoverOut
-      model=model.children
-      expandedIcon=expandedIcon
-      collapsedIcon=collapsedIcon
-      as |node|
-    }}
-      {{yield node}}
-    {{/x-tree-branch}}
+    {{#if renderChildren}}
+      {{#x-tree-branch
+        checkable=checkable
+        lazyRenderChildren=lazyRenderChildren
+        recursiveCheck=recursiveCheck
+        updateCheckbox=(action "updateCheckbox")
+        chosenId=chosenId
+        onCheck=onCheck
+        onContextMenu=onContextMenu
+        onSelect=onSelect
+        onHover=onHover
+        onHoverOut=onHoverOut
+        model=model.children
+        expandedIcon=expandedIcon
+        collapsedIcon=collapsedIcon
+        as |node|
+      }}
+        {{yield node}}
+      {{/x-tree-branch}}
+    {{/if}}
   {{/if}}
 {{else}}
   {{x-tree-node
@@ -52,19 +55,22 @@
     collapsedIcon=collapsedIcon
   }}
   {{#if model.isExpanded}}
-    {{x-tree-branch
-      model=model.children
-      checkable=checkable
-      recursiveCheck=recursiveCheck
-      updateCheckbox=(action "updateCheckbox")
-      chosenId=chosenId
-      onCheck=onCheck
-      onContextMenu=onContextMenu
-      onSelect=onSelect
-      onHover=onHover
-      onHoverOut=onHoverOut
-      expandedIcon=expandedIcon
-      collapsedIcon=collapsedIcon
-    }}
+    {{#if renderChildren}}
+      {{x-tree-branch
+        model=model.children
+        checkable=checkable
+        lazyRenderChildren=lazyRenderChildren
+        recursiveCheck=recursiveCheck
+        updateCheckbox=(action "updateCheckbox")
+        chosenId=chosenId
+        onCheck=onCheck
+        onContextMenu=onContextMenu
+        onSelect=onSelect
+        onHover=onHover
+        onHoverOut=onHoverOut
+        expandedIcon=expandedIcon
+        collapsedIcon=collapsedIcon
+      }}
+    {{/if}}
   {{/if}}
 {{/if}}

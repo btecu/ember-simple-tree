@@ -56,18 +56,20 @@ export function buildTree(model, options = {}) {
 }
 
 // Returns a flat list of all descenents, including the root
-export function getDescendents(tree, depth = -1) {
+export function getDescendents(tree, depth = -1, nodeDepth = 0) {
   let descendents = A();
 
   if (depth < 0) { // Unlimited depth
     tree.forEach(node => {
+      node.nodeDepth = nodeDepth;
       descendents.pushObject(node);
-      descendents.pushObjects(getDescendents(get(node, 'children')));
+      descendents.pushObjects(getDescendents(get(node, 'children'), -1, nodeDepth + 1));
     });
   } else if (depth > 0) {
     tree.forEach(node => {
+      node.nodeDepth = nodeDepth;
       descendents.pushObject(node);
-      descendents.pushObjects(getDescendents(get(node, 'children'), depth - 1));
+      descendents.pushObjects(getDescendents(get(node, 'children'), depth - 1, nodeDepth + 1));
     });
   }
 
