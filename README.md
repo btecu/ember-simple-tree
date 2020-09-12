@@ -58,7 +58,7 @@ Ember Octane example:
 
 #### onCheck
 
-Returns: `node`
+Returns: `node.model`
 
 Fired when a checkbox state changes.
 
@@ -68,7 +68,7 @@ Fired when a checkbox state changes.
 
 #### onContextMenu
 
-Returns: `node`
+Returns: `node`, `event` 
 
 Fired on contextMenu event.
 
@@ -78,7 +78,7 @@ Fired on contextMenu event.
 
 #### onHover
 
-Returns: `node`
+Returns: `node.model`
 
 Fired when a mouse enters the node.
 
@@ -88,7 +88,7 @@ Fired when a mouse enters the node.
 
 #### onHoverOut
 
-Returns: `node`
+Returns: `node.model`
 
 Fired when a mouse leaves the node.
 
@@ -98,7 +98,7 @@ Fired when a mouse leaves the node.
 
 #### onSelect
 
-Returns: `node`
+Returns: `node.model`
 
 Fired when a node is selected.
 

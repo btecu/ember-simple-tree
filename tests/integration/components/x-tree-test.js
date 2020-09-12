@@ -243,12 +243,16 @@ module('Integration | Component | x-tree', function(hooks) {
   });
 
   test('contextMenu event', async function(assert) {
-    this.set('onContextMenu', x => this.name = x.name);
+    this.set('onContextMenu', (x, event) => {
+      this.name = x.model.name;
+      this.targetTagName = event.target.tagName;
+    });
     this.set('tree', standardTree);
 
     await render(hbs`{{x-tree model=tree onContextMenu=onContextMenu}}`);
     await triggerEvent('.tree-node span', 'contextmenu')
 
     assert.equal(this.name, 'Root', 'item from contextMenu event is returned as expected');
+    assert.equal(this.targetTagName, 'SPAN', 'contextMenu event hit a span element');
   });
 });
