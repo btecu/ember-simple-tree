@@ -1,38 +1,38 @@
-{{#each model as |child|}}
+{{#each @model as |child|}}
   {{#if child.isVisible}}
-    {{#if hasBlock}}
-      {{#x-tree-children
-        checkable=checkable
-        recursiveCheck=recursiveCheck
-        updateCheckbox=updateCheckbox
-        chosenId=chosenId
-        onCheck=onCheck
-        onContextMenu=onContextMenu
-        onSelect=onSelect
-        onHover=onHover
-        onHoverOut=onHoverOut
-        model=child
-        expandedIcon=expandedIcon
-        collapsedIcon=collapsedIcon
+    {{#if (has-block)}}
+      <XTreeChildren
+        @checkable={{@checkable}}
+        @recursiveCheck={{@recursiveCheck}}
+        @updateCheckbox={{@updateCheckbox}}
+        @chosenId={{@chosenId}}
+        @onCheck={{@onCheck}}
+        @onContextMenu={{@onContextMenu}}
+        @onSelect={{@onSelect}}
+        @onHover={{@onHover}}
+        @onHoverOut={{@onHoverOut}}
+        @model={{child}}
+        @expandedIcon={{@expandedIcon}}
+        @collapsedIcon={{@collapsedIcon}}
         as |node|
-      }}
+      >
         {{yield node}}
-      {{/x-tree-children}}
+      </XTreeChildren>
     {{else}}
-      {{x-tree-children
-        model=child
-        checkable=checkable
-        recursiveCheck=recursiveCheck
-        updateCheckbox=updateCheckbox
-        chosenId=chosenId
-        onCheck=onCheck
-        onContextMenu=onContextMenu
-        onSelect=onSelect
-        onHover=onHover
-        onHoverOut=onHoverOut
-        expandedIcon=expandedIcon
-        collapsedIcon=collapsedIcon
-      }}
+      <XTreeChildren
+        @model={{child}}
+        @checkable={{@checkable}}
+        @recursiveCheck={{@recursiveCheck}}
+        @updateCheckbox={{@updateCheckbox}}
+        @chosenId={{@chosenId}}
+        @onCheck={{@onCheck}}
+        @onContextMenu={{@onContextMenu}}
+        @onSelect={{@onSelect}}
+        @onHover={{@onHover}}
+        @onHoverOut={{@onHoverOut}}
+        @expandedIcon={{@expandedIcon}}
+        @collapsedIcon={{@collapsedIcon}}
+      />
     {{/if}}
   {{/if}}
 {{/each}}

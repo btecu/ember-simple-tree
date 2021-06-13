@@ -1,70 +1,70 @@
-{{#if hasBlock}}
-  {{#x-tree-node
-    checkable=checkable
-    recursiveCheck=recursiveCheck
-    updateCheckbox=(action "updateCheckbox")
-    chosenId=chosenId
-    onCheck=onCheck
-    onContextMenu=onContextMenu
-    onSelect=onSelect
-    onHover=onHover
-    onHoverOut=onHoverOut
-    model=model
-    expandedIcon=expandedIcon
-    collapsedIcon=collapsedIcon
+{{#if (has-block)}}
+  <XTreeNode
+    @checkable={{@checkable}}
+    @recursiveCheck={{@recursiveCheck}}
+    @updateCheckbox={{action "updateCheckbox"}}
+    @chosenId={{@chosenId}}
+    @onCheck={{@onCheck}}
+    @onContextMenu={{@onContextMenu}}
+    @onSelect={{@onSelect}}
+    @onHover={{@onHover}}
+    @onHoverOut={{@onHoverOut}}
+    @model={{@model}}
+    @expandedIcon={{@expandedIcon}}
+    @collapsedIcon={{@collapsedIcon}}
     as |node|
-  }}
+  >
     {{yield node}}
-  {{/x-tree-node}}
+  </XTreeNode>
 
-  {{#if model.isExpanded}}
-    {{#x-tree-branch
-      checkable=checkable
-      recursiveCheck=recursiveCheck
-      updateCheckbox=(action "updateCheckbox")
-      chosenId=chosenId
-      onCheck=onCheck
-      onContextMenu=onContextMenu
-      onSelect=onSelect
-      onHover=onHover
-      onHoverOut=onHoverOut
-      model=model.children
-      expandedIcon=expandedIcon
-      collapsedIcon=collapsedIcon
+  {{#if @model.isExpanded}}
+    <XTreeBranch
+      @checkable={{@checkable}}
+      @recursiveCheck={{@recursiveCheck}}
+      @updateCheckbox={{action "updateCheckbox"}}
+      @chosenId={{@chosenId}}
+      @onCheck={{@onCheck}}
+      @onContextMenu={{@onContextMenu}}
+      @onSelect={{@onSelect}}
+      @onHover={{@onHover}}
+      @onHoverOut={{@onHoverOut}}
+      @model={{@model.children}}
+      @expandedIcon={{@expandedIcon}}
+      @collapsedIcon={{@collapsedIcon}}
       as |node|
-    }}
+    >
       {{yield node}}
-    {{/x-tree-branch}}
+    </XTreeBranch>
   {{/if}}
 {{else}}
-  {{x-tree-node
-    model=model
-    checkable=checkable
-    recursiveCheck=recursiveCheck
-    updateCheckbox=(action "updateCheckbox")
-    chosenId=chosenId
-    onCheck=onCheck
-    onContextMenu=onContextMenu
-    onSelect=onSelect
-    onHover=onHover
-    onHoverOut=onHoverOut
-    expandedIcon=expandedIcon
-    collapsedIcon=collapsedIcon
-  }}
-  {{#if model.isExpanded}}
-    {{x-tree-branch
-      model=model.children
-      checkable=checkable
-      recursiveCheck=recursiveCheck
-      updateCheckbox=(action "updateCheckbox")
-      chosenId=chosenId
-      onCheck=onCheck
-      onContextMenu=onContextMenu
-      onSelect=onSelect
-      onHover=onHover
-      onHoverOut=onHoverOut
-      expandedIcon=expandedIcon
-      collapsedIcon=collapsedIcon
-    }}
+  <XTreeNode
+    @model={{@model}}
+    @checkable={{@checkable}}
+    @recursiveCheck={{@recursiveCheck}}
+    @updateCheckbox={{action "updateCheckbox"}}
+    @chosenId={{@chosenId}}
+    @onCheck={{@onCheck}}
+    @onContextMenu={{@onContextMenu}}
+    @onSelect={{@onSelect}}
+    @onHover={{@onHover}}
+    @onHoverOut={{@onHoverOut}}
+    @expandedIcon={{@expandedIcon}}
+    @collapsedIcon={{@collapsedIcon}}
+  />
+  {{#if @model.isExpanded}}
+    <XTreeBranch
+      @model={{@model.children}}
+      @checkable={{@checkable}}
+      @recursiveCheck={{@recursiveCheck}}
+      @updateCheckbox={{action "updateCheckbox"}}
+      @chosenId={{@chosenId}}
+      @onCheck={{@onCheck}}
+      @onContextMenu={{@onContextMenu}}
+      @onSelect={{@onSelect}}
+      @onHover={{@onHover}}
+      @onHoverOut={{@onHoverOut}}
+      @expandedIcon={{@expandedIcon}}
+      @collapsedIcon={{@collapsedIcon}}
+    />
   {{/if}}
 {{/if}}

@@ -10,15 +10,15 @@ module('Integration | Component | x-tree-children', function(hooks) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`{{x-tree-children}}`);
+    await render(hbs`<XTreeChildren />`);
 
     assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
-      {{#x-tree-children}}
+      <XTreeChildren>
         template block text
-      {{/x-tree-children}}
+      </XTreeChildren>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

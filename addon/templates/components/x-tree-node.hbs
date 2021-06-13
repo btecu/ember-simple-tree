@@ -1,34 +1,34 @@
-{{#if hasBlock}}
+{{#if (has-block)}}
   {{yield
     (hash
-      model=model
+      model=@model
       toggle=(component "x-tree-toggle"
-        model=model
+        model=@model
         toggleExpand=(action "toggleExpand")
-        expandedIcon=expandedIcon
-        collapsedIcon=collapsedIcon
+        expandedIcon=@expandedIcon
+        collapsedIcon=@collapsedIcon
       )
       checkbox=(component "x-tree-checkbox"
-        model=model
+        model=@model
         toggleCheck=(action "toggleCheck")
       )
     )
   }}
 {{else}}
-  {{x-tree-toggle
-    model=model
-    toggleExpand=(action "toggleExpand")
-    expandedIcon=expandedIcon
-    collapsedIcon=collapsedIcon
-  }}
+  <XTreeToggle
+    @model={{@model}}
+    @toggleExpand={{action "toggleExpand"}}
+    @expandedIcon={{@expandedIcon}}
+    @collapsedIcon={{@collapsedIcon}}
+  />
 
-  {{#if checkable}}
-    {{x-tree-checkbox
-      model=model
-      toggleCheck=(action "toggleCheck")
-    }}
+  {{#if @checkable}}
+    <XTreeCheckbox
+      @model={{@model}}
+      @toggleCheck={{action "toggleCheck"}}
+    />
   {{/if}}
   <span class="tree-label">
-    {{model.name}}
+    {{@model.name}}
   </span>
 {{/if}}
