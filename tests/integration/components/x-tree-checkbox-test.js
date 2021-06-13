@@ -11,9 +11,10 @@ module('Integration | Component | x-tree-checkbox', function(hooks) {
     this.set('toggleCheck', () => {
       this.checked = !this.checked;
     });
+
     this.set('model', {});
 
-    await render(hbs`<XTreeCheckbox @model={{this.model.model}} @toggleCheck={{action this.toggleCheck}} />`);
+    await render(hbs`<XTreeCheckbox @model={{this.model}} @toggleCheck={{action this.toggleCheck}} />`);
 
     assert.equal(this.checked, false);
     
