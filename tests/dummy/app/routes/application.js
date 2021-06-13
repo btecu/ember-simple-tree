@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class ApplicationRoute extends Route {
   model() {
     return [{
       id: 1,
@@ -20,4 +20,4 @@ export default Route.extend({
       name: 'Grand Child'
     }];
   }
-});
+}

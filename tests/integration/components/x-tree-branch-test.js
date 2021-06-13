@@ -7,10 +7,7 @@ module('Integration | Component | x-tree-branch', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`{{x-tree-branch}}`);
+    await render(hbs`<XTreeBranch />`);
 
     assert.equal(this.element.textContent.trim(), '');
 
@@ -21,9 +18,9 @@ module('Integration | Component | x-tree-branch', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#x-tree-branch model=tree}}
+      <XTreeBranch @model={{this.tree}}>
         template block text
-      {{/x-tree-branch}}
+      </XTreeBranch>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

@@ -1,0 +1,34 @@
+<div class="tree">
+  {{#if (has-block)}}
+    <XTreeBranch
+      @checkable={{@checkable}}
+      @recursiveCheck={{@recursiveCheck}}
+      @chosenId={{@chosenId}}
+      @onCheck={{@onCheck}}
+      @onContextMenu={{@onContextMenu}}
+      @onSelect={{@onSelect}}
+      @onHover={{@onHover}}
+      @onHoverOut={{@onHoverOut}}
+      @model={{@model}}
+      @expandedIcon={{this.expandedIcon}}
+      @collapsedIcon={{this.collapsedIcon}}
+      as |node|
+    >
+      {{yield node}}
+    </XTreeBranch>
+  {{else}}
+    <XTreeBranch
+      @model={{@model}}
+      @checkable={{@checkable}}
+      @recursiveCheck={{@recursiveCheck}}
+      @chosenId={{@chosenId}}
+      @onCheck={{@onCheck}}
+      @onContextMenu={{@onContextMenu}}
+      @onSelect={{@onSelect}}
+      @onHover={{@onHover}}
+      @onHoverOut={{@onHoverOut}}
+      @expandedIcon={{this.expandedIcon}}
+      @collapsedIcon={{this.collapsedIcon}}
+    />
+  {{/if}}
+</div>

@@ -1,14 +1,14 @@
 <h1> Simple Tree Demo </h1>
 
 <blockquote>
-  {{#x-tree
-    model=tree
-    checkable=true
-    expandDepth=-1
+  <XTree
+    @model={{this.tree}}
+    @checkable={{true}}
+    @expandDepth={{-1}}
     as |node|
-  }}
+  >
     {{node.toggle}}
     {{node.checkbox}}
     {{node.model.name}}
-  {{/x-tree}}
+  </XTree>
 </blockquote>

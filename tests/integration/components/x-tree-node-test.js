@@ -6,35 +6,18 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | x-tree-node', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`{{x-tree-node}}`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      {{#x-tree-node}}
-        template block text
-      {{/x-tree-node}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
-
   test('select event', async function(assert) {
     this.selected = false;
     this.model = {
       name: 'a',
       children: []
     };
+
     this.set('onSelect', () => {
       this.selected = !this.selected;
     });
 
-    await render(hbs`{{x-tree-node model=model onSelect=(action onSelect)}}`);
+    await render(hbs`<XTreeNode @model={{this.model}} @onSelect={{action this.onSelect}} />`);
 
     await click('.tree-toggle');
 
@@ -51,11 +34,12 @@ module('Integration | Component | x-tree-node', function(hooks) {
       name: 'a',
       children: []
     };
+
     this.set('onContextMenu', () => {
       this.rightClicked = true;
     });
 
-    await render(hbs`{{x-tree-node model=model onContextMenu=(action onContextMenu)}}`);
+    await render(hbs`<XTreeNode @model={{this.model}} @onContextMenu={{action this.onContextMenu}} />`);
 
     await triggerEvent('.tree-toggle', 'contextmenu');
 
@@ -68,14 +52,22 @@ module('Integration | Component | x-tree-node', function(hooks) {
       name: 'a',
       children: []
     };
+
     this.set('onHover', () => {
       this.hovering = true;
     });
+
     this.set('onHoverOut', () => {
       this.hovering = false;
     });
 
-    await render(hbs`{{x-tree-node model=model onHover=(action onHover) onHoverOut=(action onHoverOut)}}`);
+    await render(hbs`
+      <XTreeNode
+        @model={{this.model}}
+        @onHover={{action this.onHover}}
+        @onHoverOut={{action this.onHoverOut}}
+      />
+    `);
 
     await triggerEvent('.tree-toggle', 'mouseenter');
 

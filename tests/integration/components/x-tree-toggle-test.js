@@ -13,11 +13,11 @@ module('Integration | Component | x-tree-toggle', function(hooks) {
     });
 
     await render(hbs`
-      {{x-tree-toggle
-        toggleExpand=(action toggleExpand)
-        expandedIcon="x-tree-expanded-icon"
-        collapsedIcon="x-tree-collapsed-icon"
-      }}`);
+      <XTreeToggle
+        @toggleExpand={{action this.toggleExpand}}
+        @expandedIcon="x-tree-expanded-icon"
+        @collapsedIcon="x-tree-collapsed-icon"
+      />`);
 
     assert.equal(this.element.textContent.trim(), '');
     assert.equal(this.expanded, false);

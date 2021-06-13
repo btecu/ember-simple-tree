@@ -1,3 +1,6 @@
+/* eslint-disable ember/no-classic-components */
+/* eslint-disable ember/no-classic-classes */
+
 import { module, test } from 'qunit';
 import { set }  from '@ember/object';
 import { setupRenderingTest } from 'ember-qunit';
@@ -83,10 +86,7 @@ module('Integration | Component | x-tree', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`{{x-tree}}`);
+    await render(hbs`<XTree />`);
 
     assert.equal(this.element.textContent.trim(), '');
 
@@ -97,9 +97,9 @@ module('Integration | Component | x-tree', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      {{#x-tree model=tree}}
+      <XTree @model={{this.tree}}>
         template block text
-      {{/x-tree}}
+      </XTree>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');
@@ -108,7 +108,7 @@ module('Integration | Component | x-tree', function(hooks) {
   test('it renders a standard tree', async function(assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`{{x-tree model=tree}}`);
+    await render(hbs`<XTree @model={{this.tree}} />`);
 
     assert.equal(findAll('.tree-node').length, 4, '4 nodes rendered');
     assert.equal(findAll('.tree-branch').length, 5, '5 branches rendered');
@@ -122,7 +122,7 @@ module('Integration | Component | x-tree', function(hooks) {
   test('checkable', async function(assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`{{x-tree model=tree checkable=true}}`);
+    await render(hbs`<XTree @model={{this.tree}} @checkable={{true}} />`);
 
     assert.equal(findAll('input[type=checkbox]').length, 4, '4 checkboxes, one for each node');
     assert.equal(findAll('input[type=checkbox]:checked').length, 0, 'no checkboxes checked');
@@ -131,7 +131,7 @@ module('Integration | Component | x-tree', function(hooks) {
   test('expands and collapses', async function(assert) {
     this.set('tree', collapsedTree);
 
-    await render(hbs`{{x-tree model=tree}}`);
+    await render(hbs`<XTree @model={{this.tree}} />`);
 
     assert.equal(findAll('.tree-node').length, 1, '1 nodes rendered');
 
@@ -147,7 +147,7 @@ module('Integration | Component | x-tree', function(hooks) {
   test('expand all', async function(assert) {
     this.set('tree', collapsedTree);
 
-    await render(hbs`{{x-tree model=tree expandDepth=-1}}`);
+    await render(hbs`<XTree @model={{this.tree}} @expandDepth={{-1}} />`);
 
     assert.equal(findAll('.tree-node').length, 4, 'all nodes rendered');
   });
@@ -155,7 +155,7 @@ module('Integration | Component | x-tree', function(hooks) {
   test('recursive check', async function(assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`{{x-tree model=tree checkable=true recursiveCheck=true}}`);
+    await render(hbs`<XTree @model={{this.tree}} @checkable={{true}} @recursiveCheck={{true}} />`);
 
     assert.equal(findAll('input[type=checkbox]:checked').length, 0, 'no checkboxes checked');
 
@@ -174,7 +174,7 @@ module('Integration | Component | x-tree', function(hooks) {
       layout: hbs`c`
     }));
 
-    await render(hbs`{{x-tree model=tree expandedIcon="e-a" collapsedIcon="c-a"}}`);
+    await render(hbs`<XTree @model={{this.tree}} @expandedIcon="e-a" collapsedIcon="c-a" />`);
 
     assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
   });
@@ -189,7 +189,13 @@ module('Integration | Component | x-tree', function(hooks) {
       layout: hbs`c`
     }));
 
-    await render(hbs`{{x-tree model=tree expandedIcon=(component "e-a") collapsedIcon=(component "c-a")}}`);
+    await render(hbs`
+      <XTree
+        @model={{this.tree}}
+        @expandedIcon={{component "e-a"}}
+        @collapsedIcon={{component "c-a"}}
+      />
+    `);
 
     assert.equal(find('.toggle-icon').textContent.trim(), 'e', 'alternate icon displayed');
   });
@@ -198,15 +204,15 @@ module('Integration | Component | x-tree', function(hooks) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      {{#x-tree
-        model=tree
-        checkable=true
+      <XTree
+        @model={{this.tree}}
+        @checkable={{true}}
         as |node|
-      }}
+      >
         {{node.toggle}}
         {{node.checkbox}}
         <span class="tree-label">{{node.model.name}}</span>
-      {{/x-tree}}
+      </XTree>
     `);
 
     assert.equal(findAll('.tree-node').length, 4, '4 nodes rendered');
@@ -227,7 +233,7 @@ module('Integration | Component | x-tree', function(hooks) {
     });
     this.set('tree', standardTree);
 
-    await render(hbs`{{x-tree model=tree onSelect=(action onSelect)}}`);
+    await render(hbs`<XTree @model={{this.tree}} @onSelect={{action this.onSelect}} />`);
 
     await click('.tree-node span');
 
@@ -246,7 +252,7 @@ module('Integration | Component | x-tree', function(hooks) {
     this.set('onContextMenu', x => this.name = x.name);
     this.set('tree', standardTree);
 
-    await render(hbs`{{x-tree model=tree onContextMenu=onContextMenu}}`);
+    await render(hbs`<XTree @model={{this.tree}} @onContextMenu={{this.onContextMenu}} />`);
     await triggerEvent('.tree-node span', 'contextmenu')
 
     assert.equal(this.name, 'Root', 'item from contextMenu event is returned as expected');
