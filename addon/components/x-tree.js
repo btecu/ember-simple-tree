@@ -1,10 +1,8 @@
 import Component from '@ember/component';
-import layout from '../templates/components/x-tree';
 import { getDescendents, getAncestors } from '../utils/tree';
 import { get, set }  from '@ember/object';
 
 export default Component.extend({
-  layout,
   expandDepth: 0,
   recursiveCheck: false,
   classNames: ['tree'],
