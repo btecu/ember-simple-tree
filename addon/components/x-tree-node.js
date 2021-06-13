@@ -1,74 +1,97 @@
 /* eslint-disable ember/no-get */
-import Component from '@ember/component';
-import { computed, get, set, setProperties } from '@ember/object';
+import Component from '@glimmer/component';
+import { action, get, set, setProperties } from '@ember/object';
 
-export default Component.extend({
-  classNameBindings: [
-    'model.isDisabled:tree-disabled',
-    'model.isSelected:tree-highlight',
-    'isChosen:tree-chosen',
-    'model.children.length:tree-children'
-  ],
+export default class TreeNodeComponent extends Component {
+  get classes() {
+    let classes = [];
+    let { isDisabled, isSelected, id, children } = this.args.model;
 
-  recursiveCheck: false,
+    if (isDisabled) {
+      classes.push('tree-disabled');
+    }
 
-  isChosen: computed('model.id', 'chosenId', function() {
-    return get(this, 'model.id') === this.chosenId;
-  }),
+    if (isSelected) {
+      classes.push('tree-highlight');
+    }
 
+    if (id === this.chosenId) {
+      classes.push('tree-chosen');
+    }
+
+    if (children?.length > 0) {
+      classes.push('tree-children');
+    }
+
+    return classes.join(' ');
+  }
+
+  @action
   click() {
-    if (this.onSelect && !get(this, 'model.isDisabled')) {
-      let wasChecked = get(this, 'model.isChecked');
+    if (this.args.onSelect && !get(this.args.model, 'isDisabled')) {
+      let wasChecked = get(this.args.model, 'isChecked');
 
-      this.onSelect(this.model);
+      this.args.onSelect(this.args.model);
 
-      let isChecked = get(this, 'model.isChecked');
-      if (isChecked !== wasChecked && this.recursiveCheck) {
-        this.setChildCheckboxesRecursively(this.model, isChecked);
+      let isChecked = get(this.args.model, 'isChecked');
+      if (isChecked !== wasChecked && this.args.recursiveCheck) {
+        this.setChildCheckboxesRecursively(this.args.model, isChecked);
         this.updateCheckbox();
       }
     }
-  },
+  }
 
+  @action
   contextMenu(event) {
-    if (this.onContextMenu) {
+    if (this.args.onContextMenu) {
       event.preventDefault();
-      this.onContextMenu(this.model);
+      this.args.onContextMenu(this.args.model);
     }
-  },
+  }
 
-  didInsertElement() {
-    this._super(...arguments);
-    this._handleMouseEnter = this.handleMouseEnter.bind(this);
-    this._handleMouseLeave = this.handleMouseLeave.bind(this);
-    this.element.addEventListener('mouseenter', this._handleMouseEnter);
-    this.element.addEventListener('mouseleave', this._handleMouseLeave);
-  },
-
-  willDestroyElement() {
-    this._super(...arguments);
-    this.element.removeEventListener('mouseenter', this._handleMouseEnter);
-    this.element.removeEventListener('mouseleave', this._handleMouseLeave);
-  },
-
-  handleMouseEnter() {
-    if (!get(this, 'model.isDisabled')) {
-      set(this, 'model.isSelected', true);
+  @action
+  mouseEnter() {
+    if (!get(this.args.model, 'isDisabled')) {
+      set(this.args.model, 'isSelected', true);
     }
 
 
-    if (this.onHover) {
-      this.onHover(this.model);
+    if (this.args.onHover) {
+      this.args.onHover(this.args.model);
     }
-  },
+  }
 
-  handleMouseLeave() {
-    set(this, 'model.isSelected', false);
+  @action
+  mouseLeave() {
+    set(this.args.model, 'isSelected', false);
 
-    if (this.onHoverOut) {
-      this.onHoverOut(this.model);
+    if (this.args.onHoverOut) {
+      this.args.onHoverOut(this.model);
     }
-  },
+  }
+
+  @action
+  toggleCheck(event) {
+    event.stopPropagation();
+    if (!get(this.args.model, 'isDisabled')) {
+      let isChecked = set(this.args.model, 'isChecked', !get(this.args.model, 'isChecked'));
+
+      if (this.args.recursiveCheck) {
+        this.setChildCheckboxesRecursively(this.args.model, isChecked);
+        this.args.updateCheckbox();
+      }
+
+      if (this.args.onCheck) {
+        this.args.onCheck(this.model);
+      }
+    }
+  }
+
+  @action
+  toggleExpand(event) {
+    event.stopPropagation();
+    set(this.args.model, 'isExpanded', !this.args.model.isExpanded);
+  }
 
   setChildCheckboxesRecursively(node, isChecked) {
     let children = get(node, 'children');
@@ -82,27 +105,5 @@ export default Component.extend({
         this.setChildCheckboxesRecursively(child, isChecked);
       });
     }
-  },
-
-  actions: {
-    toggleCheck(event) {
-      event.stopPropagation();
-      if (!get(this, 'model.isDisabled')) {
-        let isChecked = this.toggleProperty('model.isChecked');
-
-        if (this.recursiveCheck) {
-          this.setChildCheckboxesRecursively(this.model, isChecked);
-          this.updateCheckbox();
-        }
-
-        if (this.onCheck) {
-          this.onCheck(this.model);
-        }
-      }
-    },
-
-    toggleExpand() {
-      this.toggleProperty('model.isExpanded');
-    }
   }
-});
+}

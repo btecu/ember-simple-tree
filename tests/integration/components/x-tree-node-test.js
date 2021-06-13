@@ -6,30 +6,13 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | x-tree-node', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<XTreeNode />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <XTreeNode>
-        template block text
-      </XTreeNode>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
-  });
-
   test('select event', async function(assert) {
     this.selected = false;
     this.model = {
       name: 'a',
       children: []
     };
+
     this.set('onSelect', () => {
       this.selected = !this.selected;
     });
@@ -51,6 +34,7 @@ module('Integration | Component | x-tree-node', function(hooks) {
       name: 'a',
       children: []
     };
+
     this.set('onContextMenu', () => {
       this.rightClicked = true;
     });

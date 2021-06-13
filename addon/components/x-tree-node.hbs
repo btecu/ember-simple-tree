@@ -1,34 +1,43 @@
-{{#if (has-block)}}
-  {{yield
-    (hash
-      model=@model
-      toggle=(component "x-tree-toggle"
+<div
+  class={{this.classes}}
+  role="button"
+  {{on "click" this.click}}
+  {{on "contextmenu" this.contextMenu}}
+  {{on "mouseenter" this.mouseEnter}}
+  {{on "mouseleave" this.mouseLeave}}
+>
+  {{#if (has-block)}}
+    {{yield
+      (hash
         model=@model
-        toggleExpand=(action "toggleExpand")
-        expandedIcon=@expandedIcon
-        collapsedIcon=@collapsedIcon
+        toggle=(component "x-tree-toggle"
+          model=@model
+          toggleExpand=this.toggleExpand
+          expandedIcon=@expandedIcon
+          collapsedIcon=@collapsedIcon
+        )
+        checkbox=(component "x-tree-checkbox"
+          model=@model
+          toggleCheck=this.toggleCheck
+        )
       )
-      checkbox=(component "x-tree-checkbox"
-        model=@model
-        toggleCheck=(action "toggleCheck")
-      )
-    )
-  }}
-{{else}}
-  <XTreeToggle
-    @model={{@model}}
-    @toggleExpand={{action "toggleExpand"}}
-    @expandedIcon={{@expandedIcon}}
-    @collapsedIcon={{@collapsedIcon}}
-  />
-
-  {{#if @checkable}}
-    <XTreeCheckbox
+    }}
+  {{else}}
+    <XTreeToggle
       @model={{@model}}
-      @toggleCheck={{action "toggleCheck"}}
+      @toggleExpand={{this.toggleExpand}}
+      @expandedIcon={{@expandedIcon}}
+      @collapsedIcon={{@collapsedIcon}}
     />
+
+    {{#if @checkable}}
+      <XTreeCheckbox
+        @model={{@model}}
+        @toggleCheck={{this.toggleCheck}}
+      />
+    {{/if}}
+    <span class="tree-label">
+      {{@model.name}}
+    </span>
   {{/if}}
-  <span class="tree-label">
-    {{@model.name}}
-  </span>
-{{/if}}
+</div>

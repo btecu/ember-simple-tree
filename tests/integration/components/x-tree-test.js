@@ -1,3 +1,6 @@
+/* eslint-disable ember/no-classic-components */
+/* eslint-disable ember/no-classic-classes */
+
 import { module, test } from 'qunit';
 import { set }  from '@ember/object';
 import { setupRenderingTest } from 'ember-qunit';
@@ -83,9 +86,6 @@ module('Integration | Component | x-tree', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
     await render(hbs`<XTree />`);
 
     assert.equal(this.element.textContent.trim(), '');

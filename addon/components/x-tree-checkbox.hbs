@@ -1,9 +1,11 @@
-<span role="button" onclick={{action @toggleCheck}}>
-  <Input
-    @type="checkbox"
-    @checked={{@model.isChecked}}
-    disabled={{@model.isDisabled}}
-    indeterminate={{@model.isIndeterminate}}
-    {{on "change" (action "noop")}}
-  />
+<span class="tree-checkbox">
+  <span role="button" {{on "click" @toggleCheck}}>
+    <Input
+      aria-label="Checkbox for {{@model.name}}"
+      disabled={{@model.isDisabled}}
+      indeterminate={{@model.isIndeterminate}}
+      @checked={{@model.isChecked}}
+      @type="checkbox"
+    />
+  </span>
 </span>

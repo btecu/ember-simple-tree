@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-get */
 import { A } from '@ember/array';
 import { get, set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
