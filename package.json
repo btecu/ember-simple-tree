@@ -37,7 +37,7 @@
   "dependencies": {
     "ember-cli-babel": "^7.26.6",
     "ember-cli-htmlbars": "^5.7.1",
-    "@glimmer/component": "^1.0.4",
+    "@glimmer/component": "^1.0.4"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
