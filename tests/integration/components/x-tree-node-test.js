@@ -46,6 +46,22 @@ module('Integration | Component | x-tree-node', function(hooks) {
     assert.equal(this.rightClicked, true, 'right click detected');
   });
 
+  test('chosenId argument', async function (assert) {
+    this.model = {
+      id: 'foo',
+      name: 'a',
+      children: [],
+    };
+
+    await render(hbs`<XTreeNode @model={{this.model}} @chosenId='foo' />`);
+    assert.dom('.tree-chosen').exists('class applied when the chosenId matches model id');
+
+    await render(hbs`<XTreeNode @model={{this.model}} @chosenId='bar' />`);
+    assert
+      .dom('.tree-chosen')
+      .doesNotExist('class not applied when the chosenId does not match model id');
+  });
+
   test('onHover and onHoverOut events', async function(assert) {
     this.hovering = false;
     this.model = {

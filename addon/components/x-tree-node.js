@@ -15,7 +15,7 @@ export default class TreeNodeComponent extends Component {
       classes.push('tree-highlight');
     }
 
-    if (id === this.chosenId) {
+    if (id === this.args.chosenId) {
       classes.push('tree-chosen');
     }
 
