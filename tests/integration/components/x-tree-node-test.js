@@ -17,7 +17,7 @@ module('Integration | Component | x-tree-node', function(hooks) {
       this.selected = !this.selected;
     });
 
-    await render(hbs`<XTreeNode @model={{this.model}} @onSelect={{action this.onSelect}} />`);
+    await render(hbs`<XTreeNode @model={{this.model}} @onSelect={{this.onSelect}} />`);
 
     await click('.tree-toggle');
 
@@ -39,7 +39,7 @@ module('Integration | Component | x-tree-node', function(hooks) {
       this.rightClicked = true;
     });
 
-    await render(hbs`<XTreeNode @model={{this.model}} @onContextMenu={{action this.onContextMenu}} />`);
+    await render(hbs`<XTreeNode @model={{this.model}} @onContextMenu={{this.onContextMenu}} />`);
 
     await triggerEvent('.tree-toggle', 'contextmenu');
 
@@ -80,8 +80,8 @@ module('Integration | Component | x-tree-node', function(hooks) {
     await render(hbs`
       <XTreeNode
         @model={{this.model}}
-        @onHover={{action this.onHover}}
-        @onHoverOut={{action this.onHoverOut}}
+        @onHover={{this.onHover}}
+        @onHoverOut={{this.onHoverOut}}
       />
     `);
 

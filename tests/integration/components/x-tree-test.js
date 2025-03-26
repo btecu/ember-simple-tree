@@ -233,7 +233,7 @@ module('Integration | Component | x-tree', function(hooks) {
     });
     this.set('tree', standardTree);
 
-    await render(hbs`<XTree @model={{this.tree}} @onSelect={{action this.onSelect}} />`);
+    await render(hbs`<XTree @model={{this.tree}} @onSelect={{this.onSelect}} />`);
 
     await click('.tree-node span');
 

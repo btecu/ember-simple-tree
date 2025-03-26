@@ -6,9 +6,9 @@ Lightweight, composable tree component for Ember without any dependency.
 
 ## Compatibility
 
-* Ember.js v3.24 or above
-* Ember CLI v3.24 or above
-* Node.js v12 or above
+* Ember.js v4.4 or above
+* Ember CLI v4.4 or above
+* Node.js v14 or above
 
 
 ## Installation
