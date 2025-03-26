@@ -4,8 +4,7 @@ Lightweight, composable tree component for Ember without any dependency.
 
 ## Compatibility
 
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
 * Ember.js v3.24 or above
 * Ember CLI v3.24 or above
@@ -260,3 +259,7 @@ The model requires specific properties to properly function:
 ```
 
 A utility class is provided to convert a flat structure into a tree structure and vice-versa.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).

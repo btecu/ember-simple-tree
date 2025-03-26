@@ -24,6 +24,7 @@
     }}
   {{else}}
     <XTreeToggle
+      role="presentation"
       @model={{@model}}
       @toggleExpand={{this.toggleExpand}}
       @expandedIcon={{@expandedIcon}}
@@ -32,6 +33,7 @@
 
     {{#if @checkable}}
       <XTreeCheckbox
+        role="presentation"
         @model={{@model}}
         @toggleCheck={{this.toggleCheck}}
       />

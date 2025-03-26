@@ -19,7 +19,7 @@ module('Integration | Component | x-tree-toggle', function(hooks) {
         @collapsedIcon="x-tree-collapsed-icon"
       />`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
     assert.false(this.expanded);
 
     await click('.toggle-icon');

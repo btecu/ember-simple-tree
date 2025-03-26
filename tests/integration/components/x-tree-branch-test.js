@@ -9,7 +9,7 @@ module('Integration | Component | x-tree-branch', function(hooks) {
   test('it renders', async function(assert) {
     await render(hbs`<XTreeBranch />`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
 
     this.set('tree', [{
       id: 1,
@@ -23,6 +23,6 @@ module('Integration | Component | x-tree-branch', function(hooks) {
       </XTreeBranch>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.strictEqual(this.element.textContent.trim(), 'template block text');
   });
 });
