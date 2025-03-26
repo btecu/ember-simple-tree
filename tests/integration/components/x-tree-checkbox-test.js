@@ -16,14 +16,14 @@ module('Integration | Component | x-tree-checkbox', function(hooks) {
 
     await render(hbs`<XTreeCheckbox @model={{this.model}} @toggleCheck={{action this.toggleCheck}} />`);
 
-    assert.equal(this.checked, false);
-    
+    assert.false(this.checked);
+
     await click('input[type=checkbox]');
 
-    assert.equal(this.checked, true);
-    
+    assert.true(this.checked);
+
     await click('input[type=checkbox]');
 
-    assert.equal(this.checked, false);
+    assert.false(this.checked);
   });
 });

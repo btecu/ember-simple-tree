@@ -20,14 +20,14 @@ module('Integration | Component | x-tree-toggle', function(hooks) {
       />`);
 
     assert.equal(this.element.textContent.trim(), '');
-    assert.equal(this.expanded, false);
+    assert.false(this.expanded);
 
     await click('.toggle-icon');
 
-    assert.equal(this.expanded, true);
+    assert.true(this.expanded);
 
     await click('.toggle-icon');
 
-    assert.equal(this.expanded, false);
+    assert.false(this.expanded);
   });
 });

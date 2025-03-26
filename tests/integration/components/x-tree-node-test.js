@@ -21,11 +21,11 @@ module('Integration | Component | x-tree-node', function(hooks) {
 
     await click('.tree-toggle');
 
-    assert.equal(this.selected, true, 'selected');
+    assert.true(this.selected, 'selected');
 
     await click('.tree-toggle');
 
-    assert.equal(this.selected, false, 'unselected');
+    assert.false(this.selected, 'unselected');
   });
 
   test('contextmenu event', async function(assert) {
@@ -43,7 +43,7 @@ module('Integration | Component | x-tree-node', function(hooks) {
 
     await triggerEvent('.tree-toggle', 'contextmenu');
 
-    assert.equal(this.rightClicked, true, 'right click detected');
+    assert.true(this.rightClicked, 'right click detected');
   });
 
   test('chosenId argument', async function (assert) {
@@ -87,10 +87,10 @@ module('Integration | Component | x-tree-node', function(hooks) {
 
     await triggerEvent('.tree-toggle', 'mouseenter');
 
-    assert.equal(this.hovering, true, 'hovering');
+    assert.true(this.hovering, 'hovering');
 
     await triggerEvent('.tree-toggle', 'mouseleave');
 
-    assert.equal(this.hovering, false, 'hover out');
+    assert.false(this.hovering, 'hover out');
   });
 });

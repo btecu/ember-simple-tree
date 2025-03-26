@@ -237,15 +237,15 @@ module('Integration | Component | x-tree', function(hooks) {
 
     await click('.tree-node span');
 
-    assert.equal(this.selected, true, 'tree nodes can be selected');
+    assert.true(this.selected, 'tree nodes can be selected');
     set(standardTree[0], 'isDisabled', true);
 
     await click('.tree-node span');
-    assert.equal(this.selected, true, 'disabled tree nodes cannot be selected');
+    assert.true(this.selected, 'disabled tree nodes cannot be selected');
     set(standardTree[0], 'isDisabled', false);
 
     await click('.tree-node span');
-    assert.equal(this.selected, false, 're-enabled tree nodes can be selected again');
+    assert.false(this.selected, 're-enabled tree nodes can be selected again');
   });
 
   test('contextMenu event', async function(assert) {
