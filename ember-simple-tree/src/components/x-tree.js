@@ -20,7 +20,6 @@ export default class TreeComponent extends Component {
       let chosen = getDescendents(this.args.model).findBy('id', this.args.chosenId);
       if (chosen) {
         getAncestors(this.args.model, chosen).forEach(x => {
-          /* eslint-disable ember/no-get */
           if (get(x, 'id') !== this.args.chosenId) {
             set(x, 'isExpanded', true);
           }
