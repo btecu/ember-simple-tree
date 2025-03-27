@@ -1,0 +1,12 @@
+<span class="tree-checkbox">
+  <span role="button" {{on "click" @toggleCheck}}>
+    <Input
+      aria-label="Checkbox for {{@model.name}}"
+      disabled={{@model.isDisabled}}
+      indeterminate={{@model.isIndeterminate}}
+      role="presentation"
+      @checked={{@model.isChecked}}
+      @type="checkbox"
+    />
+  </span>
+</span>

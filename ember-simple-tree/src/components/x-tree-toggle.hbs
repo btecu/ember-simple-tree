@@ -1,0 +1,13 @@
+<span class="tree-toggle">
+  <span role="button" class="toggle-icon" {{on "click" @toggleExpand}}>
+    {{#if @model.children.length}}
+      {{#if @model.isExpanded}}
+        {{component @expandedIcon}}
+      {{else}}
+        {{component @collapsedIcon}}
+      {{/if}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </span>
+</span>
