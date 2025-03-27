@@ -1,5 +1,8 @@
 name: CI
 
+env:
+  NODE_VERSION: 22
+
 on:
   push:
     branches:
@@ -18,14 +21,16 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Enable Corepack
+        run: corepack enable
+      - uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
           cache: yarn
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Lint
         run: yarn lint
       - name: Run Tests
@@ -37,10 +42,12 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Enable Corepack
+        run: corepack enable
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
           cache: yarn
       - name: Install Dependencies
         run: yarn install --no-lockfile
@@ -66,13 +73,15 @@ jobs:
           - embroider-optimized
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Enable Corepack
+        run: corepack enable
+      - uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
           cache: yarn
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
