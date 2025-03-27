@@ -1,6 +1,3 @@
-/* eslint-disable ember/no-classic-components */
-/* eslint-disable ember/no-classic-classes */
-
 import { module, test } from 'qunit';
 import { set }  from '@ember/object';
 import { setupRenderingTest } from 'ember-qunit';

@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-get */
 import Component from '@glimmer/component';
 import { action, get, set, setProperties } from '@ember/object';
 
