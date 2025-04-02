@@ -1,11 +1,10 @@
 import Component from '@glimmer/component';
-import { getAncestors, getDescendents } from '../utils/tree';
-import { get, set } from '@ember/object';
+import { getAncestors, getDescendents } from '../utils/tree.js';
+import { set } from '@ember/object';
 
 export default class TreeComponent extends Component {
   get collapsedIcon() {
     return this.args.collapsedIcon ?? 'x-tree-collapsed-icon';
-
   }
 
   get expandedIcon() {
@@ -17,13 +16,11 @@ export default class TreeComponent extends Component {
 
     // Make sure chosen item is highlighted and expanded-to in the tree
     if (this.args.chosenId) {
-      let chosen = getDescendents(this.args.model).findBy('id', this.args.chosenId);
+      let chosen = getDescendents(this.args.model).find((x) => x.id === this.args.chosenId);
       if (chosen) {
-        getAncestors(this.args.model, chosen).forEach(x => {
-          if (get(x, 'id') !== this.args.chosenId) {
-            set(x, 'isExpanded', true);
-          }
-        });
+        getAncestors(this.args.model, chosen)
+          .filter((x) => x.id !== this.args.chosenId)
+          .forEach((x) => set(x, 'isExpanded', true));
       }
     }
 

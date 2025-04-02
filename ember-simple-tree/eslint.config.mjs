@@ -74,13 +74,7 @@ export default [
    * CJS node files
    */
   {
-    files: [
-      '**/*.cjs',
-      '.prettierrc.js',
-      '.stylelintrc.js',
-      '.template-lintrc.js',
-      'addon-main.cjs',
-    ],
+    files: ['**/*.cjs', '.prettierrc.js', '.stylelintrc.js', '.template-lintrc.js', 'addon-main.cjs'],
     plugins: {
       n,
     },
