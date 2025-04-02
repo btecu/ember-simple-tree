@@ -1,6 +1,5 @@
-/* eslint-disable ember/no-get */
 import Component from '@glimmer/component';
-import { action, get, set, setProperties } from '@ember/object';
+import { action, set, setProperties } from '@ember/object';
 
 export default class TreeNodeComponent extends Component {
   get classes() {
@@ -28,12 +27,12 @@ export default class TreeNodeComponent extends Component {
 
   @action
   click() {
-    if (this.args.onSelect && !get(this.args.model, 'isDisabled')) {
-      let wasChecked = get(this.args.model, 'isChecked');
+    if (this.args.onSelect && !this.args.model.isDisabled) {
+      let wasChecked = this.args.model.isChecked;
 
       this.args.onSelect(this.args.model);
 
-      let isChecked = get(this.args.model, 'isChecked');
+      let { isChecked } = this.args.model;
       if (isChecked !== wasChecked && this.args.recursiveCheck) {
         this.setChildCheckboxesRecursively(this.args.model, isChecked);
         this.updateCheckbox();
@@ -51,10 +50,9 @@ export default class TreeNodeComponent extends Component {
 
   @action
   mouseEnter() {
-    if (!get(this.args.model, 'isDisabled')) {
+    if (!this.args.model.isDisabled) {
       set(this.args.model, 'isSelected', true);
     }
-
 
     if (this.args.onHover) {
       this.args.onHover(this.args.model);
@@ -73,8 +71,9 @@ export default class TreeNodeComponent extends Component {
   @action
   toggleCheck(event) {
     event.stopPropagation();
-    if (!get(this.args.model, 'isDisabled')) {
-      let isChecked = set(this.args.model, 'isChecked', !get(this.args.model, 'isChecked'));
+
+    if (!this.args.model.isDisabled) {
+      let isChecked = set(this.args.model, 'isChecked', !this.args.model.isChecked);
 
       if (this.args.recursiveCheck) {
         this.setChildCheckboxesRecursively(this.args.model, isChecked);
@@ -94,16 +93,15 @@ export default class TreeNodeComponent extends Component {
   }
 
   setChildCheckboxesRecursively(node, isChecked) {
-    let children = get(node, 'children');
-    if (children.length) {
-      children.forEach(child => {
+    if (node.children.length) {
+      for (let child of node.children) {
         setProperties(child, {
           isChecked,
-          isIndeterminate: false
+          isIndeterminate: false,
         });
 
         this.setChildCheckboxesRecursively(child, isChecked);
-      });
+      }
     }
   }
 }

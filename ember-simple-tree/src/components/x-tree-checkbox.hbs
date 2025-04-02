@@ -1,12 +1,13 @@
 <span class="tree-checkbox">
   <span role="button" {{on "click" @toggleCheck}}>
-    <Input
+    {{! template-lint-disable no-invalid-role no-nested-interactive }}
+    <input
       aria-label="Checkbox for {{@model.name}}"
+      checked={{@model.isChecked}}
       disabled={{@model.isDisabled}}
       indeterminate={{@model.isIndeterminate}}
       role="presentation"
-      @checked={{@model.isChecked}}
-      @type="checkbox"
+      type="checkbox"
     />
   </span>
 </span>

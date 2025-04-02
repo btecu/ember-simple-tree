@@ -3,14 +3,14 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | x-tree-node', function(hooks) {
+module('Integration | Component | x-tree-node', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('select event', async function(assert) {
+  test('select event', async function (assert) {
     this.selected = false;
     this.model = {
       name: 'a',
-      children: []
+      children: [],
     };
 
     this.set('onSelect', () => {
@@ -28,11 +28,11 @@ module('Integration | Component | x-tree-node', function(hooks) {
     assert.false(this.selected, 'unselected');
   });
 
-  test('contextmenu event', async function(assert) {
+  test('contextmenu event', async function (assert) {
     this.rightClicked = false;
     this.model = {
       name: 'a',
-      children: []
+      children: [],
     };
 
     this.set('onContextMenu', () => {
@@ -57,16 +57,14 @@ module('Integration | Component | x-tree-node', function(hooks) {
     assert.dom('.tree-chosen').exists('class applied when the chosenId matches model id');
 
     await render(hbs`<XTreeNode @model={{this.model}} @chosenId='bar' />`);
-    assert
-      .dom('.tree-chosen')
-      .doesNotExist('class not applied when the chosenId does not match model id');
+    assert.dom('.tree-chosen').doesNotExist('class not applied when the chosenId does not match model id');
   });
 
-  test('onHover and onHoverOut events', async function(assert) {
+  test('onHover and onHoverOut events', async function (assert) {
     this.hovering = false;
     this.model = {
       name: 'a',
-      children: []
+      children: [],
     };
 
     this.set('onHover', () => {

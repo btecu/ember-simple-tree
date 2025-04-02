@@ -1,3 +1,6 @@
+# unconventional js
+/blueprints/*/files/
+
 # compiled output
 /dist/
 
@@ -5,3 +8,9 @@
 /coverage/
 !.*
 .*/
+/pnpm-lock.yaml
+ember-cli-update.json
+*.html
+
+# ember-try
+/.node_modules.ember-try/

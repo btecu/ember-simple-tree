@@ -1,5 +1,5 @@
 {
-  "version": "0.9.0",
+  "version": "0.9.2",
   "private": true,
   "repository": {
     "type": "git",
@@ -12,21 +12,31 @@
     "test-app"
   ],
   "scripts": {
-    "build": "yarn workspace ember-simple-tree run build",
-    "lint": "yarn workspaces run lint",
-    "lint:fix": "yarn workspaces run lint:fix",
-    "prepare": "yarn build",
-    "start": "concurrently \"yarn:start:*\" --restart-after 5000 --prefix-colors cyan,white,yellow",
-    "start:addon": "yarn workspace ember-simple-tree run start",
-    "start:test-app": "yarn workspace test-app run start",
-    "test": "yarn workspaces run test"
+    "build": "pnpm --filter ember-simple-tree build",
+    "lint": "pnpm --filter '*' lint",
+    "lint:fix": "pnpm --filter '*' lint:fix",
+    "prepare": "pnpm build",
+    "start": "concurrently 'pnpm:start:*' --restart-after 5000 --prefixColors auto",
+    "start:addon": "pnpm --filter ember-simple-tree start --no-watch.clearScreen",
+    "start:test-app": "pnpm --filter test-app start",
+    "test": "pnpm --filter '*' test",
+    "test:ember": "pnpm --filter '*' test:ember"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^9.1.2",
+    "prettier": "^3.0.3",
+    "prettier-plugin-ember-template-tag": "^2.0.2"
   },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "webpack"
+      ]
+    }
+  },
+  "packageManager": "pnpm@10.7.1",
   "volta": {
     "node": "22.14.0",
-    "yarn": "4.7.0"
-  },
-  "packageManager": "yarn@4.7.0"
+    "pnpm": "10.7.1"
+  }
 }

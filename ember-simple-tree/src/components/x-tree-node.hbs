@@ -10,15 +10,15 @@
     {{yield
       (hash
         model=@model
-        toggle=(component "x-tree-toggle"
+        toggle=(component
+          "x-tree-toggle"
           model=@model
           toggleExpand=this.toggleExpand
           expandedIcon=@expandedIcon
           collapsedIcon=@collapsedIcon
         )
-        checkbox=(component "x-tree-checkbox"
-          model=@model
-          toggleCheck=this.toggleCheck
+        checkbox=(component
+          "x-tree-checkbox" model=@model toggleCheck=this.toggleCheck
         )
       )
     }}

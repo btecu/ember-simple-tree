@@ -11,9 +11,9 @@ export default class TreeChildrenComponent extends Component {
         let isChecked = false;
         let isIndeterminate = false;
 
-        if (children.every(x => x.isChecked)) {
+        if (children.every((x) => x.isChecked)) {
           isChecked = true;
-        } else if (children.some(x => x.isChecked || x.isIndeterminate)) {
+        } else if (children.some((x) => x.isChecked || x.isIndeterminate)) {
           isIndeterminate = true;
         }
 

@@ -1,6 +1,6 @@
 {
   "name": "ember-simple-tree",
-  "version": "0.9.0",
+  "version": "0.9.2",
   "description": "Lightweight, composable tree component for Ember",
   "keywords": [
     "ember-addon",
@@ -20,52 +20,67 @@
     "Gaurav Munjal",
     "Teddy Coleman"
   ],
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js",
+    "./addon-main.js": "./addon-main.cjs"
   },
+  "files": [
+    "addon-main.cjs",
+    "declarations",
+    "dist"
+  ],
   "scripts": {
     "build": "rollup --config",
-    "lint": "concurrently \"yarn:lint:*(!fix)\" --names \"lint:\"",
-    "lint:css": "stylelint \"**/*.css\" --allow-empty-input --cache\"",
-    "lint:css:fix": "stylelint \"**/*.css\" --allow-empty-input --fix",
-    "lint:fix": "concurrently \"yarn:lint:*:fix\" --names \"fix:\"",
-    "lint:hbs": "ember-template-lint .",
-    "lint:hbs:fix": "ember-template-lint . --fix",
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm run format",
+    "lint:format": "prettier . --cache --check",
+    "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
+    "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "prepack": "rollup --config",
     "start": "rollup --config --watch",
-    "test": "echo \"A v2 addon does not have tests, run tests in test-app\""
+    "test": "echo 'A v2 addon does not have tests, run tests in test-app'"
   },
   "dependencies": {
-    "@babel/core": "^7.25.2",
-    "@embroider/addon-shim": "^1.9.0",
-    "@glimmer/component": "^1.1.2",
-    "decorator-transforms": "^2.3.0"
+    "@embroider/addon-shim": "^1.8.9",
+    "decorator-transforms": "^2.2.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/runtime": "^7.26.10",
-    "@embroider/addon-dev": "^7.1.3",
-    "@eslint/js": "^9.23.0",
+    "@babel/core": "^7.25.2",
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/runtime": "^7.25.6",
+    "@embroider/addon-dev": "^7.1.0",
+    "@eslint/js": "^9.17.0",
     "@rollup/plugin-babel": "^6.0.4",
-    "babel-plugin-ember-template-compilation": "^2.4.0",
-    "concurrently": "^9.1.2",
-    "ember-template-lint": "^7.0.1",
-    "eslint": "^9.23.0",
-    "prettier": "^3.5.3",
-    "rollup": "^4.37.0",
-    "rollup-plugin-copy": "^3.5.0",
-    "stylelint": "^16.16.0"
+    "babel-plugin-ember-template-compilation": "^2.2.5",
+    "concurrently": "^9.0.1",
+    "ember-source": "^6.3.0",
+    "ember-template-lint": "^6.0.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-ember": "^12.3.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.15.1",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-ember-template-tag": "^2.0.4",
+    "rollup": "^4.22.5",
+    "rollup-plugin-copy": "^3.5.0"
   },
-  "engines": {
-    "node": ">= 18"
+  "peerDependencies": {
+    "@glimmer/component": "^1.1.2 || >= 2.0.0",
+    "ember-source": ">= 4.12.0"
   },
   "ember": {
     "edition": "octane"
   },
   "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.cjs",
     "app-js": {
       "./components/x-tree-branch.js": "./dist/_app_/components/x-tree-branch.js",
       "./components/x-tree-checkbox.js": "./dist/_app_/components/x-tree-checkbox.js",
@@ -76,18 +91,6 @@
       "./components/x-tree-toggle.js": "./dist/_app_/components/x-tree-toggle.js",
       "./components/x-tree.js": "./dist/_app_/components/x-tree.js",
       "./utils/tree.js": "./dist/_app_/utils/tree.js"
-    },
-    "main": "addon-main.cjs",
-    "type": "addon",
-    "version": 2
-  },
-  "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js",
-    "./addon-main.js": "./addon-main.cjs"
-  },
-  "files": [
-    "addon-main.cjs",
-    "dist"
-  ]
+    }
+  }
 }

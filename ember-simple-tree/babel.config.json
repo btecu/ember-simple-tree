@@ -10,11 +10,7 @@
     ],
     [
       "module:decorator-transforms",
-      {
-        "runtime": {
-          "import": "decorator-transforms/runtime"
-        }
-      }
+      { "runtime": { "import": "decorator-transforms/runtime" } }
     ]
   ]
 }

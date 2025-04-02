@@ -1,6 +1,5 @@
-/* eslint-disable ember/no-get */
 import { A } from '@ember/array';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 
 /* Build a tree (nested objects) from a plain array
@@ -19,37 +18,38 @@ export function buildTree(model, options = {}) {
   }
 
   // Set defaults and add all nodes to tree
-  model.forEach(node => {
+  model.forEach((node) => {
     // Alternative name for `id`
     if (options.valueKey) {
-      set(node, 'id', get(node, options.valueKey));
+      set(node, 'id', node.options?.valueKey);
     }
 
     // Alternative name for `name`
     if (options.labelKey) {
-      set(node, 'name', get(node, options.labelKey));
+      set(node, 'name', node.options?.labelKey);
     }
 
     // Defaults
     set(node, 'children', A());
-    set(node, 'isChecked', get(node, 'isChecked') || false);
-    set(node, 'isDisabled', get(node, 'isDisabled') || false);
-    set(node, 'isExpanded', get(node, 'isExpanded') || false);
-    set(node, 'isSelected', get(node, 'isSelected') || false);
-    set(node, 'isVisible', get(node, 'isVisible') || true);
+    set(node, 'isChecked', node.isChecked ?? false);
+    set(node, 'isDisabled', node.isDisabled ?? false);
+    set(node, 'isExpanded', node.isExpanded ?? false);
+    set(node, 'isSelected', node.isSelected ?? false);
+    set(node, 'isVisible', node.isVisible ?? true);
 
-    tree[get(node, 'id')] = node;
+    tree[node.id] = node;
   });
 
   // Connect all children to their parent
-  model.forEach(node => {
-    let child = tree[get(node, options.valueKey || 'id')];
-    let parent = get(node, 'parentId');
+  model.forEach((node) => {
+    let key = options.valueKey ? node[options.valueKey] : node.id;
+    let child = tree[key];
 
-    if (isEmpty(parent)) {
+    if (isEmpty(node.parentId)) {
       roots.pushObject(child);
     } else {
-      get(tree[parent], 'children').pushObject(child);
+      let parent = tree[node.parentId];
+      parent.children.pushObject(child);
     }
   });
 
@@ -60,15 +60,16 @@ export function buildTree(model, options = {}) {
 export function getDescendents(tree, depth = -1) {
   let descendents = A();
 
-  if (depth < 0) { // Unlimited depth
-    tree.forEach(node => {
+  if (depth < 0) {
+    // Unlimited depth
+    tree.forEach((node) => {
       descendents.pushObject(node);
-      descendents.pushObjects(getDescendents(get(node, 'children')));
+      descendents.pushObjects(getDescendents(node.children));
     });
   } else if (depth > 0) {
-    tree.forEach(node => {
+    tree.forEach((node) => {
       descendents.pushObject(node);
-      descendents.pushObjects(getDescendents(get(node, 'children'), depth - 1));
+      descendents.pushObjects(getDescendents(node.children, depth - 1));
     });
   }
 
@@ -78,14 +79,14 @@ export function getDescendents(tree, depth = -1) {
 // Returns a flat list of ancestors, including the child
 export function getAncestors(tree, childNode) {
   let ancestors = A();
-  let childId = get(childNode, 'id');
+  let childId = childNode.id;
 
-  tree.forEach(node => {
+  tree.forEach((node) => {
     if (!ancestors.isAny('id', childId)) {
-      if (get(node, 'id') === childId) {
+      if (node.id === childId) {
         ancestors.pushObject(node);
-      } else if (get(node, 'children.length') > 0) {
-        ancestors.pushObjects(getAncestors(get(node, 'children'), childNode));
+      } else if (node.children?.length > 0) {
+        ancestors.pushObjects(getAncestors(node.children, childNode));
         if (ancestors.length > 0) {
           ancestors.pushObject(node);
         }
@@ -98,5 +99,5 @@ export function getAncestors(tree, childNode) {
 
 // Returns the parent of a child
 export function getParent(list, childNode) {
-  return list.find(x => x.children.find(y => y.id === get(childNode, 'id')));
+  return list.find((x) => x.children.find((y) => y.id === childNode.id));
 }
