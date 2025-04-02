@@ -1,0 +1,1 @@
+{"version":3,"file":"x-tree-collapsed-icon.js","sources":["../../src/components/x-tree-collapsed-icon.js"],"sourcesContent":["import templateOnly from '@ember/component/template-only';\nexport default templateOnly();\n"],"names":["setComponentTemplate","TEMPLATE","templateOnly"],"mappings":";;;;;;AACA,yBAAAA,oBAAA,CAAAC,QAAA,EAAeC,YAAY,EAAE,CAAA;;;;"}
