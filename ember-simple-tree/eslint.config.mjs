@@ -49,6 +49,28 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       parser: babelParser,
+      parserOptions: {
+        ...esmParserOptions,
+        requireConfigFile: false,
+        babelOptions: {
+          configFile: false,
+          babelrc: false,
+          plugins: [['module:decorator-transforms', { runtime: { import: 'decorator-transforms/runtime' } }]],
+        },
+      },
+    },
+  },
+  {
+    files: ['**/*.gjs'],
+    languageOptions: {
+      parser: babelParser,
+      parserOptions: {
+        ...esmParserOptions,
+        requireConfigFile: true,
+        babelOptions: {
+          root: import.meta.dirname,
+        },
+      },
     },
   },
   {
