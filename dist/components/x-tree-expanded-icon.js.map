@@ -1,0 +1,1 @@
+{"version":3,"file":"x-tree-expanded-icon.js","sources":["../../src/components/x-tree-expanded-icon.js"],"sourcesContent":["import templateOnly from '@ember/component/template-only';\nexport default templateOnly();\n"],"names":["setComponentTemplate","TEMPLATE","templateOnly"],"mappings":";;;;;;AACA,wBAAAA,oBAAA,CAAAC,QAAA,EAAeC,YAAY,EAAE,CAAA;;;;"}
