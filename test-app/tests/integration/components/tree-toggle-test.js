@@ -15,8 +15,6 @@ module('Integration | Component | tree-toggle', function (hooks) {
 
     await render(hbs`
       <TreeToggle
-        @collapsedIcon="tree-collapsed-icon"
-        @expandedIcon="tree-expanded-icon"
         @toggleExpand={{this.toggleExpand}}
       />`);
 

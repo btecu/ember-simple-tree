@@ -30,8 +30,8 @@ Standard example:
 
 ```handlebars
 <Tree @model={{this.tree}} as |node|>
-  {{node.toggle}}
-  {{node.checkbox}}
+  <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
+  <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
   {{node.model.name}}
 </Tree>
 ```
@@ -145,35 +145,27 @@ Has no effect if `checkable` is not enabled.
 
 #### expandedIcon
 
-Default: `tree-expanded-icon`,
+Default: built-in expanded icon (▼)
 
-Accepts: `string` or `Component`
+Use the `<:expandedIcon>` named block on `Tree` to customize the expanded icon:
 
 ```handlebars
-<Tree @expandedIcon={{component "my-expanded-icon-component"}} @model={{this.tree}} />
+<Tree @model={{this.tree}}>
+  <:expandedIcon><MyExpandedIcon /></:expandedIcon>
+</Tree>
 ```
-or
-```handlebars
-<Tree @expandedIcon="my-expanded-icon-component" @model={{this.tree}} />
-```
-
-Component to use for expanded icon
 
 #### collapsedIcon
 
-Default: `tree-collapsed-icon`,
+Default: built-in collapsed icon (▶)
 
-Accepts: `string`
+Use the `<:collapsedIcon>` named block on `Tree` to customize the collapsed icon:
 
 ```handlebars
-<Tree @collapsedIcon={{component "my-collapsed-icon-component"}} @model={{this.tree}} />
+<Tree @model={{this.tree}}>
+  <:collapsedIcon><MyCollapsedIcon /></:collapsedIcon>
+</Tree>
 ```
-or
-```handlebars
-<Tree @collapsedIcon="my-collapsed-icon-component" @model={{this.tree}} />
-```
-
-Component to use for collapsed icon
 
 ### Blocks
 

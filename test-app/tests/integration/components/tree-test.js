@@ -208,29 +208,14 @@ module('Integration | Component | tree', function (hooks) {
     assert.false(second.isChecked, 'second child is unchecked with its parent');
   });
 
-  test('can use alternate icon components via name', async function (assert) {
+  test('can use alternate icons via named blocks', async function (assert) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      <Tree
-        @collapsedIcon="collapsed-icon"
-        @expandedIcon="expanded-icon"
-        @model={{this.tree}}
-      />
-    `);
-
-    assert.dom('.toggle-icon').hasText('e', 'alternate icon displayed');
-  });
-
-  test('can use alternate icon components passed in', async function (assert) {
-    this.set('tree', standardTree);
-
-    await render(hbs`
-      <Tree
-        @collapsedIcon={{component "collapsed-icon"}}
-        @expandedIcon={{component "expanded-icon"}}
-        @model={{this.tree}}
-      />
+      <Tree @model={{this.tree}}>
+        <:expandedIcon><ExpandedIcon /></:expandedIcon>
+        <:collapsedIcon><CollapsedIcon /></:collapsedIcon>
+      </Tree>
     `);
 
     assert.dom('.toggle-icon').hasText('e', 'alternate icon displayed');
@@ -241,8 +226,8 @@ module('Integration | Component | tree', function (hooks) {
 
     await render(hbs`
       <Tree @checkable={{true}} @model={{this.tree}} as |node|>
-        {{node.toggle}}
-        {{node.checkbox}}
+        <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
+        <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
         <span class="tree-label">{{node.model.name}}</span>
       </Tree>
     `);
