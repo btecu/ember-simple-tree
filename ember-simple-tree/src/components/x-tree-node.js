@@ -35,7 +35,7 @@ export default class TreeNodeComponent extends Component {
       let { isChecked } = this.args.model;
       if (isChecked !== wasChecked && this.args.recursiveCheck) {
         this.setChildCheckboxesRecursively(this.args.model, isChecked);
-        this.updateCheckbox();
+        this.args.updateCheckbox();
       }
     }
   }
@@ -64,7 +64,7 @@ export default class TreeNodeComponent extends Component {
     set(this.args.model, 'isSelected', false);
 
     if (this.args.onHoverOut) {
-      this.args.onHoverOut(this.model);
+      this.args.onHoverOut(this.args.model);
     }
   }
 
@@ -81,7 +81,7 @@ export default class TreeNodeComponent extends Component {
       }
 
       if (this.args.onCheck) {
-        this.args.onCheck(this.model);
+        this.args.onCheck(this.args.model);
       }
     }
   }
