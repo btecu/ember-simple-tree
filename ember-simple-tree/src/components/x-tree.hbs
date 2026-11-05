@@ -10,15 +10,27 @@
       @onHover={{@onHover}}
       @onHoverOut={{@onHoverOut}}
       @model={{@model}}
-      @expandedIcon={{this.expandedIcon}}
-      @collapsedIcon={{this.collapsedIcon}}
-      as |node|
     >
-      {{yield node}}
+      <:expandedIcon>
+        {{#if (has-block "expandedIcon")}}
+          {{yield to="expandedIcon"}}
+        {{else}}
+          &#x25BC;
+        {{/if}}
+      </:expandedIcon>
+      <:collapsedIcon>
+        {{#if (has-block "collapsedIcon")}}
+          {{yield to="collapsedIcon"}}
+        {{else}}
+          &#x25B6;
+        {{/if}}
+      </:collapsedIcon>
+      <:default as |node|>
+        {{yield node}}
+      </:default>
     </XTreeBranch>
   {{else}}
     <XTreeBranch
-      @model={{@model}}
       @checkable={{@checkable}}
       @recursiveCheck={{@recursiveCheck}}
       @chosenId={{@chosenId}}
@@ -27,8 +39,22 @@
       @onSelect={{@onSelect}}
       @onHover={{@onHover}}
       @onHoverOut={{@onHoverOut}}
-      @expandedIcon={{this.expandedIcon}}
-      @collapsedIcon={{this.collapsedIcon}}
-    />
+      @model={{@model}}
+    >
+      <:expandedIcon>
+        {{#if (has-block "expandedIcon")}}
+          {{yield to="expandedIcon"}}
+        {{else}}
+          &#x25BC;
+        {{/if}}
+      </:expandedIcon>
+      <:collapsedIcon>
+        {{#if (has-block "collapsedIcon")}}
+          {{yield to="collapsedIcon"}}
+        {{else}}
+          &#x25B6;
+        {{/if}}
+      </:collapsedIcon>
+    </XTreeBranch>
   {{/if}}
 </div>

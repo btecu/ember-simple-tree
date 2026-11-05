@@ -141,35 +141,27 @@ Has no effect if `checkable` is not enabled.
 
 #### expandedIcon
 
-Default: `x-tree-expanded-icon`,
+Default: built-in expanded icon (▼)
 
-Accepts: `string` or `Component`
+Use the `<:expandedIcon>` named block on `XTree` to customize the expanded icon:
 
 ```handlebars
-<XTree @expandedIcon={{component "my-expanded-icon-component"}} @model={{this.tree}} />
+<XTree @model={{this.tree}}>
+  <:expandedIcon><MyExpandedIcon /></:expandedIcon>
+</XTree>
 ```
-or
-```handlebars
-<XTree @expandedIcon="my-expanded-icon-component" @model={{this.tree}} />
-```
-
-Component to use for expanded icon
 
 #### collapsedIcon
 
-Default: `x-tree-collapsed-icon`,
+Default: built-in collapsed icon (▶)
 
-Accepts: `string`
+Use the `<:collapsedIcon>` named block on `XTree` to customize the collapsed icon:
 
 ```handlebars
-<XTree @collapsedIcon={{component "my-collapsed-icon-component"}} @model={{this.tree}} />
+<XTree @model={{this.tree}}>
+  <:collapsedIcon><MyCollapsedIcon /></:collapsedIcon>
+</XTree>
 ```
-or
-```handlebars
-<XTree @collapsedIcon="my-collapsed-icon-component" @model={{this.tree}} />
-```
-
-Component to use for collapsed icon
 
 ### Blocks
 

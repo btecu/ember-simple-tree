@@ -166,29 +166,14 @@ module('Integration | Component | x-tree', function (hooks) {
     assert.dom('input[type=checkbox]:checked').exists({ count: 4 }, 'all checkboxes checked');
   });
 
-  test('can use alternate icon components via name', async function (assert) {
+  test('can use alternate icons via named blocks', async function (assert) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      <XTree
-        @collapsedIcon="collapsed-icon"
-        @expandedIcon="expanded-icon"
-        @model={{this.tree}}
-      />
-    `);
-
-    assert.dom('.toggle-icon').hasText('e', 'alternate icon displayed');
-  });
-
-  test('can use alternate icon components passed in', async function (assert) {
-    this.set('tree', standardTree);
-
-    await render(hbs`
-      <XTree
-        @collapsedIcon={{component "collapsed-icon"}}
-        @expandedIcon={{component "expanded-icon"}}
-        @model={{this.tree}}
-      />
+      <XTree @model={{this.tree}}>
+        <:expandedIcon><ExpandedIcon /></:expandedIcon>
+        <:collapsedIcon><CollapsedIcon /></:collapsedIcon>
+      </XTree>
     `);
 
     assert.dom('.toggle-icon').hasText('e', 'alternate icon displayed');
@@ -199,8 +184,8 @@ module('Integration | Component | x-tree', function (hooks) {
 
     await render(hbs`
       <XTree @checkable={{true}} @model={{this.tree}} as |node|>
-        {{node.toggle}}
-        {{node.checkbox}}
+        <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
+        <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
         <span class="tree-label">{{node.model.name}}</span>
       </XTree>
     `);

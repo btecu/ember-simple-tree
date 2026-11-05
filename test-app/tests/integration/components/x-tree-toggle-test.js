@@ -14,8 +14,6 @@ module('Integration | Component | x-tree-toggle', function (hooks) {
 
     await render(hbs`
       <XTreeToggle
-        @collapsedIcon="x-tree-collapsed-icon"
-        @expandedIcon="x-tree-expanded-icon"
         @toggleExpand={{this.toggleExpand}}
       />`);
 

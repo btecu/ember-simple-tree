@@ -11,11 +11,10 @@
       @onHover={{@onHover}}
       @onHoverOut={{@onHoverOut}}
       @model={{@model}}
-      @expandedIcon={{@expandedIcon}}
-      @collapsedIcon={{@collapsedIcon}}
-      as |node|
     >
-      {{yield node}}
+      <:expandedIcon>{{yield to="expandedIcon"}}</:expandedIcon>
+      <:collapsedIcon>{{yield to="collapsedIcon"}}</:collapsedIcon>
+      <:default as |node|>{{yield node}}</:default>
     </XTreeNode>
 
     {{#if @model.isExpanded}}
@@ -30,11 +29,10 @@
         @onHover={{@onHover}}
         @onHoverOut={{@onHoverOut}}
         @model={{@model.children}}
-        @expandedIcon={{@expandedIcon}}
-        @collapsedIcon={{@collapsedIcon}}
-        as |node|
       >
-        {{yield node}}
+        <:expandedIcon>{{yield to="expandedIcon"}}</:expandedIcon>
+        <:collapsedIcon>{{yield to="collapsedIcon"}}</:collapsedIcon>
+        <:default as |node|>{{yield node}}</:default>
       </XTreeBranch>
     {{/if}}
   {{else}}
@@ -49,9 +47,10 @@
       @onSelect={{@onSelect}}
       @onHover={{@onHover}}
       @onHoverOut={{@onHoverOut}}
-      @expandedIcon={{@expandedIcon}}
-      @collapsedIcon={{@collapsedIcon}}
-    />
+    >
+      <:expandedIcon>{{yield to="expandedIcon"}}</:expandedIcon>
+      <:collapsedIcon>{{yield to="collapsedIcon"}}</:collapsedIcon>
+    </XTreeNode>
     {{#if @model.isExpanded}}
       <XTreeBranch
         @model={{@model.children}}
@@ -64,9 +63,10 @@
         @onSelect={{@onSelect}}
         @onHover={{@onHover}}
         @onHoverOut={{@onHoverOut}}
-        @expandedIcon={{@expandedIcon}}
-        @collapsedIcon={{@collapsedIcon}}
-      />
+      >
+        <:expandedIcon>{{yield to="expandedIcon"}}</:expandedIcon>
+        <:collapsedIcon>{{yield to="collapsedIcon"}}</:collapsedIcon>
+      </XTreeBranch>
     {{/if}}
   {{/if}}
 </li>

@@ -1,7 +1,12 @@
 import Component from '@glimmer/component';
 import { action, set, setProperties } from '@ember/object';
+import XTreeCheckbox from './x-tree-checkbox.js';
+import XTreeNodeToggle from './x-tree-node-toggle.js';
 
 export default class TreeNodeComponent extends Component {
+  Toggle = XTreeNodeToggle;
+  Checkbox = XTreeCheckbox;
+
   get classes() {
     let classes = [];
     let { isDisabled, isSelected, id, children } = this.args.model;

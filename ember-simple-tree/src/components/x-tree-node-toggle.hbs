@@ -1,0 +1,16 @@
+<XTreeToggle @model={{@model}} @toggleExpand={{@toggleExpand}}>
+  <:expandedIcon>
+    {{#if (has-block "expandedIcon")}}
+      {{yield to="expandedIcon"}}
+    {{else}}
+      &#x25BC;
+    {{/if}}
+  </:expandedIcon>
+  <:collapsedIcon>
+    {{#if (has-block "collapsedIcon")}}
+      {{yield to="collapsedIcon"}}
+    {{else}}
+      &#x25B6;
+    {{/if}}
+  </:collapsedIcon>
+</XTreeToggle>

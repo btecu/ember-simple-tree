@@ -2,9 +2,17 @@
   <span role="button" class="toggle-icon" {{on "click" @toggleExpand}}>
     {{#if @model.children.length}}
       {{#if @model.isExpanded}}
-        {{component @expandedIcon}}
+        {{#if (has-block "expandedIcon")}}
+          {{yield to="expandedIcon"}}
+        {{else}}
+          &#x25BC;
+        {{/if}}
       {{else}}
-        {{component @collapsedIcon}}
+        {{#if (has-block "collapsedIcon")}}
+          {{yield to="collapsedIcon"}}
+        {{else}}
+          &#x25B6;
+        {{/if}}
       {{/if}}
     {{else}}
       &nbsp;

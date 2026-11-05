@@ -10,16 +10,10 @@
     {{yield
       (hash
         model=@model
-        toggle=(component
-          "x-tree-toggle"
-          model=@model
-          toggleExpand=this.toggleExpand
-          expandedIcon=@expandedIcon
-          collapsedIcon=@collapsedIcon
-        )
-        checkbox=(component
-          "x-tree-checkbox" model=@model toggleCheck=this.toggleCheck
-        )
+        toggleExpand=this.toggleExpand
+        toggleCheck=this.toggleCheck
+        Toggle=this.Toggle
+        Checkbox=this.Checkbox
       )
     }}
   {{else}}
@@ -27,9 +21,10 @@
       role="presentation"
       @model={{@model}}
       @toggleExpand={{this.toggleExpand}}
-      @expandedIcon={{@expandedIcon}}
-      @collapsedIcon={{@collapsedIcon}}
-    />
+    >
+      <:expandedIcon>{{yield to="expandedIcon"}}</:expandedIcon>
+      <:collapsedIcon>{{yield to="collapsedIcon"}}</:collapsedIcon>
+    </XTreeToggle>
 
     {{#if @checkable}}
       <XTreeCheckbox

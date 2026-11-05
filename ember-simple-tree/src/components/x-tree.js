@@ -3,14 +3,6 @@ import { getAncestors, getDescendents } from '../utils/tree.js';
 import { set } from '@ember/object';
 
 export default class TreeComponent extends Component {
-  get collapsedIcon() {
-    return this.args.collapsedIcon ?? 'x-tree-collapsed-icon';
-  }
-
-  get expandedIcon() {
-    return this.args.expandedIcon ?? 'x-tree-expanded-icon';
-  }
-
   constructor() {
     super(...arguments);
 
