@@ -1,3 +1,10 @@
 packages:
   - 'ember-simple-tree'
   - 'test-app'
+
+peerDependencyRules:
+  ignoreMissing:
+    - webpack
+
+allowBuilds:
+  core-js: false
