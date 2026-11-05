@@ -91,4 +91,52 @@ module('Integration | Component | x-tree-node', function (hooks) {
 
     assert.false(this.hovering, 'hover out');
   });
+
+  test('onHover and onHoverOut receive the node', async function (assert) {
+    let hovered = [];
+    this.model = {
+      name: 'a',
+      children: [],
+    };
+
+    this.onHover = (node) => hovered.push(node);
+    this.onHoverOut = (node) => hovered.push(node);
+
+    await render(hbs`
+      <XTreeNode
+        @model={{this.model}}
+        @onHover={{this.onHover}}
+        @onHoverOut={{this.onHoverOut}}
+      />
+    `);
+
+    await triggerEvent('.tree-toggle', 'mouseenter');
+    await triggerEvent('.tree-toggle', 'mouseleave');
+
+    assert.strictEqual(hovered.length, 2, 'both callbacks fired');
+    assert.strictEqual(hovered[0], this.model, 'onHover received the node');
+    assert.strictEqual(hovered[1], this.model, 'onHoverOut received the node');
+  });
+
+  test('onCheck receives the node', async function (assert) {
+    let checked;
+    this.model = {
+      name: 'a',
+      children: [],
+    };
+
+    this.onCheck = (node) => (checked = node);
+
+    await render(hbs`
+      <XTreeNode
+        @checkable={{true}}
+        @model={{this.model}}
+        @onCheck={{this.onCheck}}
+      />
+    `);
+
+    await click('.tree-checkbox input');
+
+    assert.strictEqual(checked, this.model, 'onCheck received the node');
+  });
 });
