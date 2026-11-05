@@ -3,6 +3,7 @@ import { render, findAll, click, triggerEvent } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
+import { buildTree } from 'ember-simple-tree/utils/tree';
 
 const standardTree = [
   {
@@ -164,6 +165,46 @@ module('Integration | Component | x-tree', function (hooks) {
     await click('input[type=checkbox]');
 
     assert.dom('input[type=checkbox]:checked').exists({ count: 4 }, 'all checkboxes checked');
+  });
+
+  test('recursive check when onSelect changes isChecked', async function (assert) {
+    let [root] = buildTree([
+      { id: 1, parentId: null, name: 'Root', isExpanded: true },
+      { id: 2, parentId: 1, name: 'First Child' },
+      { id: 3, parentId: 1, name: 'Second Child' },
+    ]);
+    let [first, second] = root.children;
+
+    this.tree = [root];
+    this.onSelect = (node) => set(node, 'isChecked', !node.isChecked);
+
+    await render(hbs`
+      <XTree
+        @checkable={{true}}
+        @model={{this.tree}}
+        @onSelect={{this.onSelect}}
+        @recursiveCheck={{true}}
+      />
+    `);
+
+    let labels = findAll('.tree-label');
+
+    await click(labels[1]);
+
+    assert.true(first.isChecked, 'selected child is checked');
+    assert.false(root.isChecked, 'parent is not checked');
+    assert.true(root.isIndeterminate, 'parent is indeterminate');
+
+    await click(labels[2]);
+
+    assert.true(root.isChecked, 'parent is checked once all children are');
+    assert.false(root.isIndeterminate, 'parent is no longer indeterminate');
+
+    await click(labels[0]);
+
+    assert.false(root.isChecked, 'parent is unchecked');
+    assert.false(first.isChecked, 'first child is unchecked with its parent');
+    assert.false(second.isChecked, 'second child is unchecked with its parent');
   });
 
   test('can use alternate icon components via name', async function (assert) {
