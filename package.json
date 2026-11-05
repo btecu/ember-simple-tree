@@ -27,16 +27,9 @@
     "prettier": "^3.6.2",
     "prettier-plugin-ember-template-tag": "^2.1.0"
   },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "webpack"
-      ]
-    }
-  },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@12.16.1",
   "volta": {
-    "node": "22.21.1",
-    "pnpm": "10.20.0"
+    "node": "26.13.0",
+    "pnpm": "12.16.1"
   }
 }

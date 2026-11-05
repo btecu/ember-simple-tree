@@ -6,7 +6,7 @@
 name: Push dist
 
 env:
-  NODE_VERSION: 22
+  NODE_VERSION: 26
 
 on:
   push:
@@ -21,15 +21,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - uses: kategengler/put-built-npm-package-contents-on-branch@v2.0.0
+      - uses: kategengler/put-built-npm-package-contents-on-branch@v2.1.0
         with:
           branch: dist
           token: ${{ secrets.GITHUB_TOKEN }}
