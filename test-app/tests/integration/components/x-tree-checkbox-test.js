@@ -8,6 +8,7 @@ module('Integration | Component | x-tree-checkbox', function (hooks) {
 
   test('it calls action when checked and unchecked', async function (assert) {
     this.checked = false;
+
     this.set('toggleCheck', () => {
       this.checked = !this.checked;
     });

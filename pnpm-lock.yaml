@@ -187,9 +187,6 @@ importers:
       decorator-transforms:
         specifier: ^2.4.0
         version: 2.4.0(@babel/core@7.29.13(supports-color@8.1.1))
-      ember-source:
-        specifier: '>= 6.8.0'
-        version: 7.4.0(@glimmer/component@2.2.1)(supports-color@8.1.1)
     devDependencies:
       '@babel/core':
         specifier: ^7.29.13

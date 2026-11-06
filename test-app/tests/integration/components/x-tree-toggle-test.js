@@ -8,6 +8,7 @@ module('Integration | Component | x-tree-toggle', function (hooks) {
 
   test('it expands and collapses', async function (assert) {
     this.expanded = false;
+
     this.set('toggleExpand', () => {
       this.expanded = !this.expanded;
     });
