@@ -1,5 +1,5 @@
 import { set } from '@ember/object';
-import { render, find, findAll, click, triggerEvent } from '@ember/test-helpers';
+import { render, find, findAll, click, triggerEvent, settled } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
@@ -318,6 +318,213 @@ module('Integration | Component | tree', function (hooks) {
 
     assert.dom('.tree-node').exists({ count: 2 });
     assert.dom('.tree-chosen .tree-label').hasText('Child');
+  });
+
+  module('expandDepth', function () {
+    function nested() {
+      return buildTree([
+        { id: 1, name: 'Root' },
+        { id: 2, parentId: 1, name: 'Child' },
+        { id: 3, parentId: 2, name: 'Grand Child' },
+        { id: 4, parentId: 3, name: 'Great Grand Child' },
+      ]);
+    }
+
+    test('0 does not expand anything', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @expandDepth={{0}} @model={{this.tree}} />`);
+
+      assert.dom('.tree-node').exists({ count: 1 });
+    });
+
+    test('a positive number expands to that depth', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @expandDepth={{2}} @model={{this.tree}} />`);
+
+      assert.dom('.tree-node').exists({ count: 3 });
+    });
+
+    test('1 expands the roots', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @expandDepth={{1}} @model={{this.tree}} />`);
+
+      assert.dom('.tree-node').exists({ count: 2 });
+    });
+
+    test('a negative number expands everything', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @expandDepth={{-1}} @model={{this.tree}} />`);
+
+      assert.dom('.tree-node').exists({ count: 4 });
+    });
+  });
+
+  module('chosenId', function () {
+    test('it expands the ancestors, but not the chosen node', async function (assert) {
+      this.tree = buildTree([
+        { id: 1, name: 'Root' },
+        { id: 2, parentId: 1, name: 'Child' },
+        { id: 3, parentId: 2, name: 'Grand Child' },
+        { id: 4, parentId: 3, name: 'Great Grand Child' },
+        { id: 5, name: 'Other' },
+        { id: 6, parentId: 5, name: 'Other Child' },
+      ]);
+
+      await render(hbs`<Tree @chosenId={{3}} @model={{this.tree}} />`);
+
+      assert.dom('.tree-chosen .tree-label').hasText('Grand Child');
+      assert.dom('.tree-node').exists({ count: 4 }, 'other branches stay collapsed');
+    });
+
+    test('an unknown id does nothing', async function (assert) {
+      this.tree = buildTree([
+        { id: 1, name: 'Root' },
+        { id: 2, parentId: 1, name: 'Child' },
+      ]);
+
+      await render(hbs`<Tree @chosenId={{99}} @model={{this.tree}} />`);
+
+      assert.dom('.tree-chosen').doesNotExist();
+      assert.dom('.tree-node').exists({ count: 1 });
+    });
+  });
+
+  module('isVisible', function () {
+    test('hidden nodes are not rendered, along with their children', async function (assert) {
+      this.tree = buildTree([
+        { id: 1, name: 'Root', isExpanded: true },
+        { id: 2, parentId: 1, name: 'Shown' },
+        { id: 3, parentId: 1, name: 'Hidden', isExpanded: true, isVisible: false },
+        { id: 4, parentId: 3, name: 'Below hidden' },
+      ]);
+
+      await render(hbs`<Tree @model={{this.tree}} />`);
+
+      assert.dom('.tree-node').exists({ count: 2 });
+      assert.dom('.tree-branch').doesNotIncludeText('Hidden');
+    });
+
+    test('it applies to the roots and updates', async function (assert) {
+      this.tree = buildTree([
+        { id: 1, name: 'First', isVisible: false },
+        { id: 2, name: 'Second' },
+      ]);
+
+      await render(hbs`<Tree @model={{this.tree}} />`);
+      assert.dom('.tree-label').hasText('Second');
+
+      set(this.tree.at(0), 'isVisible', true);
+      await settled();
+
+      assert.dom('.tree-node').exists({ count: 2 });
+    });
+  });
+
+  module('hover', function () {
+    test('it highlights a node while hovering', async function (assert) {
+      this.tree = buildTree([{ id: 1, name: 'Root' }]);
+
+      await render(hbs`<Tree @model={{this.tree}} />`);
+
+      await triggerEvent('.tree-label', 'mouseenter');
+      assert.dom('.tree-highlight').exists();
+
+      await triggerEvent('.tree-label', 'mouseleave');
+      assert.dom('.tree-highlight').doesNotExist();
+    });
+
+    test('the classes follow the state of the node', async function (assert) {
+      this.tree = buildTree([{ id: 1, name: 'Root' }]);
+
+      await render(hbs`<Tree @model={{this.tree}} />`);
+
+      set(this.tree.at(0), 'isDisabled', true);
+      await settled();
+      assert.dom('.tree-disabled').exists();
+
+      set(this.tree.at(0), 'isDisabled', false);
+      await settled();
+      assert.dom('.tree-disabled').doesNotExist();
+    });
+
+    test('it does not highlight disabled nodes', async function (assert) {
+      this.tree = buildTree([{ id: 1, name: 'Root', isDisabled: true }]);
+
+      await render(hbs`<Tree @model={{this.tree}} />`);
+      await triggerEvent('.tree-label', 'mouseenter');
+
+      assert.dom('.tree-highlight').doesNotExist();
+    });
+  });
+
+  module('recursiveCheck', function () {
+    function nested() {
+      return buildTree([
+        { id: 1, name: 'Root', isExpanded: true },
+        { id: 2, parentId: 1, name: 'Branch', isExpanded: true },
+        { id: 3, parentId: 2, name: 'Leaf', isExpanded: true },
+        { id: 4, parentId: 2, name: 'Other Leaf' },
+        { id: 5, parentId: 1, name: 'Sibling' },
+      ]);
+    }
+
+    test('the state of a leaf reaches every ancestor', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @checkable={{true}} @model={{this.tree}} @recursiveCheck={{true}} />`);
+
+      let [root, branch, leaf, otherLeaf, sibling] = findAll('input[type=checkbox]');
+
+      await click(leaf);
+
+      assert.true(branch.indeterminate, 'partly checked branch');
+      assert.true(root.indeterminate, 'partly checked root');
+
+      await click(otherLeaf);
+
+      assert.true(branch.checked, 'fully checked branch');
+      assert.false(branch.indeterminate);
+      assert.false(root.checked, 'the root still has an unchecked child');
+      assert.true(root.indeterminate);
+
+      await click(sibling);
+
+      assert.true(root.checked, 'fully checked root');
+      assert.false(root.indeterminate);
+
+      await click(leaf);
+
+      assert.false(branch.checked, 'unchecking updates the branch');
+      assert.true(branch.indeterminate);
+      assert.false(root.checked, 'and the root');
+      assert.true(root.indeterminate);
+    });
+
+    test('a parent updates everything below it', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @checkable={{true}} @model={{this.tree}} @recursiveCheck={{true}} />`);
+      await click('input[type=checkbox]');
+
+      assert.dom('input[type=checkbox]:checked').exists({ count: 5 });
+
+      await click('input[type=checkbox]');
+
+      assert.dom('input[type=checkbox]:checked').doesNotExist();
+    });
+
+    test('without it nodes are independent', async function (assert) {
+      this.tree = nested();
+
+      await render(hbs`<Tree @checkable={{true}} @model={{this.tree}} />`);
+      await click('input[type=checkbox]');
+
+      assert.dom('input[type=checkbox]:checked').exists({ count: 1 });
+    });
   });
 
   module('styles', function () {

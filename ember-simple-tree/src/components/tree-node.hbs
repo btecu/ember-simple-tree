@@ -1,5 +1,10 @@
 <div
-  class={{this.classes}}
+  class={{concat
+    (if @model.isDisabled "tree-disabled ")
+    (if @model.isSelected "tree-highlight ")
+    (if this.isChosen "tree-chosen ")
+    (if @model.children.length "tree-children")
+  }}
   role="button"
   {{on "click" this.click}}
   {{on "contextmenu" this.contextMenu}}

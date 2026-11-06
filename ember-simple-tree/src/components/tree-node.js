@@ -2,27 +2,8 @@ import Component from '@glimmer/component';
 import { action, set, setProperties } from '@ember/object';
 
 export default class TreeNodeComponent extends Component {
-  get classes() {
-    let classes = [];
-    let { isDisabled, isSelected, id, children } = this.args.model;
-
-    if (isDisabled) {
-      classes.push('tree-disabled');
-    }
-
-    if (isSelected) {
-      classes.push('tree-highlight');
-    }
-
-    if (id === this.args.chosenId) {
-      classes.push('tree-chosen');
-    }
-
-    if (children?.length > 0) {
-      classes.push('tree-children');
-    }
-
-    return classes.join(' ');
+  get isChosen() {
+    return this.args.model.id === this.args.chosenId;
   }
 
   @action
