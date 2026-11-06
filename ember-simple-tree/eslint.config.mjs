@@ -20,6 +20,8 @@ import importPlugin from 'eslint-plugin-import';
 import n from 'eslint-plugin-n';
 import globals from 'globals';
 
+const Multiline = ['block-like', 'multiline-const', 'multiline-expression', 'multiline-let'];
+
 const esmParserOptions = {
   ecmaFeatures: { modules: true },
   ecmaVersion: 'latest',
@@ -90,6 +92,18 @@ export default [
     rules: {
       // require relative imports use full extensions
       'import/extensions': ['error', 'always', { ignorePackages: true }],
+    },
+  },
+  /**
+   * Keep blocks and multiline statements apart from the code around them
+   */
+  {
+    rules: {
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: Multiline, next: '*' },
+        { blankLine: 'always', prev: '*', next: Multiline },
+      ],
     },
   },
   /**

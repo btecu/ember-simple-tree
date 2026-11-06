@@ -8,6 +8,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
 
   test('select event', async function (assert) {
     this.selected = false;
+
     this.model = {
       name: 'a',
       children: [],
@@ -30,6 +31,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
 
   test('contextmenu event', async function (assert) {
     this.rightClicked = false;
+
     this.model = {
       name: 'a',
       children: [],
@@ -62,6 +64,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
 
   test('onHover and onHoverOut events', async function (assert) {
     this.hovering = false;
+
     this.model = {
       name: 'a',
       children: [],
@@ -94,6 +97,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
 
   test('onHover and onHoverOut receive the node', async function (assert) {
     let hovered = [];
+
     this.model = {
       name: 'a',
       children: [],
@@ -120,6 +124,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
 
   test('onCheck receives the node', async function (assert) {
     let checked;
+
     this.model = {
       name: 'a',
       children: [],

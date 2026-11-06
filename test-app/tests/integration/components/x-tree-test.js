@@ -173,6 +173,7 @@ module('Integration | Component | x-tree', function (hooks) {
       { id: 2, parentId: 1, name: 'First Child' },
       { id: 3, parentId: 1, name: 'Second Child' },
     ]);
+
     let [first, second] = root.children;
 
     this.tree = [root];
@@ -260,6 +261,7 @@ module('Integration | Component | x-tree', function (hooks) {
 
   test('can disable nodes', async function (assert) {
     this.selected = false;
+
     this.set('onSelect', () => {
       this.selected = !this.selected;
     });

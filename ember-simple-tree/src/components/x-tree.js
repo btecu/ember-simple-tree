@@ -17,6 +17,7 @@ export default class TreeComponent extends Component {
     // Make sure chosen item is highlighted and expanded-to in the tree
     if (this.args.chosenId) {
       let chosen = getDescendents(this.args.model).find((x) => x.id === this.args.chosenId);
+
       if (chosen) {
         getAncestors(this.args.model, chosen)
           .filter((x) => x.id !== this.args.chosenId)

@@ -1,5 +1,9 @@
 # Upgrading
 
+## from 0.9.x to 0.10.0
+
+**Requirements:** Ember.js v6.8 and Node.js v22 or above are required.
+
 ## from 0.5.x to 0.6.0
 
 If you are using the block form of the {{x-tree}} component,

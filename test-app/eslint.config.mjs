@@ -22,6 +22,8 @@ import n from 'eslint-plugin-n';
 
 import babelParser from '@babel/eslint-parser';
 
+const Multiline = ['block-like', 'multiline-const', 'multiline-expression', 'multiline-let'];
+
 const esmParserOptions = {
   ecmaFeatures: { modules: true },
   ecmaVersion: 'latest',
@@ -70,6 +72,18 @@ export default [
     files: ['tests/**/*-test.{js,gjs}'],
     plugins: {
       qunit,
+    },
+  },
+  /**
+   * Keep blocks and multiline statements apart from the code around them
+   */
+  {
+    rules: {
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: Multiline, next: '*' },
+        { blankLine: 'always', prev: '*', next: Multiline },
+      ],
     },
   },
   /**

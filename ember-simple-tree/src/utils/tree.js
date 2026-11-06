@@ -87,6 +87,7 @@ export function getAncestors(tree, childNode) {
         ancestors.pushObject(node);
       } else if (node.children?.length > 0) {
         ancestors.pushObjects(getAncestors(node.children, childNode));
+
         if (ancestors.length > 0) {
           ancestors.pushObject(node);
         }
