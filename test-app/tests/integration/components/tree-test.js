@@ -308,6 +308,18 @@ module('Integration | Component | tree', function (hooks) {
     assert.dom('.tree-chosen .tree-label').hasText('Child');
   });
 
+  test('it expands to a chosen node with an id of 0', async function (assert) {
+    this.tree = buildTree([
+      { id: 5, name: 'Root' },
+      { id: 0, parentId: 5, name: 'Child' },
+    ]);
+
+    await render(hbs`<Tree @chosenId={{0}} @model={{this.tree}} />`);
+
+    assert.dom('.tree-node').exists({ count: 2 });
+    assert.dom('.tree-chosen .tree-label').hasText('Child');
+  });
+
   module('styles', function () {
     test('they are shipped with the component', async function (assert) {
       this.tree = buildTree([
