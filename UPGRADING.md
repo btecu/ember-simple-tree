@@ -4,6 +4,9 @@
 
 **Requirements:** Ember.js v6.8 and Node.js v22 or above are required.
 
+**Styles:** the styles are shipped with the component again. If you copied them
+into your app you can remove them, otherwise make sure yours still take effect.
+
 ## from 0.5.x to 0.6.0
 
 If you are using the block form of the {{x-tree}} component,

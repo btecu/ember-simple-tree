@@ -1,5 +1,5 @@
 import { set } from '@ember/object';
-import { render, findAll, click, triggerEvent } from '@ember/test-helpers';
+import { render, find, findAll, click, triggerEvent } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
@@ -291,5 +291,26 @@ module('Integration | Component | x-tree', function (hooks) {
     await triggerEvent('.tree-node span', 'contextmenu');
 
     assert.strictEqual(this.name, 'Root', 'item from contextMenu event is returned as expected');
+  });
+
+  module('styles', function () {
+    test('they are shipped with the component', async function (assert) {
+      this.tree = buildTree([
+        { id: 1, name: 'Root', isDisabled: true, isExpanded: true },
+        { id: 2, parentId: 1, name: 'Child' },
+      ]);
+
+      await render(hbs`<XTree @chosenId={{1}} @model={{this.tree}} />`);
+
+      let style = (selector) => getComputedStyle(find(selector));
+
+      assert.strictEqual(style('.tree-node').listStyleType, 'none', '.tree-node');
+      assert.strictEqual(style('.tree-branch').paddingLeft, '0px', '.tree-branch');
+      assert.strictEqual(style('.tree-node .tree-branch').marginTop, '0px', 'nested .tree-branch');
+      assert.notStrictEqual(style('.tree-node .tree-branch').paddingLeft, '0px', 'nested .tree-branch is indented');
+      assert.strictEqual(style('.tree-chosen').fontWeight, '700', '.tree-chosen');
+      assert.strictEqual(style('.tree-disabled').cursor, 'not-allowed', '.tree-disabled');
+      assert.strictEqual(style('.toggle-icon').cursor, 'pointer', '.toggle-icon');
+    });
   });
 });

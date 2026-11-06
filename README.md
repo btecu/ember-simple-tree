@@ -18,6 +18,8 @@ ember install ember-simple-tree
 
 ## Usage
 
+The styles are included with the component. All of them use the `tree-*` and `toggle-icon` classes, which you can override in your own CSS.
+
 Basic example:
 
 ```handlebars
