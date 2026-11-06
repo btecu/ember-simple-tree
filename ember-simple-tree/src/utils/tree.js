@@ -21,12 +21,12 @@ export function buildTree(model, options = {}) {
   model.forEach((node) => {
     // Alternative name for `id`
     if (options.valueKey) {
-      set(node, 'id', node.options?.valueKey);
+      set(node, 'id', node[options.valueKey]);
     }
 
     // Alternative name for `name`
     if (options.labelKey) {
-      set(node, 'name', node.options?.labelKey);
+      set(node, 'name', node[options.labelKey]);
     }
 
     // Defaults
@@ -42,8 +42,7 @@ export function buildTree(model, options = {}) {
 
   // Connect all children to their parent
   model.forEach((node) => {
-    let key = options.valueKey ? node[options.valueKey] : node.id;
-    let child = tree[key];
+    let child = tree[node.id];
 
     if (isEmpty(node.parentId)) {
       roots.pushObject(child);

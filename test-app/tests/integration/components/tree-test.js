@@ -293,6 +293,21 @@ module('Integration | Component | tree', function (hooks) {
     assert.strictEqual(this.name, 'Root', 'item from contextMenu event is returned as expected');
   });
 
+  test('it renders a tree built with `labelKey` and `valueKey`', async function (assert) {
+    this.tree = buildTree(
+      [
+        { slug: 'root', title: 'Root', isExpanded: true },
+        { slug: 'child', title: 'Child', parentId: 'root' },
+      ],
+      { labelKey: 'title', valueKey: 'slug' },
+    );
+
+    await render(hbs`<Tree @chosenId="child" @model={{this.tree}} />`);
+
+    assert.dom('.tree-node').exists({ count: 2 });
+    assert.dom('.tree-chosen .tree-label').hasText('Child');
+  });
+
   module('styles', function () {
     test('they are shipped with the component', async function (assert) {
       this.tree = buildTree([

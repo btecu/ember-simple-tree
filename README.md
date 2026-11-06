@@ -194,6 +194,25 @@ You may optionally pass a block to the `Tree` component to render each node area
 ```
 
 
+### Building a tree
+
+`buildTree` creates the model from a flat list, using `id` and `parentId` for the relationships:
+
+```js
+import { buildTree } from 'ember-simple-tree/utils/tree';
+
+buildTree([
+  { id: 1, name: 'Root' },
+  { id: 2, name: 'Child', parentId: 1 },
+]);
+```
+
+If your records use other properties for `id` or `name`, pass `valueKey` or `labelKey`. `parentId` must reference the value of `valueKey`:
+
+```js
+buildTree(records, { labelKey: 'title', valueKey: 'slug' });
+```
+
 ### Model structure
 The component uses recursion to display the tree.
 The model requires specific properties to properly function:
