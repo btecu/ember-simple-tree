@@ -83,11 +83,11 @@ const collapsedTree = [
   },
 ];
 
-module('Integration | Component | x-tree', function (hooks) {
+module('Integration | Component | tree', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    await render(hbs`<XTree />`);
+    await render(hbs`<Tree />`);
 
     assert.dom('.tree').hasNoText();
 
@@ -99,9 +99,9 @@ module('Integration | Component | x-tree', function (hooks) {
     ]);
 
     await render(hbs`
-      <XTree @model={{this.tree}}>
+      <Tree @model={{this.tree}}>
         template block text
-      </XTree>
+      </Tree>
     `);
 
     assert.dom('.tree').hasText('template block text');
@@ -110,7 +110,7 @@ module('Integration | Component | x-tree', function (hooks) {
   test('it renders a standard tree', async function (assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`<XTree @model={{this.tree}} />`);
+    await render(hbs`<Tree @model={{this.tree}} />`);
 
     assert.dom('.tree-node').exists({ count: 4 }, '4 nodes rendered');
     assert.dom('.tree-branch').exists({ count: 5 }, '5 branches rendered');
@@ -125,7 +125,7 @@ module('Integration | Component | x-tree', function (hooks) {
   test('checkable', async function (assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`<XTree @checkable={{true}} @model={{this.tree}} />`);
+    await render(hbs`<Tree @checkable={{true}} @model={{this.tree}} />`);
 
     assert.dom('input[type=checkbox]').exists({ count: 4 }, '4 checkboxes, one for each node');
     assert.dom('input[type=checkbox]:checked').doesNotExist('no checkboxes checked');
@@ -134,7 +134,7 @@ module('Integration | Component | x-tree', function (hooks) {
   test('expands and collapses', async function (assert) {
     this.set('tree', collapsedTree);
 
-    await render(hbs`<XTree @model={{this.tree}} />`);
+    await render(hbs`<Tree @model={{this.tree}} />`);
 
     assert.dom('.tree-node').exists({ count: 1 }, '1 node rendered');
 
@@ -150,7 +150,7 @@ module('Integration | Component | x-tree', function (hooks) {
   test('expand all', async function (assert) {
     this.set('tree', collapsedTree);
 
-    await render(hbs`<XTree @model={{this.tree}} @expandDepth={{-1}} />`);
+    await render(hbs`<Tree @model={{this.tree}} @expandDepth={{-1}} />`);
 
     assert.dom('.tree-node').exists({ count: 4 }, 'all nodes rendered');
   });
@@ -158,7 +158,7 @@ module('Integration | Component | x-tree', function (hooks) {
   test('recursive check', async function (assert) {
     this.set('tree', standardTree);
 
-    await render(hbs`<XTree @model={{this.tree}} @checkable={{true}} @recursiveCheck={{true}} />`);
+    await render(hbs`<Tree @model={{this.tree}} @checkable={{true}} @recursiveCheck={{true}} />`);
 
     assert.dom('input[type=checkbox]:checked').doesNotExist('no checkboxes checked');
 
@@ -180,7 +180,7 @@ module('Integration | Component | x-tree', function (hooks) {
     this.onSelect = (node) => set(node, 'isChecked', !node.isChecked);
 
     await render(hbs`
-      <XTree
+      <Tree
         @checkable={{true}}
         @model={{this.tree}}
         @onSelect={{this.onSelect}}
@@ -212,7 +212,7 @@ module('Integration | Component | x-tree', function (hooks) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      <XTree
+      <Tree
         @collapsedIcon="collapsed-icon"
         @expandedIcon="expanded-icon"
         @model={{this.tree}}
@@ -226,7 +226,7 @@ module('Integration | Component | x-tree', function (hooks) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      <XTree
+      <Tree
         @collapsedIcon={{component "collapsed-icon"}}
         @expandedIcon={{component "expanded-icon"}}
         @model={{this.tree}}
@@ -240,11 +240,11 @@ module('Integration | Component | x-tree', function (hooks) {
     this.set('tree', standardTree);
 
     await render(hbs`
-      <XTree @checkable={{true}} @model={{this.tree}} as |node|>
+      <Tree @checkable={{true}} @model={{this.tree}} as |node|>
         {{node.toggle}}
         {{node.checkbox}}
         <span class="tree-label">{{node.model.name}}</span>
-      </XTree>
+      </Tree>
     `);
 
     assert.dom('.tree-node').exists({ count: 4 }, '4 nodes rendered');
@@ -268,7 +268,7 @@ module('Integration | Component | x-tree', function (hooks) {
 
     this.set('tree', standardTree);
 
-    await render(hbs`<XTree @model={{this.tree}} @onSelect={{this.onSelect}} />`);
+    await render(hbs`<Tree @model={{this.tree}} @onSelect={{this.onSelect}} />`);
 
     await click('.tree-node span');
 
@@ -287,7 +287,7 @@ module('Integration | Component | x-tree', function (hooks) {
     this.set('onContextMenu', (x) => (this.name = x.name));
     this.set('tree', standardTree);
 
-    await render(hbs`<XTree @model={{this.tree}} @onContextMenu={{this.onContextMenu}} />`);
+    await render(hbs`<Tree @model={{this.tree}} @onContextMenu={{this.onContextMenu}} />`);
     await triggerEvent('.tree-node span', 'contextmenu');
 
     assert.strictEqual(this.name, 'Root', 'item from contextMenu event is returned as expected');
@@ -300,7 +300,7 @@ module('Integration | Component | x-tree', function (hooks) {
         { id: 2, parentId: 1, name: 'Child' },
       ]);
 
-      await render(hbs`<XTree @chosenId={{1}} @model={{this.tree}} />`);
+      await render(hbs`<Tree @chosenId={{1}} @model={{this.tree}} />`);
 
       let style = (selector) => getComputedStyle(find(selector));
 

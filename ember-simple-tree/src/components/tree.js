@@ -1,15 +1,15 @@
 import Component from '@glimmer/component';
 import { getAncestors, getDescendents } from '../utils/tree.js';
 import { set } from '@ember/object';
-import '../styles/x-tree.css';
+import '../styles/tree.css';
 
 export default class TreeComponent extends Component {
   get collapsedIcon() {
-    return this.args.collapsedIcon ?? 'x-tree-collapsed-icon';
+    return this.args.collapsedIcon ?? 'tree-collapsed-icon';
   }
 
   get expandedIcon() {
-    return this.args.expandedIcon ?? 'x-tree-expanded-icon';
+    return this.args.expandedIcon ?? 'tree-expanded-icon';
   }
 
   constructor() {

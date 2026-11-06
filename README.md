@@ -23,17 +23,17 @@ The styles are included with the component. All of them use the `tree-*` and `to
 Basic example:
 
 ```handlebars
-<XTree @model={{this.tree}} />
+<Tree @model={{this.tree}} />
 ```
 
 Standard example:
 
 ```handlebars
-<XTree @model={{this.tree}} as |node|>
+<Tree @model={{this.tree}} as |node|>
   {{node.toggle}}
   {{node.checkbox}}
   {{node.model.name}}
-</XTree>
+</Tree>
 ```
 
 ### Available actions
@@ -45,7 +45,7 @@ Returns: `node`
 Fired when a checkbox state changes.
 
 ```handlebars
-<XTree @model={{this.tree}} @onCheck={{this.onCheck}} />
+<Tree @model={{this.tree}} @onCheck={{this.onCheck}} />
 ```
 
 #### onContextMenu
@@ -55,7 +55,7 @@ Returns: `node`
 Fired on contextMenu event.
 
 ```handlebars
-<XTree @model={{this.tree}} @onContextMenu={{this.onContextMenu}} />
+<Tree @model={{this.tree}} @onContextMenu={{this.onContextMenu}} />
 ```
 
 #### onHover
@@ -65,7 +65,7 @@ Returns: `node`
 Fired when a mouse enters the node.
 
 ```handlebars
-<XTree @model={{this.tree}} @onHover={{this.onHover}} />
+<Tree @model={{this.tree}} @onHover={{this.onHover}} />
 ```
 
 #### onHoverOut
@@ -75,7 +75,7 @@ Returns: `node`
 Fired when a mouse leaves the node.
 
 ```handlebars
-<XTree @model={{this.tree}} @onHoverOut={{this.onHoverOut}} />
+<Tree @model={{this.tree}} @onHoverOut={{this.onHoverOut}} />
 ```
 
 #### onSelect
@@ -85,7 +85,7 @@ Returns: `node`
 Fired when a node is selected.
 
 ```handlebars
-<XTree @model={{this.tree}} @onSelect={{this.onSelect}} />
+<Tree @model={{this.tree}} @onSelect={{this.onSelect}} />
 ```
 
 ### Available options
@@ -97,7 +97,7 @@ Default: `false`
 Accepts: `boolean`
 
 ```handlebars
-<XTree @checkable={{true}} @model={{this.tree}} />
+<Tree @checkable={{true}} @model={{this.tree}} />
 ```
 
 Displays a checkbox for each node.
@@ -110,7 +110,7 @@ Default: `undefined`
 Accepts: `id`
 
 ```handlebars
-<XTree @chosenId={{this.someId}} @model={{this.tree}} />
+<Tree @chosenId={{this.someId}} @model={{this.tree}} />
 ```
 
 Applies 'chosen' styling (`font-weight: bold;`) to the specified node.
@@ -124,7 +124,7 @@ Default: `0`
 Accepts: `number`
 
 ```handlebars
-<XTree @expandDepth={{-1}} @model={{this.tree}} />
+<Tree @expandDepth={{-1}} @model={{this.tree}} />
 ```
 
 Expands the tree to a given depth.
@@ -137,7 +137,7 @@ Default: `false`
 Accepts: `boolean`
 
 ```handlebars
-<XTree @checkable={{true}} @model={{this.tree}} @recursiveCheck={{true}} />
+<Tree @checkable={{true}} @model={{this.tree}} @recursiveCheck={{true}} />
 ```
 
 When enabled, checking a box will also check children's boxes as well. Also enables indeterminate state for checkboxes.
@@ -145,42 +145,42 @@ Has no effect if `checkable` is not enabled.
 
 #### expandedIcon
 
-Default: `x-tree-expanded-icon`,
+Default: `tree-expanded-icon`,
 
 Accepts: `string` or `Component`
 
 ```handlebars
-<XTree @expandedIcon={{component "my-expanded-icon-component"}} @model={{this.tree}} />
+<Tree @expandedIcon={{component "my-expanded-icon-component"}} @model={{this.tree}} />
 ```
 or
 ```handlebars
-<XTree @expandedIcon="my-expanded-icon-component" @model={{this.tree}} />
+<Tree @expandedIcon="my-expanded-icon-component" @model={{this.tree}} />
 ```
 
 Component to use for expanded icon
 
 #### collapsedIcon
 
-Default: `x-tree-collapsed-icon`,
+Default: `tree-collapsed-icon`,
 
 Accepts: `string`
 
 ```handlebars
-<XTree @collapsedIcon={{component "my-collapsed-icon-component"}} @model={{this.tree}} />
+<Tree @collapsedIcon={{component "my-collapsed-icon-component"}} @model={{this.tree}} />
 ```
 or
 ```handlebars
-<XTree @collapsedIcon="my-collapsed-icon-component" @model={{this.tree}} />
+<Tree @collapsedIcon="my-collapsed-icon-component" @model={{this.tree}} />
 ```
 
 Component to use for collapsed icon
 
 ### Blocks
 
-You may optionally pass a block to the `XTree` component to render each node area with custom HTML.
+You may optionally pass a block to the `Tree` component to render each node area with custom HTML.
 
 ```handlebars
-<XTree
+<Tree
   @checkable={{this.isCheckable}}
   @chosenId={{this.selectedNode}}
   @expandDepth={{2}}
@@ -190,7 +190,7 @@ You may optionally pass a block to the `XTree` component to render each node are
 >
   <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
   {{node.model.name}}
-</XTree>
+</Tree>
 ```
 
 

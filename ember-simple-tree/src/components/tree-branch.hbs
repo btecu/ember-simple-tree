@@ -2,7 +2,7 @@
   {{#each @model as |child|}}
     {{#if child.isVisible}}
       {{#if (has-block)}}
-        <XTreeChildren
+        <TreeChildren
           @checkable={{@checkable}}
           @recursiveCheck={{@recursiveCheck}}
           @updateCheckbox={{@updateCheckbox}}
@@ -18,9 +18,9 @@
           as |node|
         >
           {{yield node}}
-        </XTreeChildren>
+        </TreeChildren>
       {{else}}
-        <XTreeChildren
+        <TreeChildren
           @model={{child}}
           @checkable={{@checkable}}
           @recursiveCheck={{@recursiveCheck}}

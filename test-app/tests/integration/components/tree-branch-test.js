@@ -3,11 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | x-tree-branch', function (hooks) {
+module('Integration | Component | tree-branch', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    await render(hbs`<XTreeBranch />`);
+    await render(hbs`<TreeBranch />`);
 
     assert.dom('.tree-branch').hasNoText();
 
@@ -19,9 +19,9 @@ module('Integration | Component | x-tree-branch', function (hooks) {
     ]);
 
     await render(hbs`
-      <XTreeBranch @model={{this.tree}}>
+      <TreeBranch @model={{this.tree}}>
         template block text
-      </XTreeBranch>
+      </TreeBranch>
     `);
 
     assert.dom('.tree-branch').hasText('template block text');

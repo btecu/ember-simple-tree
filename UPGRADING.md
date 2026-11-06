@@ -4,6 +4,19 @@
 
 **Requirements:** Ember.js v6.8 and Node.js v22 or above are required.
 
+**Renamed components:** `XTree` is now `Tree`, and the other components lost their
+`x-` prefix too, such as `XTreeNode` becoming `TreeNode`. Update your templates, and
+any `x-tree-collapsed-icon` or `x-tree-expanded-icon` you pass by name. If your app
+already has a component with one of these names, yours will take precedence:
+
+```handlebars
+{{! Before }}
+<XTree @model={{this.tree}} />
+
+{{! After }}
+<Tree @model={{this.tree}} />
+```
+
 **Styles:** the styles are shipped with the component again. If you copied them
 into your app you can remove them, otherwise make sure yours still take effect.
 

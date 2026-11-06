@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, click, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | x-tree-node', function (hooks) {
+module('Integration | Component | tree-node', function (hooks) {
   setupRenderingTest(hooks);
 
   test('select event', async function (assert) {
@@ -18,7 +18,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
       this.selected = !this.selected;
     });
 
-    await render(hbs`<XTreeNode @model={{this.model}} @onSelect={{this.onSelect}} />`);
+    await render(hbs`<TreeNode @model={{this.model}} @onSelect={{this.onSelect}} />`);
 
     await click('.tree-toggle');
 
@@ -41,7 +41,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
       this.rightClicked = true;
     });
 
-    await render(hbs`<XTreeNode @model={{this.model}} @onContextMenu={{this.onContextMenu}} />`);
+    await render(hbs`<TreeNode @model={{this.model}} @onContextMenu={{this.onContextMenu}} />`);
 
     await triggerEvent('.tree-toggle', 'contextmenu');
 
@@ -55,10 +55,10 @@ module('Integration | Component | x-tree-node', function (hooks) {
       children: [],
     };
 
-    await render(hbs`<XTreeNode @model={{this.model}} @chosenId='foo' />`);
+    await render(hbs`<TreeNode @model={{this.model}} @chosenId='foo' />`);
     assert.dom('.tree-chosen').exists('class applied when the chosenId matches model id');
 
-    await render(hbs`<XTreeNode @model={{this.model}} @chosenId='bar' />`);
+    await render(hbs`<TreeNode @model={{this.model}} @chosenId='bar' />`);
     assert.dom('.tree-chosen').doesNotExist('class not applied when the chosenId does not match model id');
   });
 
@@ -79,7 +79,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
     });
 
     await render(hbs`
-      <XTreeNode
+      <TreeNode
         @model={{this.model}}
         @onHover={{this.onHover}}
         @onHoverOut={{this.onHoverOut}}
@@ -107,7 +107,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
     this.onHoverOut = (node) => hovered.push(node);
 
     await render(hbs`
-      <XTreeNode
+      <TreeNode
         @model={{this.model}}
         @onHover={{this.onHover}}
         @onHoverOut={{this.onHoverOut}}
@@ -133,7 +133,7 @@ module('Integration | Component | x-tree-node', function (hooks) {
     this.onCheck = (node) => (checked = node);
 
     await render(hbs`
-      <XTreeNode
+      <TreeNode
         @checkable={{true}}
         @model={{this.model}}
         @onCheck={{this.onCheck}}

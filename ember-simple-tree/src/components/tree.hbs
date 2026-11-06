@@ -1,6 +1,6 @@
 <div class="tree">
   {{#if (has-block)}}
-    <XTreeBranch
+    <TreeBranch
       @checkable={{@checkable}}
       @recursiveCheck={{@recursiveCheck}}
       @chosenId={{@chosenId}}
@@ -15,9 +15,9 @@
       as |node|
     >
       {{yield node}}
-    </XTreeBranch>
+    </TreeBranch>
   {{else}}
-    <XTreeBranch
+    <TreeBranch
       @model={{@model}}
       @checkable={{@checkable}}
       @recursiveCheck={{@recursiveCheck}}

@@ -1,6 +1,6 @@
 <li class="tree-node">
   {{#if (has-block)}}
-    <XTreeNode
+    <TreeNode
       @checkable={{@checkable}}
       @recursiveCheck={{@recursiveCheck}}
       @updateCheckbox={{this.updateCheckbox}}
@@ -16,10 +16,10 @@
       as |node|
     >
       {{yield node}}
-    </XTreeNode>
+    </TreeNode>
 
     {{#if @model.isExpanded}}
-      <XTreeBranch
+      <TreeBranch
         @checkable={{@checkable}}
         @recursiveCheck={{@recursiveCheck}}
         @updateCheckbox={{this.updateCheckbox}}
@@ -35,10 +35,10 @@
         as |node|
       >
         {{yield node}}
-      </XTreeBranch>
+      </TreeBranch>
     {{/if}}
   {{else}}
-    <XTreeNode
+    <TreeNode
       @model={{@model}}
       @checkable={{@checkable}}
       @recursiveCheck={{@recursiveCheck}}
@@ -53,7 +53,7 @@
       @collapsedIcon={{@collapsedIcon}}
     />
     {{#if @model.isExpanded}}
-      <XTreeBranch
+      <TreeBranch
         @model={{@model.children}}
         @checkable={{@checkable}}
         @recursiveCheck={{@recursiveCheck}}

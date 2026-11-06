@@ -11,19 +11,19 @@
       (hash
         model=@model
         toggle=(component
-          "x-tree-toggle"
+          "tree-toggle"
           model=@model
           toggleExpand=this.toggleExpand
           expandedIcon=@expandedIcon
           collapsedIcon=@collapsedIcon
         )
         checkbox=(component
-          "x-tree-checkbox" model=@model toggleCheck=this.toggleCheck
+          "tree-checkbox" model=@model toggleCheck=this.toggleCheck
         )
       )
     }}
   {{else}}
-    <XTreeToggle
+    <TreeToggle
       role="presentation"
       @model={{@model}}
       @toggleExpand={{this.toggleExpand}}
@@ -32,7 +32,7 @@
     />
 
     {{#if @checkable}}
-      <XTreeCheckbox
+      <TreeCheckbox
         role="presentation"
         @model={{@model}}
         @toggleCheck={{this.toggleCheck}}
