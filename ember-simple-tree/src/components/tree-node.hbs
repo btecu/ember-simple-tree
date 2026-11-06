@@ -1,5 +1,10 @@
 <div
-  class={{this.classes}}
+  class={{concat
+    (if @model.isDisabled "tree-disabled ")
+    (if @model.isSelected "tree-highlight ")
+    (if this.isChosen "tree-chosen ")
+    (if @model.children.length "tree-children")
+  }}
   role="button"
   {{on "click" this.click}}
   {{on "contextmenu" this.contextMenu}}
@@ -11,19 +16,19 @@
       (hash
         model=@model
         toggle=(component
-          "x-tree-toggle"
+          "tree-toggle"
           model=@model
           toggleExpand=this.toggleExpand
           expandedIcon=@expandedIcon
           collapsedIcon=@collapsedIcon
         )
         checkbox=(component
-          "x-tree-checkbox" model=@model toggleCheck=this.toggleCheck
+          "tree-checkbox" model=@model toggleCheck=this.toggleCheck
         )
       )
     }}
   {{else}}
-    <XTreeToggle
+    <TreeToggle
       role="presentation"
       @model={{@model}}
       @toggleExpand={{this.toggleExpand}}
@@ -32,7 +37,7 @@
     />
 
     {{#if @checkable}}
-      <XTreeCheckbox
+      <TreeCheckbox
         role="presentation"
         @model={{@model}}
         @toggleCheck={{this.toggleCheck}}
