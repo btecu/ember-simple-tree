@@ -1,0 +1,1 @@
+{"version":3,"file":"tree-toggle.js","sources":["../../src/components/tree-toggle.js"],"sourcesContent":["import templateOnly from '@ember/component/template-only';\nexport default templateOnly();\n"],"names":["setComponentTemplate","TEMPLATE","templateOnly"],"mappings":";;;;;;AACA,iBAAAA,oBAAA,CAAAC,QAAA,EAAeC,YAAY,EAAE,CAAA;;"}
