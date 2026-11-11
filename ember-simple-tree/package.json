@@ -83,7 +83,6 @@
       "./components/tree-branch.js": "./dist/_app_/components/tree-branch.js",
       "./components/tree-checkbox.js": "./dist/_app_/components/tree-checkbox.js",
       "./components/tree-children.js": "./dist/_app_/components/tree-children.js",
-      "./components/tree-node-toggle.js": "./dist/_app_/components/tree-node-toggle.js",
       "./components/tree-node.js": "./dist/_app_/components/tree-node.js",
       "./components/tree-toggle.js": "./dist/_app_/components/tree-toggle.js",
       "./components/tree.js": "./dist/_app_/components/tree.js",

@@ -17,8 +17,12 @@
         model=@model
         toggleExpand=this.toggleExpand
         toggleCheck=this.toggleCheck
-        Toggle=this.Toggle
-        Checkbox=this.Checkbox
+        Toggle=(component
+          this.Toggle model=@model toggleExpand=this.toggleExpand
+        )
+        Checkbox=(component
+          this.Checkbox model=@model toggleCheck=this.toggleCheck
+        )
       )
     }}
   {{else}}

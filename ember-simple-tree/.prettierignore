@@ -7,3 +7,6 @@
 
 # misc
 /coverage/
+
+# prettier strips the final newline from templates; ember-template-lint (eol-last) covers them
+*.hbs

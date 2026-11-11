@@ -14,3 +14,6 @@ ember-cli-update.json
 
 # ember-try
 /.node_modules.ember-try/
+
+# prettier strips the final newline from templates; ember-template-lint (eol-last) covers them
+*.hbs

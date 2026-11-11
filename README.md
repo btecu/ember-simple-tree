@@ -1,6 +1,6 @@
 # ember-simple-tree
 
-Lightweight, composable tree component for Ember without any dependency.
+Lightweight, composable tree component for Ember.
 
 ## Compatibility
 
@@ -18,7 +18,8 @@ ember install ember-simple-tree
 
 ## Usage
 
-The styles are included with the component. All of them use the `tree-*` and `toggle-icon` classes, which you can override in your own CSS.
+The styles are included with the component.
+All of them use the `tree-*` and `toggle-icon` classes, which you can override in your own CSS.
 
 Basic example:
 
@@ -30,11 +31,13 @@ Standard example:
 
 ```handlebars
 <Tree @model={{this.tree}} as |node|>
-  <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
-  <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
+  <node.Toggle />
+  <node.Checkbox />
   {{node.model.name}}
 </Tree>
 ```
+
+Upgrading from an older version? See [UPGRADING.md](UPGRADING.md).
 
 ### Available actions
 
@@ -52,7 +55,7 @@ Fired when a checkbox state changes.
 
 Returns: `node`
 
-Fired on contextMenu event.
+Fired on right click. When set, the browser's context menu is not shown.
 
 ```handlebars
 <Tree @model={{this.tree}} @onContextMenu={{this.onContextMenu}} />
@@ -100,8 +103,8 @@ Accepts: `boolean`
 <Tree @checkable={{true}} @model={{this.tree}} />
 ```
 
-Displays a checkbox for each node.
-Use in conjunction with `model.isChecked`.
+Displays a checkbox for each node, reflecting `model.isChecked`.
+In the block form, render `<node.Checkbox />` instead, since `checkable` has no effect there.
 
 #### chosenId
 
@@ -113,9 +116,8 @@ Accepts: `id`
 <Tree @chosenId={{this.someId}} @model={{this.tree}} />
 ```
 
-Applies 'chosen' styling (`font-weight: bold;`) to the specified node.
-A tree will also auto-expand to a the chosen node if a valid `chosenId` is provided.
-`chosenId` should relate to a node's `model.id`.
+Applies the `tree-chosen` class (bold by default) to the node whose `model.id` matches.
+When the tree is first rendered, the ancestors of that node are expanded so it's visible.
 
 #### expandDepth
 
@@ -127,8 +129,8 @@ Accepts: `number`
 <Tree @expandDepth={{-1}} @model={{this.tree}} />
 ```
 
-Expands the tree to a given depth.
-`0` will not expand the tree at all, a negative number will fully expand a tree, a positive number will expand a tree to the given depth.
+Expands the tree to a given depth when it's first rendered.
+`0` will not expand the tree at all, `-1` will fully expand a tree, a positive number will expand a tree to the given depth.
 
 #### recursiveCheck
 
@@ -140,12 +142,48 @@ Accepts: `boolean`
 <Tree @checkable={{true}} @model={{this.tree}} @recursiveCheck={{true}} />
 ```
 
-When enabled, checking a box will also check children's boxes as well. Also enables indeterminate state for checkboxes.
-Has no effect if `checkable` is not enabled.
+When enabled, checking a node also checks all of its descendants, and each parent is checked,
+unchecked or indeterminate based on its children. This also applies when `onSelect` changes `isChecked`.
 
-#### expandedIcon
+### Blocks
 
-Default: built-in expanded icon (▼)
+#### Default block
+
+You may optionally pass a block to the `Tree` component to render each node area with custom HTML.
+
+```handlebars
+<Tree
+  @chosenId={{this.selectedNode}}
+  @expandDepth={{2}}
+  @model={{this.model}}
+  @onSelect={{this.selectNode}}
+  as |node|
+>
+  <i class="fa text-muted {{if node.model.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
+  {{node.model.name}}
+</Tree>
+```
+
+The block receives a `node` object with:
+
+- `model`: the node
+- `Toggle`: the expand/collapse toggle, ready to render as `<node.Toggle />`
+- `Checkbox`: the checkbox, ready to render as `<node.Checkbox />`
+- `toggleExpand`: the action to expand or collapse the node, for your own controls
+- `toggleCheck`: the action to check or uncheck the node, for your own controls
+
+```handlebars
+<Tree @model={{this.tree}} as |node|>
+  <button type="button" {{on "click" node.toggleExpand}}>
+    {{if node.model.isExpanded "Collapse" "Expand"}}
+  </button>
+  {{node.model.name}}
+</Tree>
+```
+
+#### Expanded icon
+
+Default: ▼
 
 Use the `<:expandedIcon>` named block on `Tree` to customize the expanded icon:
 
@@ -155,9 +193,9 @@ Use the `<:expandedIcon>` named block on `Tree` to customize the expanded icon:
 </Tree>
 ```
 
-#### collapsedIcon
+#### Collapsed icon
 
-Default: built-in collapsed icon (▶)
+Default: ▶
 
 Use the `<:collapsedIcon>` named block on `Tree` to customize the collapsed icon:
 
@@ -167,24 +205,20 @@ Use the `<:collapsedIcon>` named block on `Tree` to customize the collapsed icon
 </Tree>
 ```
 
-### Blocks
+#### Custom icons with the block form
 
-You may optionally pass a block to the `Tree` component to render each node area with custom HTML.
+The icon blocks on `Tree` only apply when it renders the toggle itself. In the block form you
+render the toggle, so pass the icon blocks to `node.Toggle` instead:
 
 ```handlebars
-<Tree
-  @checkable={{this.isCheckable}}
-  @chosenId={{this.selectedNode}}
-  @expandDepth={{2}}
-  @model={{this.model}}
-  @onSelect={{this.selectNode}}
-  as |node|
->
-  <i class="fa text-muted {{if node.isExpanded 'fa-folder-open' 'fa-folder'}}">&zwnj;</i>
+<Tree @model={{this.tree}} as |node|>
+  <node.Toggle>
+    <:expandedIcon><MyExpandedIcon /></:expandedIcon>
+    <:collapsedIcon><MyCollapsedIcon /></:collapsedIcon>
+  </node.Toggle>
   {{node.model.name}}
 </Tree>
 ```
-
 
 ### Building a tree
 
@@ -208,15 +242,15 @@ buildTree(records, { labelKey: 'title', valueKey: 'slug' });
 ### Model structure
 The component uses recursion to display the tree.
 The model requires specific properties to properly function:
- - `id` - unique identifier
- - `name` - `string` used to display a node
- - `children` - `array` of other nodes
- - `isChecked` - `boolean` used for checkbox state
- - `isDisabled` - `boolean` used to disable actions on a node (onSelect/onCheck)
- - `isExpanded` - `boolean` used to expand a node (children)
- - `isIndeterminate` - `boolean` used for checkbox "indeterminate" state
- - `isSelected` - `boolean` optionally used for hover state
- - `isVisible` - `boolean` used to display or hide a node
+- `id` - unique identifier
+- `name` - `string` used to display a node
+- `children` - `array` of other nodes
+- `isChecked` - `boolean` used for checkbox state
+- `isDisabled` - `boolean` used to disable actions on a node (onSelect/onCheck)
+- `isExpanded` - `boolean` used to expand a node (children)
+- `isIndeterminate` - `boolean` used for checkbox "indeterminate" state
+- `isSelected` - `boolean` set while the node is hovered
+- `isVisible` - `boolean` used to display or hide a node
 
 ```js
 [{
