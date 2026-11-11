@@ -2,8 +2,8 @@
 
 <blockquote>
   <Tree @model={{this.tree}} @checkable={{true}} @expandDepth={{-1}} as |node|>
-    {{node.toggle}}
-    {{node.checkbox}}
+    <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
+    <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
     {{node.model.name}}
   </Tree>
 </blockquote>
