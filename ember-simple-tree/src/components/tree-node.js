@@ -1,11 +1,11 @@
 import Component from '@glimmer/component';
 import { action, set, setProperties } from '@ember/object';
 import TreeCheckbox from './tree-checkbox.js';
-import TreeNodeToggle from './tree-node-toggle.js';
+import TreeToggle from './tree-toggle.js';
 
 export default class TreeNodeComponent extends Component {
-  Toggle = TreeNodeToggle;
   Checkbox = TreeCheckbox;
+  Toggle = TreeToggle;
 
   get isChosen() {
     return this.args.model.id === this.args.chosenId;

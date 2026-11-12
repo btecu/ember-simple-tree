@@ -226,8 +226,8 @@ module('Integration | Component | tree', function (hooks) {
 
     await render(hbs`
       <Tree @checkable={{true}} @model={{this.tree}} as |node|>
-        <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
-        <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
+        <node.Toggle />
+        <node.Checkbox />
         <span class="tree-label">{{node.model.name}}</span>
       </Tree>
     `);
@@ -509,6 +509,250 @@ module('Integration | Component | tree', function (hooks) {
       await click('input[type=checkbox]');
 
       assert.dom('input[type=checkbox]:checked').exists({ count: 1 });
+    });
+  });
+
+  module('icons', function () {
+    function tree() {
+      return buildTree([
+        { id: 1, name: 'Root', isExpanded: true },
+        { id: 2, parentId: 1, name: 'Branch' },
+        { id: 3, parentId: 2, name: 'Grand Child' },
+        { id: 4, parentId: 1, name: 'Leaf' },
+      ]);
+    }
+
+    let icons = () => findAll('.toggle-icon').map((element) => element.textContent.trim());
+
+    test('it renders the default icons', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`<Tree @model={{this.tree}} />`);
+
+      assert.deepEqual(icons(), ['▼', '▶', ''], 'expanded, collapsed and leaf');
+    });
+
+    test('custom icons are used on every level', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}}>
+          <:expandedIcon><ExpandedIcon /></:expandedIcon>
+          <:collapsedIcon><CollapsedIcon /></:collapsedIcon>
+        </Tree>
+      `);
+
+      assert.deepEqual(icons(), ['e', 'c', '']);
+
+      await click(findAll('.toggle-icon').at(1));
+
+      assert.deepEqual(icons(), ['e', 'e', '', ''], 'nested nodes use them too');
+
+      await click(findAll('.toggle-icon').at(1));
+
+      assert.deepEqual(icons(), ['e', 'c', ''], 'and they switch back');
+    });
+
+    test('a custom expanded icon keeps the default collapsed icon', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}}>
+          <:expandedIcon><ExpandedIcon /></:expandedIcon>
+        </Tree>
+      `);
+
+      assert.deepEqual(icons(), ['e', '▶', '']);
+    });
+
+    test('a custom collapsed icon keeps the default expanded icon', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}}>
+          <:collapsedIcon><CollapsedIcon /></:collapsedIcon>
+        </Tree>
+      `);
+
+      assert.deepEqual(icons(), ['▼', 'c', '']);
+    });
+  });
+
+  module('block form', function () {
+    function tree() {
+      return buildTree([
+        { id: 1, name: 'Root', isExpanded: true },
+        { id: 2, parentId: 1, name: 'Branch' },
+        { id: 3, parentId: 2, name: 'Grand Child' },
+        { id: 4, parentId: 1, name: 'Leaf' },
+      ]);
+    }
+
+    let icons = () => findAll('.toggle-icon').map((element) => element.textContent.trim());
+    let labels = () => findAll('.tree-label').map((element) => element.textContent.trim());
+
+    test('it yields the model of each node', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}} as |node|>
+          <span class="tree-label">{{node.model.name}}</span>
+        </Tree>
+      `);
+
+      assert.deepEqual(labels(), ['Root', 'Branch', 'Leaf']);
+      assert.dom('.toggle-icon').doesNotExist('no toggle unless rendered');
+      assert.dom('input[type=checkbox]').doesNotExist('no checkbox unless rendered');
+    });
+
+    test('node.Toggle renders the default icons', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}} as |node|>
+          <node.Toggle />
+        </Tree>
+      `);
+
+      assert.deepEqual(icons(), ['▼', '▶', '']);
+    });
+
+    test('node.Toggle expands and collapses without selecting', async function (assert) {
+      this.tree = tree();
+      this.selected = [];
+      this.onSelect = (node) => this.selected.push(node.name);
+
+      await render(hbs`
+        <Tree @model={{this.tree}} @onSelect={{this.onSelect}} as |node|>
+          <node.Toggle />
+          <span class="tree-label">{{node.model.name}}</span>
+        </Tree>
+      `);
+
+      await click(findAll('.toggle-icon').at(1));
+
+      assert.deepEqual(labels(), ['Root', 'Branch', 'Grand Child', 'Leaf'], 'expanded');
+      assert.deepEqual(icons(), ['▼', '▼', '', '']);
+
+      await click(findAll('.toggle-icon').at(1));
+
+      assert.deepEqual(labels(), ['Root', 'Branch', 'Leaf'], 'collapsed');
+      assert.deepEqual(this.selected, [], 'onSelect is not called');
+    });
+
+    test('node.Checkbox checks without selecting', async function (assert) {
+      this.tree = tree();
+      this.checked = [];
+      this.selected = [];
+      this.onCheck = (node) => this.checked.push(node.name);
+      this.onSelect = (node) => this.selected.push(node.name);
+
+      await render(hbs`
+        <Tree @model={{this.tree}} @onCheck={{this.onCheck}} @onSelect={{this.onSelect}} as |node|>
+          <node.Checkbox />
+        </Tree>
+      `);
+
+      assert.dom('input[type=checkbox]').exists({ count: 3 });
+
+      await click(findAll('input[type=checkbox]').at(2));
+
+      assert.true(this.tree[0].children[1].isChecked, 'model is checked');
+      assert.dom(findAll('input[type=checkbox]').at(2)).isChecked();
+      assert.deepEqual(this.checked, ['Leaf'], 'onCheck is called');
+      assert.deepEqual(this.selected, [], 'onSelect is not called');
+
+      await click(findAll('input[type=checkbox]').at(2));
+
+      assert.false(this.tree[0].children[1].isChecked, 'model is unchecked');
+    });
+
+    test('node.Checkbox follows recursiveCheck', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}} @recursiveCheck={{true}} @expandDepth={{-1}} as |node|>
+          <node.Checkbox />
+        </Tree>
+      `);
+
+      await click('input[type=checkbox]');
+
+      assert.dom('input[type=checkbox]:checked').exists({ count: 4 }, 'every descendant is checked');
+    });
+
+    test('toggleExpand and toggleCheck work with custom markup', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}} as |node|>
+          <button class="expand" type="button" {{on "click" node.toggleExpand}}>expand</button>
+          <button class="check" type="button" {{on "click" node.toggleCheck}}>check</button>
+        </Tree>
+      `);
+
+      await click(findAll('.expand').at(1));
+
+      assert.true(this.tree[0].children[0].isExpanded, 'expanded');
+      assert.dom('.expand').exists({ count: 4 });
+
+      await click(findAll('.check').at(1));
+
+      assert.true(this.tree[0].children[0].isChecked, 'checked');
+    });
+
+    test('a <:default> block works like `as |node|`', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}}>
+          <:default as |node|>
+            <node.Toggle />
+            <span class="tree-label">{{node.model.name}}</span>
+          </:default>
+        </Tree>
+      `);
+
+      assert.deepEqual(labels(), ['Root', 'Branch', 'Leaf']);
+      assert.deepEqual(icons(), ['▼', '▶', '']);
+    });
+
+    test('custom icons can be passed to node.Toggle', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}} as |node|>
+          <node.Toggle>
+            <:expandedIcon><ExpandedIcon /></:expandedIcon>
+            <:collapsedIcon><CollapsedIcon /></:collapsedIcon>
+          </node.Toggle>
+        </Tree>
+      `);
+
+      assert.deepEqual(icons(), ['e', 'c', '']);
+
+      await click(findAll('.toggle-icon').at(1));
+
+      assert.deepEqual(icons(), ['e', 'e', '', ''], 'nested nodes use them too');
+    });
+
+    test('explicit arguments still work', async function (assert) {
+      this.tree = tree();
+
+      await render(hbs`
+        <Tree @model={{this.tree}} as |node|>
+          <node.Toggle @model={{node.model}} @toggleExpand={{node.toggleExpand}} />
+          <node.Checkbox @model={{node.model}} @toggleCheck={{node.toggleCheck}} />
+        </Tree>
+      `);
+
+      assert.deepEqual(icons(), ['▼', '▶', '']);
+
+      await click(findAll('.toggle-icon').at(1));
+      await click(findAll('input[type=checkbox]').at(1));
+
+      assert.true(this.tree[0].children[0].isExpanded, 'expanded');
+      assert.true(this.tree[0].children[0].isChecked, 'checked');
     });
   });
 
