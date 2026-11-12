@@ -51,12 +51,12 @@
   "devDependencies": {
     "@babel/core": "^7.29.13",
     "@babel/eslint-parser": "^7.29.13",
-    "@babel/runtime": "^7.29.13",
+    "@babel/runtime": "^7.29.14",
     "@embroider/addon-dev": "^8.5.0",
     "@eslint/js": "^9.39.5",
     "@rollup/plugin-babel": "^7.1.0",
     "babel-plugin-ember-template-compilation": "^4.0.1",
-    "concurrently": "^10.0.6",
+    "concurrently": "^10.0.7",
     "ember-template-lint": "^7.9.4",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
@@ -64,9 +64,9 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-n": "^18.5.0",
     "globals": "^17.14.0",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.0",
     "prettier-plugin-ember-template-tag": "^2.1.8",
-    "rollup": "^4.67.5",
+    "rollup": "^4.68.2",
     "rollup-plugin-copy": "^3.5.0"
   },
   "peerDependencies": {
