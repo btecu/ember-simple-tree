@@ -1,0 +1,1 @@
+{"version":3,"file":"tree-checkbox.js","sources":["../../src/components/tree-checkbox.js"],"sourcesContent":["import templateOnly from '@ember/component/template-only';\nexport default templateOnly();\n"],"names":["setComponentTemplate","TEMPLATE","templateOnly"],"mappings":";;;;;;AACA,mBAAAA,oBAAA,CAAAC,QAAA,EAAeC,YAAY,EAAE,CAAA;;"}
